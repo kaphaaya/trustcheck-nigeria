@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: trustcheck-db
+    environment:
+      POSTGRES_DB: trustcheck
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - trustcheck-network
+
+  backend:
+    build: ./backend
+    container_name: trustcheck-backend
+    environment:
+      DB_HOST: db
+      DB_NAME: trustcheck
+      DB_USER: postgres
+      DB_PASSWORD: password
+    ports:
+      - "5001:5000"
+    depends_on:
+      - db
+    networks:
+      - trustcheck-network
+
+  frontend:
+    build: ./frontend
+    container_name: trustcheck-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - trustcheck-network
+
+networks:
+  trustcheck-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
