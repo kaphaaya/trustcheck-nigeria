@@ -818,7 +818,9 @@
 </div>
 
 <script>
-    const API = 'http://localhost:5001/api';
+    const API = window.location.hostname === 'localhost' 
+    ? 'http://localhost:5001/api'
+    : `http://130.107.145.125:5001/api`;
     let searchType = 'all';
     let proofBase64 = null;
 
