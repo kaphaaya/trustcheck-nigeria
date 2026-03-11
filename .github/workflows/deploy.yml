@@ -29,6 +29,26 @@ jobs:
           docker build -t kaphaaya/trustcheck-backend:latest ./backend
           docker push kaphaaya/trustcheck-backend:latest
 
+      - name: 📝 Write .env to VM
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: azureuser
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            cat > ~/trustcheck-nigeria/.env << ENVEOF
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            GMAIL_USER=${{ secrets.GMAIL_USER }}
+            GMAIL_APP_PASS=${{ secrets.GMAIL_APP_PASS }}
+            ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}
+            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            PREMBLY_API_KEY=${{ secrets.PREMBLY_API_KEY }}
+            PREMBLY_APP_ID=${{ secrets.PREMBLY_APP_ID }}
+            PREMBLY_MOCK=true
+            ENVEOF
+
       - name: 🚀 Deploy to VM via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -38,5 +58,7 @@ jobs:
           script: |
             cd trustcheck-nigeria
             git pull
-            docker-compose down
-            docker-compose up -d --build
+            docker-compose pull
+            docker-compose up -d --force-recreate
+            docker image prune -f
+            echo "✅ Deployed at $(date)"
