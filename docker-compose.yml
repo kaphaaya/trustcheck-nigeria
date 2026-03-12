@@ -26,9 +26,10 @@ services:
     container_name: trustcheck-backend
     env_file: .env
     environment:
-      DB_HOST:     db
-      DB_NAME:     trustcheck
-      DB_USER:     postgres
+      DB_HOST:          db
+      DB_NAME:          trustcheck
+      DB_USER:          postgres
+      PYTHONUNBUFFERED: "1"
     ports:
       - "5001:5000"
     volumes:

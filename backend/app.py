@@ -3,7 +3,10 @@ import time
 import random
 import string
 import hashlib
+import smtplib
 import requests
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from datetime import datetime, timedelta
 from functools import wraps
 
@@ -33,6 +36,9 @@ SECRET_KEY        = os.environ.get("SECRET_KEY",       "dev-secret-change-in-pro
 JWT_SECRET        = os.environ.get("JWT_SECRET",        "dev-jwt-secret-change-in-prod")
 SENDGRID_API_KEY  = os.environ.get("SENDGRID_API_KEY",  "")
 SENDGRID_FROM     = os.environ.get("SENDGRID_FROM_EMAIL","noreply@trustchecknigeria.com")
+GMAIL_USER        = os.environ.get("GMAIL_USER",         "")
+GMAIL_APP_PASS    = os.environ.get("GMAIL_APP_PASS",     "")
+ADMIN_EMAIL       = os.environ.get("ADMIN_EMAIL",        GMAIL_USER)
 GOOGLE_CLIENT_ID  = os.environ.get("GOOGLE_CLIENT_ID",  "")
 PREMBLY_API_KEY   = os.environ.get("PREMBLY_API_KEY",   "")
 PREMBLY_APP_ID    = os.environ.get("PREMBLY_APP_ID",    "")
@@ -238,6 +244,36 @@ def generate_otp():
 
 
 # ─── EMAIL ───────────────────────────────────────────────────────────────────
+def _send_gmail(to_email, subject, body):
+    """Send email via Gmail SMTP using app password. Returns True on success."""
+    if not GMAIL_USER or not GMAIL_APP_PASS:
+        print(f"\n{'='*50}")
+        print(f"EMAIL (no Gmail credentials configured)")
+        print(f"To: {to_email}")
+        print(f"Subject: {subject}")
+        print(f"Body:\n{body}")
+        print(f"{'='*50}\n")
+        return False
+
+    try:
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = subject
+        msg["From"]    = f"TrustCheck Nigeria <{GMAIL_USER}>"
+        msg["To"]      = to_email
+        msg.attach(MIMEText(body, "plain"))
+
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.ehlo()
+            server.starttls()
+            server.login(GMAIL_USER, GMAIL_APP_PASS)
+            server.sendmail(GMAIL_USER, to_email, msg.as_string())
+        print(f"Email sent to {to_email}: {subject}")
+        return True
+    except Exception as e:
+        print(f"Gmail SMTP error: {e}")
+        return False
+
+
 def send_otp_email(to_email, otp, name="there"):
     subject = f"TrustCheck Nigeria — Your verification code: {otp}"
     body = f"""Hi {name},
@@ -253,34 +289,15 @@ If you did not request this, please ignore this email.
 — TrustCheck Nigeria Team
 Nigeria's Community-Powered Scam Database
 """
-    if not SENDGRID_API_KEY:
-        # Print to logs for local testing — check with: docker logs trustcheck-backend -f
-        print(f"\n{'='*50}")
-        print(f"📧 OTP EMAIL (no SendGrid configured)")
-        print(f"To: {to_email}")
-        print(f"OTP: {otp}")
-        print(f"{'='*50}\n")
-        return True
+    return _send_gmail(to_email, subject, body)
 
-    try:
-        resp = requests.post(
-            "https://api.sendgrid.com/v3/mail/send",
-            headers={
-                "Authorization": f"Bearer {SENDGRID_API_KEY}",
-                "Content-Type": "application/json"
-            },
-            json={
-                "personalizations": [{"to": [{"email": to_email}]}],
-                "from": {"email": SENDGRID_FROM, "name": "TrustCheck Nigeria"},
-                "subject": subject,
-                "content": [{"type": "text/plain", "value": body}]
-            },
-            timeout=10
-        )
-        return resp.status_code in (200, 202)
-    except Exception as e:
-        print(f"SendGrid error: {e}")
+
+def send_admin_alert(subject, body):
+    """Send an alert email to the admin."""
+    if not ADMIN_EMAIL:
+        print(f"ADMIN ALERT — {subject}\n{body}")
         return False
+    return _send_gmail(ADMIN_EMAIL, subject, body)
 
 
 # ─── PREMBLY / CAC VERIFICATION ──────────────────────────────────────────────
@@ -1159,6 +1176,25 @@ def verify_business():
         msg = "✅ CAC verified. ID verification pending review."
     else:
         msg = f"Submitted for manual review. {' | '.join(msgs)}"
+
+    # Notify admin of new business verification submission
+    alert_subject = f"[TrustCheck] New Business Submission: {business_name} [{status}]"
+    alert_body = f"""A new business verification has been submitted.
+
+Business: {business_name}
+Owner:    {owner_name}
+CAC No:   {cac_number}
+Email:    {email}
+Phone:    {phone}
+Status:   {status}
+ID:       {biz_id}
+
+CAC check:  {cac_result['message']}
+ID check:   {id_result['message'] if id_number else 'Not provided'}
+
+Review at: http://localhost/admin
+"""
+    send_admin_alert(alert_subject, alert_body)
 
     return jsonify({
         "message":     msg,

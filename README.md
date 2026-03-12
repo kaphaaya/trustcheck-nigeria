@@ -271,4 +271,4 @@ Future versions would integrate with NIMC for NIN verification, NIBSS for BVN, a
 
 Built by **Brown** — Cloud Engineering Student, AWS Solutions Architect candidate, and Web3 developer in training. Based in Nigeria. Building things that matter for Africa.
 
-*TrustCheck Nigeria — Protecting Nigerians, one report at a time.*
+*TrustCheck Nigeria — Protecting Nigerians, one report at a time.*.
