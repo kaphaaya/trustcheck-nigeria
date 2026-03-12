@@ -39,7 +39,7 @@ SENDGRID_FROM     = os.environ.get("SENDGRID_FROM_EMAIL","noreply@trustchecknige
 GMAIL_USER        = os.environ.get("GMAIL_USER",         "")
 GMAIL_APP_PASS    = os.environ.get("GMAIL_APP_PASS",     "")
 ADMIN_EMAIL       = os.environ.get("ADMIN_EMAIL",        GMAIL_USER)
-GOOGLE_CLIENT_ID  = os.environ.get("GOOGLE_CLIENT_ID",  "")
+ADMIN_TOKEN       = os.environ.get("ADMIN_TOKEN",        "change-this-admin-token")
 PREMBLY_API_KEY   = os.environ.get("PREMBLY_API_KEY",   "")
 PREMBLY_APP_ID    = os.environ.get("PREMBLY_APP_ID",    "")
 PREMBLY_MOCK      = os.environ.get("PREMBLY_MOCK",      "true").lower() == "true"
@@ -599,73 +599,6 @@ def login():
     })
 
 
-# ─── AUTH: GOOGLE OAUTH ──────────────────────────────────────────────────────
-@app.route("/api/auth/google", methods=["POST"])
-def google_auth():
-    data       = request.json or {}
-    id_token   = data.get("id_token") or data.get("credential") or ""
-    access_token = data.get("access_token") or ""
-
-    if not id_token and not access_token:
-        return jsonify({"error": "Google token required"}), 400
-
-    # Verify token with Google
-    try:
-        if id_token:
-            verify_url = f"https://oauth2.googleapis.com/tokeninfo?id_token={id_token}"
-        else:
-            verify_url = f"https://www.googleapis.com/oauth2/v1/userinfo?access_token={access_token}"
-
-        resp      = requests.get(verify_url, timeout=10)
-        google_data = resp.json()
-
-        if resp.status_code != 200 or google_data.get("error"):
-            return jsonify({"error": "Invalid Google token"}), 401
-
-        google_id = google_data.get("sub") or google_data.get("id")
-        email     = google_data.get("email", "").lower()
-        name      = google_data.get("name") or google_data.get("given_name") or email.split("@")[0]
-
-        if not email:
-            return jsonify({"error": "Google account must have an email"}), 400
-
-        # Verify email belongs to expected client
-        if GOOGLE_CLIENT_ID and id_token:
-            if google_data.get("aud") != GOOGLE_CLIENT_ID:
-                return jsonify({"error": "Token audience mismatch"}), 401
-
-    except Exception as e:
-        return jsonify({"error": f"Could not verify Google token: {str(e)}"}), 500
-
-    # Upsert user
-    conn = get_db()
-    cur  = conn.cursor()
-    cur.execute("SELECT id, name, role FROM users WHERE email = %s OR google_id = %s", (email, google_id))
-    user = cur.fetchone()
-
-    if user:
-        cur.execute("UPDATE users SET google_id = %s, is_verified = TRUE WHERE id = %s", (google_id, user["id"]))
-        user_id   = user["id"]
-        user_name = user["name"]
-        role      = user["role"]
-    else:
-        cur.execute("""
-            INSERT INTO users (name, email, google_id, is_verified, role)
-            VALUES (%s, %s, %s, TRUE, 'user') RETURNING id
-        """, (name, email, google_id))
-        user_id   = cur.fetchone()["id"]
-        user_name = name
-        role      = "user"
-
-    conn.commit(); cur.close(); conn.close()
-
-    token = make_token(user_id, role)
-    return jsonify({
-        "message": "Google sign-in successful",
-        "token":   token,
-        "user":    {"id": user_id, "name": user_name, "email": email, "role": role}
-    })
-
 
 # ─── SEARCH ──────────────────────────────────────────────────────────────────
 @app.route("/api/search")
@@ -1178,6 +1111,7 @@ def verify_business():
         msg = f"Submitted for manual review. {' | '.join(msgs)}"
 
     # Notify admin of new business verification submission
+    base_url = "http://130.107.145.125"
     alert_subject = f"[TrustCheck] New Business Submission: {business_name} [{status}]"
     alert_body = f"""A new business verification has been submitted.
 
@@ -1192,7 +1126,15 @@ ID:       {biz_id}
 CAC check:  {cac_result['message']}
 ID check:   {id_result['message'] if id_number else 'Not provided'}
 
-Review at: http://localhost/admin
+--- ACTION REQUIRED ---
+
+✅ APPROVE:
+{base_url}/api/admin/businesses/{biz_id}/approve?token={ADMIN_TOKEN}
+
+❌ REJECT:
+{base_url}/api/admin/businesses/{biz_id}/reject?token={ADMIN_TOKEN}
+
+Click either link directly from this email — no login needed.
 """
     send_admin_alert(alert_subject, alert_body)
 
@@ -1247,6 +1189,90 @@ def get_business(biz_id):
     biz["reports"] = reports
     biz["reviews"] = reviews
     return jsonify(biz)
+
+
+# ─── ADMIN: APPROVE / REJECT BUSINESS ────────────────────────────────────────
+def _check_admin_token():
+    """Return True if the request carries a valid admin token."""
+    # Accept token from Authorization header or ?token= query param
+    auth_header = request.headers.get("Authorization", "")
+    if auth_header.startswith("Bearer "):
+        return auth_header[7:] == ADMIN_TOKEN
+    return request.args.get("token", "") == ADMIN_TOKEN
+
+
+def _send_business_status_email(biz_email, biz_name, approved: bool):
+    if approved:
+        subject = f"TrustCheck Nigeria — {biz_name} is now Verified ✅"
+        body = f"""Hi,
+
+Great news! Your business "{biz_name}" has been reviewed and is now verified on TrustCheck Nigeria.
+
+Your Verified badge is live and will appear on all search results.
+
+Thank you for helping build trust in Nigerian commerce.
+
+— TrustCheck Nigeria Team
+"""
+    else:
+        subject = f"TrustCheck Nigeria — Verification Update for {biz_name}"
+        body = f"""Hi,
+
+We have completed our review of your business verification submission for "{biz_name}".
+
+Unfortunately, we were unable to verify your business at this time. This may be due to a mismatch in the documents provided or an issue with your CAC registration details.
+
+You are welcome to re-submit with updated information.
+
+— TrustCheck Nigeria Team
+"""
+    _send_gmail(biz_email, subject, body)
+
+
+@app.route("/api/admin/businesses/<int:biz_id>/approve", methods=["GET", "POST"])
+def admin_approve_business(biz_id):
+    if not _check_admin_token():
+        return jsonify({"error": "Unauthorized"}), 401
+
+    conn = get_db()
+    cur  = conn.cursor()
+    cur.execute("SELECT id, business_name, email FROM businesses WHERE id = %s", (biz_id,))
+    biz = cur.fetchone()
+    if not biz:
+        cur.close(); conn.close()
+        return jsonify({"error": "Business not found"}), 404
+
+    cur.execute(
+        "UPDATE businesses SET status='verified', badge_type='verified' WHERE id = %s",
+        (biz_id,)
+    )
+    conn.commit(); cur.close(); conn.close()
+
+    _send_business_status_email(biz["email"], biz["business_name"], approved=True)
+    return jsonify({"message": f"Business {biz['business_name']} approved and owner notified."})
+
+
+@app.route("/api/admin/businesses/<int:biz_id>/reject", methods=["GET", "POST"])
+def admin_reject_business(biz_id):
+    if not _check_admin_token():
+        return jsonify({"error": "Unauthorized"}), 401
+
+    conn = get_db()
+    cur  = conn.cursor()
+    cur.execute("SELECT id, business_name, email FROM businesses WHERE id = %s", (biz_id,))
+    biz = cur.fetchone()
+    if not biz:
+        cur.close(); conn.close()
+        return jsonify({"error": "Business not found"}), 404
+
+    cur.execute(
+        "UPDATE businesses SET status='rejected', badge_type=NULL WHERE id = %s",
+        (biz_id,)
+    )
+    conn.commit(); cur.close(); conn.close()
+
+    _send_business_status_email(biz["email"], biz["business_name"], approved=False)
+    return jsonify({"message": f"Business {biz['business_name']} rejected and owner notified."})
 
 
 # ─── USER PROFILE ─────────────────────────────────────────────────────────────

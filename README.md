@@ -149,6 +149,8 @@ trustcheck-nigeria/
 | GET/POST | `/api/reviews` | Get or post reviews |
 | POST | `/api/verify-business` | Submit business for verification |
 | GET | `/api/businesses/:id` | Get full business profile |
+| GET/POST | `/api/admin/businesses/:id/approve` | Approve business (requires ADMIN_TOKEN) |
+| GET/POST | `/api/admin/businesses/:id/reject` | Reject business (requires ADMIN_TOKEN) |
 
 ---
 
@@ -166,6 +168,7 @@ trustcheck-nigeria/
 | `GMAIL_USER` | Gmail address for sending emails |
 | `GMAIL_APP_PASS` | Gmail App Password (16 chars) |
 | `ADMIN_EMAIL` | Email for business verification alerts |
+| `ADMIN_TOKEN` | Secret token for one-click approve/reject links in admin emails |
 
 ---
 

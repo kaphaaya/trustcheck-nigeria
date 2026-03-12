@@ -993,8 +993,6 @@
         .notice-green { background: var(--green-dim); border: 1px solid rgba(0,232,122,0.2); color: var(--green); }
         .notice-blue  { background: var(--blue-dim);  border: 1px solid rgba(77,158,255,0.2);  color: var(--blue); }
 
-        /* ── GOOGLE BUTTON OVERRIDE ── */
-        #google-signin-section { margin-bottom: 16px; }
         .divider {
             display: flex; align-items: center; gap: 10px;
             margin: 14px 0;
@@ -1083,7 +1081,6 @@
             .stat-number { font-size: 1.5rem; }
         }
     </style>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -1123,7 +1120,7 @@
             <button class="search-tab" onclick="setSearchType('business',this)">🏢 Business</button>
             <button class="search-tab" onclick="setSearchType('social',this)">📲 Social</button>
         </div>
-        <div class="search-shell">
+        <div class="search-shell" id="search-shell">
             <input type="text" id="search-input"
                 placeholder="Search phone, business name, @handle..."
                 onkeydown="if(event.key==='Enter') doSearch()"
@@ -1131,6 +1128,7 @@
                 autocomplete="off" />
             <button class="search-btn" onclick="doSearch()">Check Now →</button>
         </div>
+        <div id="search-error" style="display:none;color:var(--red);font-size:0.82rem;margin-top:8px;text-align:center;font-weight:500;"></div>
         <div class="autocomplete-list" id="autocomplete-list"></div>
         <div class="date-filter-row" id="date-filter-row">
             <button class="search-tab active" onclick="setDateFilter('',this)">All Time</button>
@@ -1246,26 +1244,6 @@
         <div class="auth-tabs" id="auth-tabs">
             <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
             <button class="auth-tab" onclick="switchAuthTab('register')">Create Account</button>
-        </div>
-
-        <div id="google-signin-section">
-            <div id="g_id_onload"
-                data-client_id="YOUR_GOOGLE_CLIENT_ID"
-                data-context="signin"
-                data-ux_mode="popup"
-                data-callback="handleGoogleSignIn"
-                data-auto_prompt="false">
-            </div>
-            <div class="g_id_signin"
-                data-type="standard"
-                data-shape="rectangular"
-                data-theme="filled_black"
-                data-text="signin_with"
-                data-size="large"
-                data-logo_alignment="left"
-                data-width="496">
-            </div>
-            <div class="divider">or continue with email</div>
         </div>
 
         <!-- LOGIN -->
@@ -1922,6 +1900,52 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
         btn.classList.add('active');
         const ph = { all:'Search phone, business name, @handle...', phone:'Enter phone number e.g. 08012345678', business:'Enter business or vendor name', social:'Enter @username or handle' };
         document.getElementById('search-input').placeholder = ph[type];
+        // Clear any existing validation error when tab switches
+        const errEl = document.getElementById('search-error');
+        errEl.style.display = 'none';
+        errEl.textContent = '';
+        document.getElementById('search-shell').style.borderColor = '';
+    }
+
+    function showSearchError(msg) {
+        const errEl = document.getElementById('search-error');
+        errEl.textContent = msg;
+        errEl.style.display = 'block';
+        document.getElementById('search-shell').style.borderColor = 'var(--red)';
+    }
+
+    function clearSearchError() {
+        const errEl = document.getElementById('search-error');
+        errEl.style.display = 'none';
+        errEl.textContent = '';
+        document.getElementById('search-shell').style.borderColor = '';
+    }
+
+    function validateSearchInput(query) {
+        if (searchType === 'phone') {
+            const digits = query.replace(/\D/g, '');
+            if (digits !== query) {
+                showSearchError('Phone number must contain digits only (no spaces or symbols).');
+                return null;
+            }
+            if (digits.length < 10 || digits.length > 14) {
+                showSearchError('Phone number must be between 10 and 14 digits.');
+                return null;
+            }
+        } else if (searchType === 'business') {
+            if (/^\d+$/.test(query)) {
+                showSearchError('Business name cannot be numbers only.');
+                return null;
+            }
+        } else if (searchType === 'social') {
+            // Auto-prepend @ if missing
+            if (!query.startsWith('@')) {
+                const newVal = '@' + query;
+                document.getElementById('search-input').value = newVal;
+                return newVal;
+            }
+        }
+        return query;
     }
 
     function setDateFilter(filter, btn) {
@@ -1961,7 +1985,10 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
     });
 
     async function doSearch(page = 1) {
-        const query = document.getElementById('search-input').value.trim();
+        const raw = document.getElementById('search-input').value.trim();
+        if (!raw) return;
+        clearSearchError();
+        const query = validateSearchInput(raw);
         if (!query) return;
         lastQuery = query; currentPage = page;
         document.getElementById('autocomplete-list').classList.remove('open');
@@ -2445,7 +2472,6 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
                 </div>`;
             document.getElementById('auth-login-form').style.display = 'block';
             document.getElementById('auth-register-form').style.display = 'none';
-            document.getElementById('google-signin-section').style.display = 'none';
         }
         if (id === 'report-modal') {
             document.getElementById('report-auth-notice').style.display = currentUser ? 'none' : 'block';
@@ -2461,7 +2487,6 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
         // Reset auth modal on close
         if (id === 'auth-modal' && !currentUser) {
             document.getElementById('auth-tabs').style.display = 'flex';
-            document.getElementById('google-signin-section').style.display = 'block';
         }
     }
 
@@ -2472,7 +2497,6 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
         updateNavAuth();
         showToast('Logged out. See you soon!');
         document.getElementById('auth-tabs').style.display = 'flex';
-        document.getElementById('google-signin-section').style.display = 'block';
         document.getElementById('auth-login-form').innerHTML = `
             <div class="form-group"><label class="form-label">Email Address</label><input class="form-control" type="email" id="login-email" placeholder="you@example.com" /></div>
             <div class="form-group"><label class="form-label">Password</label><input class="form-control" type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter') doLogin()" /></div>
@@ -2517,25 +2541,6 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
             };
             btn.innerHTML = texts[btn.id] || 'Submit';
         }
-    }
-
-    // ── GOOGLE ──
-    async function handleGoogleSignIn(response) {
-        try {
-            const res  = await fetch(`${API}/auth/google`, {
-                method:'POST', headers:{'Content-Type':'application/json'},
-                body: JSON.stringify({ id_token: response.credential })
-            });
-            const data = await res.json();
-            if (res.ok) {
-                currentUser = data.user; authToken = data.token;
-                sessionStorage.setItem('tc_user', JSON.stringify({ user: data.user, token: data.token }));
-                closeModal('auth-modal'); updateNavAuth();
-                showToast(`Welcome, ${data.user.name}! 👋`);
-            } else {
-                showToast(data.error || 'Google sign-in failed','error');
-            }
-        } catch(e) { showToast('Could not connect to server','error'); }
     }
 
     // ── BIZ PROFILE ──
