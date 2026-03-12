@@ -2,61 +2,37 @@
 ### Nigeria's Community-Powered Scam & Trust Database
 
 **🔗 Live Site:** http://130.107.145.125  
-**🐳 Docker Hub:** https://hub.docker.com/u/kaphaaya
+**🐳 Docker Hub:** https://hub.docker.com/u/kaphaaya  
+**📦 GitHub:** https://github.com/kaphaaya/trustcheck-nigeria
 
 ---
 
-## What Is This?
+## The Problem
 
-TrustCheck Nigeria is a community-powered scam reporting and business verification platform I built to protect Nigerians from online fraud. Think Truecaller meets a business trust registry — but built specifically for Nigeria's digital landscape.
+Nigeria loses billions of naira every year to online scams — fake vendors on Instagram, investment fraud on WhatsApp, romance scams on Telegram, fake job offers, Ponzi schemes. There was no single place where Nigerians could search a phone number, business name, or social handle and instantly see if others had reported it as fraudulent.
 
-The problem is real. Nigeria loses billions of naira every year to online scams — fake vendors on Instagram, investment fraud on WhatsApp, romance scams on Telegram, fake job offers, Ponzi schemes. There was no single place where Nigerians could search a phone number, business name, or social media handle and instantly see if others had reported it as a scam. TrustCheck Nigeria fills that gap.
+**TrustCheck Nigeria fills that gap.**
 
 ---
 
 ## What It Does
 
-**For the public (no login needed):**
+**For the public (no login required):**
 - Search any phone number, business name, or social media handle
-- See a trust score (0–100) based on community reports
-- View all reports filed against a number or account with proof
-- Read descriptions of how specific scams work
-- Submit a scam report with screenshot proof uploaded
+- See a trust score (0–100) calculated from community reports
+- View all scam reports filed against a number or business — with proof
+- Submit a scam report with description, category, star rating, and screenshot
 
 **For businesses:**
-- Submit for verification using NIN, BVN, CAC, or Driver's License
-- Get a Verified ✅ badge visible in search results
-- Build trust with customers before they transact
+- Submit for verification using CAC number, NIN, BVN, or Driver's License
+- Receive a Verified ✅ badge visible in all search results
+- Build customer trust before they transact
 
-**The dashboard shows:**
+**Dashboard shows:**
 - Total reports in the database
 - Reports filed today
 - Number of verified businesses
-- A live feed of the most recent community reports
-
----
-
-## Why I Built It This Way
-
-This is a three-tier application — frontend, backend, and database — each running in its own Docker container. I chose this architecture because it mirrors how real production applications are built and deployed. Each tier is independent, can be scaled separately, and can be updated without taking down the whole system.
-
-For the backend I used Python Flask because it's clean, fast to build with, and pairs perfectly with PostgreSQL. The database stores all reports, business verification submissions, and search data. The frontend is served by Nginx — lightweight and fast.
-
-Everything runs in Docker containers orchestrated with Docker Compose, deployed on a Linux VM on Microsoft Azure.
-
----
-
-## The Tech Stack
-
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| Frontend | HTML, CSS, JavaScript | User interface served by Nginx |
-| Backend | Python Flask | REST API handling all business logic |
-| Database | PostgreSQL | Stores reports and business records |
-| Containerization | Docker + Docker Compose | Runs all three tiers together |
-| VM | Azure Ubuntu 22.04 (Canada Central) | Hosts the live deployment |
-| CI/CD | GitHub Actions | Auto-deploys on every push |
-| Image Registry | Docker Hub | Stores versioned container images |
+- Live feed of most recent community reports
 
 ---
 
@@ -65,35 +41,63 @@ Everything runs in Docker containers orchestrated with Docker Compose, deployed 
 ```
 USER'S BROWSER
       │
-      │  HTTP Request
+      │  HTTP on Port 80
       ▼
-NGINX (Frontend Container) — Port 80
-      │
-      │  API calls to backend
-      ▼
-FLASK API (Backend Container) — Port 5001
-      │
-      │  SQL queries
-      ▼
-POSTGRESQL (Database Container) — Port 5432
+┌─────────────────────────┐
+│   NGINX (Frontend)      │  — Serves index.html, proxies /api/ calls
+│   trustcheck-frontend   │
+└───────────┬─────────────┘
+            │  Internal Docker network
+            ▼
+┌─────────────────────────┐
+│   FLASK API (Backend)   │  — All business logic, JWT auth, email, CAC verify
+│   trustcheck-backend    │
+└───────────┬─────────────┘
+            │  SQL queries
+            ▼
+┌─────────────────────────┐
+│   POSTGRESQL (Database) │  — Reports, users, businesses, votes, reviews
+│   trustcheck-db         │
+└─────────────────────────┘
 
-─────────────────────────────────────────
-
-All three containers connected via
-Docker internal network: trustcheck-network
-
-─────────────────────────────────────────
-
-GITHUB (source code)
-      │
-      │  Push to main branch
-      ▼
-GITHUB ACTIONS
-      │
-      ├── Build & push images to Docker Hub
-      │
-      └── SSH into Azure VM → git pull → docker-compose up
+All three containers run on a private Docker bridge network.
+Only port 80 is exposed to the internet.
 ```
+
+---
+
+## CI/CD Pipeline
+
+```
+git push origin main
+        │
+        ▼
+GitHub Actions triggered
+        │
+        ├── Build frontend Docker image → push to Docker Hub
+        ├── Build backend Docker image  → push to Docker Hub
+        ├── SSH into Azure VM
+        ├── Write .env file with secrets
+        └── docker-compose pull && docker-compose up -d --force-recreate
+```
+
+Every push to `main` deploys automatically. Zero manual steps.
+
+---
+
+## Tech Stack
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| Frontend | HTML, CSS, JavaScript | UI served by Nginx |
+| Backend | Python Flask + Gunicorn | REST API, business logic |
+| Database | PostgreSQL 15 | Persistent data storage |
+| Containerization | Docker + Docker Compose | 3-tier orchestration |
+| VM | Azure Ubuntu 22.04 — Canada Central | Live deployment |
+| CI/CD | GitHub Actions | Auto build & deploy |
+| Image Registry | Docker Hub | Versioned container images |
+| Email | Gmail SMTP | OTP verification + admin alerts |
+| Identity Verification | Prembly API (mock mode) | CAC, NIN, BVN verification |
 
 ---
 
@@ -103,172 +107,150 @@ GITHUB ACTIONS
 trustcheck-nigeria/
 │
 ├── frontend/
-│   ├── index.html          # Complete frontend — HTML, CSS, JavaScript
-│   └── Dockerfile          # Nginx container
+│   ├── index.html              # Complete UI — HTML, CSS, JavaScript
+│   ├── nginx.conf              # Nginx reverse proxy config
+│   └── Dockerfile              # Nginx container
 │
 ├── backend/
-│   ├── app.py              # Flask API — all endpoints
-│   ├── requirements.txt    # Python dependencies
-│   └── Dockerfile          # Python/Gunicorn container
+│   ├── app.py                  # Flask API — 21 endpoints, all logic
+│   ├── requirements.txt        # Python dependencies
+│   └── Dockerfile              # Python + Gunicorn container
 │
-├── docker-compose.yml      # Orchestrates all three containers
-├── README.md               # This file
+├── docker-compose.yml          # Orchestrates all 3 containers
+├── .env.example                # Template — never commit real .env
+├── .gitignore                  # Protects secrets
+├── README.md                   # This file
 │
 └── .github/
     └── workflows/
-        └── deploy.yml      # GitHub Actions CI/CD pipeline
+        └── deploy.yml          # GitHub Actions CI/CD pipeline
 ```
 
 ---
 
 ## API Endpoints
 
-| Method | Endpoint | What it does |
-|--------|----------|-------------|
-| GET | `/api/health` | Check if API is running |
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/health` | Health check — DB status |
+| GET | `/api/stats` | Dashboard statistics |
 | GET | `/api/search?q=query` | Search reports and businesses |
-| GET | `/api/reports` | Get all recent reports |
-| POST | `/api/reports` | Submit a new scam report |
-| GET | `/api/stats` | Get dashboard statistics |
+| GET | `/api/search/autocomplete?q=` | Live search suggestions |
+| POST | `/api/auth/register` | Register new account |
+| POST | `/api/auth/verify-email` | Verify OTP code |
+| POST | `/api/auth/resend-otp` | Resend OTP email |
+| POST | `/api/auth/login` | Login — returns JWT token |
+| GET | `/api/reports` | Get recent reports |
+| POST | `/api/reports` | Submit scam report |
+| GET | `/api/reports/:id` | Get single report with replies |
+| POST | `/api/reports/:id/vote` | Upvote or downvote a report |
+| GET/POST | `/api/reports/:id/replies` | Get or post comments |
+| POST | `/api/reports/:id/flag` | Flag a report |
+| GET/POST | `/api/reviews` | Get or post reviews |
 | POST | `/api/verify-business` | Submit business for verification |
+| GET | `/api/businesses/:id` | Get full business profile |
 
 ---
 
-## How the Deployment Works
-
-I deployed this entirely from the terminal — no clicking around in portals.
-
-**Creating the VM:**
-```bash
-az vm create \
-  --resource-group afritech-pulse-rg \
-  --name trustcheck-vm \
-  --image Ubuntu2204 \
-  --size Standard_B2ats_v2 \
-  --location canadacentral \
-  --zone 2 \
-  --admin-username azureuser \
-  --generate-ssh-keys \
-  --public-ip-sku Standard
-```
-
-**Installing Docker on the VM:**
-```bash
-sudo apt-get update
-sudo apt-get install -y docker.io docker-compose
-sudo systemctl start docker
-sudo systemctl enable docker
-sudo usermod -aG docker azureuser
-```
-
-**Deploying the app:**
-```bash
-git clone https://github.com/kaphaaya/trustcheck-nigeria.git
-cd trustcheck-nigeria
-docker-compose up --build -d
-```
-
----
-
-## CI/CD with GitHub Actions
-
-Every time I push to the `main` branch, GitHub Actions automatically:
-
-1. Builds the latest frontend and backend Docker images
-2. Pushes them to Docker Hub with the `latest` tag
-3. SSHs into the Azure VM
-4. Pulls the latest code
-5. Rebuilds and restarts the containers
-
-The pipeline uses four GitHub Secrets:
+## GitHub Secrets Required
 
 | Secret | Purpose |
-|--------|---------|
-| `DOCKER_USERNAME` | Docker Hub login |
+|---|---|
+| `DOCKER_USERNAME` | Docker Hub username |
 | `DOCKER_PASSWORD` | Docker Hub password |
-| `VM_HOST` | Public IP of the Azure VM |
-| `VM_SSH_KEY` | Private SSH key for VM access |
+| `VM_HOST` | Azure VM public IP |
+| `VM_SSH_KEY` | SSH private key for VM access |
+| `DB_PASSWORD` | PostgreSQL password |
+| `SECRET_KEY` | Flask session secret |
+| `JWT_SECRET` | JWT signing key |
+| `GMAIL_USER` | Gmail address for sending emails |
+| `GMAIL_APP_PASS` | Gmail App Password (16 chars) |
+| `ADMIN_EMAIL` | Email for business verification alerts |
 
 ---
 
-## Docker Hub Images
+## Database Schema
 
-Both images are publicly available on Docker Hub:
-
-```bash
-# Pull and run yourself
-docker pull kaphaaya/trustcheck-frontend:v1
-docker pull kaphaaya/trustcheck-backend:v1
+```
+users          — id, name, email, password_hash, role, otp_code, is_verified
+reports        — id, subject, phone_number, business_name, category, 
+                 description, amount, rating, upvotes, downvotes, reporter_name
+businesses     — id, business_name, cac_number, owner_name, status, badge_type
+reviews        — id, subject, rating, comment, user_name
+replies        — id, report_id, comment, user_name
+votes          — id, report_id, user_id, direction
 ```
 
 ---
 
-## Challenges I Ran Into
+## How to Run Locally
 
-**Azure VM size availability** — The Standard_B1s and B2s sizes were unavailable across West Europe and North Europe on the free tier. I found that `Standard_B2ats_v2` in Canada Central Zone 2 was available and worked perfectly.
+```bash
+# Clone the repo
+git clone https://github.com/kaphaaya/trustcheck-nigeria.git
+cd trustcheck-nigeria
 
-**Port conflicts on Mac** — Port 5000 was being used by AirPlay Receiver on macOS. I remapped the backend to port 5001 in Docker Compose to resolve this.
+# Create your .env file
+cp .env.example .env
+# Fill in DB_PASSWORD, SECRET_KEY, JWT_SECRET, GMAIL_USER, GMAIL_APP_PASS
 
-**Database tables not initializing** — Gunicorn doesn't execute the `if __name__ == '__main__'` block, so `init_db()` wasn't being called on startup. I moved the `init_db()` call outside that block so it runs regardless of how the app starts.
+# Start all 3 containers
+docker-compose up --build -d
 
-**GitHub Actions workflow permissions** — My GitHub Personal Access Token didn't have the `workflow` scope enabled, which blocked pushing the Actions YAML file. I updated the token permissions and re-pushed.
-
-**Frontend pointing to localhost on VM** — After deployment the frontend was still calling `localhost:5001` instead of the VM's public IP. I updated the API URL to dynamically detect whether it's running locally or on the VM using `window.location.hostname`.
+# Visit the app
+open http://localhost
+```
 
 ---
 
-## Screenshots
+## Challenges & How I Solved Them
 
-### Live Site — http://130.107.145.125
-*[Screenshot of TrustCheck Nigeria homepage]*
+**1. Azure VM size availability**  
+Standard_B1s and B2s were unavailable across West Europe and North Europe on the free tier. Found that `Standard_B2ats_v2` in Canada Central Zone 2 was available.
 
-### Scam Report Submission
-*[Screenshot of report modal and success message]*
+**2. Port 5000 conflict on Mac**  
+macOS AirPlay Receiver uses port 5000. Remapped backend to port 5001 in docker-compose.yml.
 
-### Search Results with Trust Score
-*[Screenshot of search results showing trust score]*
+**3. Database tables not initialising under Gunicorn**  
+Gunicorn doesn't execute `if __name__ == '__main__'` blocks. Moved `init_db()` to module level so it runs on every startup regardless of how Flask is launched.
 
-### Docker Hub — Both Images
-*[Screenshot of hub.docker.com/u/kaphaaya]*
+**4. GitHub Actions workflow permissions**  
+Personal Access Token was missing the `workflow` scope. Updated token permissions and re-pushed.
 
-### GitHub Actions — Successful Deployment
-*[Screenshot of green workflow]*
+**5. PostgreSQL password mismatch after volume recreation**  
+When DB_PASSWORD changed, the existing volume still held the old password. Fixed by running `docker-compose down -v` to wipe the volume and recreate fresh.
 
-### Docker Containers Running on VM
-*[Screenshot of docker ps output]*
-
-### Azure VM in Portal
-*[Screenshot of Azure portal showing VM]*
+**6. .env indentation bug from CI/CD heredoc**  
+The GitHub Actions heredoc was writing leading spaces into .env values, breaking env var parsing. Fixed by writing .env directly on the VM with clean formatting.
 
 ---
 
 ## Does It Meet the Brief?
 
 | Requirement | Status |
-|-------------|--------|
+|---|---|
 | Three-tier app (frontend + backend + database) | ✅ |
 | Dockerfile for frontend | ✅ |
 | Dockerfile for backend | ✅ |
 | Docker Compose running all three services | ✅ |
-| Images pushed to Docker Hub with tags | ✅ `v1` and `latest` |
+| Images pushed to Docker Hub | ✅ `kaphaaya/trustcheck-frontend` + `kaphaaya/trustcheck-backend` |
 | Linux VM created and containers deployed | ✅ Azure Ubuntu 22.04 |
 | App accessible on public IP port 80 | ✅ http://130.107.145.125 |
-| GitHub Actions CI/CD pipeline | ✅ Builds, pushes, and deploys |
+| GitHub Actions CI/CD pipeline | ✅ |
 | README and documentation | ✅ |
-| Screenshots of deployment | ✅ |
 
 ---
 
 ## The Bigger Picture
 
-TrustCheck Nigeria is more than a capstone project. Nigeria needs this. The infrastructure for digital trust — a searchable, community-powered database of scam reports tied to phone numbers, businesses, and social handles — doesn't exist in any meaningful way right now. This is the foundation of what that could look like.
+TrustCheck Nigeria is more than a capstone project. The infrastructure for digital trust — a searchable, community-powered database of scam reports tied to phone numbers, businesses, and social handles — doesn't exist in any meaningful way in Nigeria right now.
 
-Future versions would integrate with NIMC for NIN verification, NIBSS for BVN, and CAC's API for business registration checks. The verification pipeline is already designed for those integrations — it's just pending API access approval from the relevant government agencies.
+Future versions would integrate directly with NIMC for NIN verification, NIBSS for BVN, and CAC's API for real-time business registration checks. The verification pipeline is already designed for those integrations — pending API access from the relevant government agencies.
 
 ---
 
 ## About
 
-Built by **Brown** — Cloud Engineering Student, AWS Solutions Architect candidate, and Web3 developer in training. Based in Nigeria. Building things that matter for Africa.
+Built by **Kafayat Aziz (Brown)** — Cloud Engineering Student, AWS Solutions Architect candidate, Web3 developer in training. Based in Nigeria. Building things that matter for Africa.
 
-*TrustCheck Nigeria — Protecting Nigerians, one report at a time.*.
+> *TrustCheck Nigeria — Protecting Nigerians, one report at a time.*
