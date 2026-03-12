@@ -1313,6 +1313,7 @@
 
         <!-- OTP -->
         <div id="auth-otp-form" style="display:none">
+            <input type="hidden" id="otp-email-hidden" value="">
             <div class="otp-screen">
                 <div style="font-size:2.5rem;margin-bottom:12px">📧</div>
                 <h3 style="font-family:'Syne',sans-serif;margin-bottom:8px">Check your email</h3>
@@ -1839,6 +1840,7 @@
             const data = await res.json();
             if (res.ok) {
                 document.getElementById('otp-email-display').textContent = email;
+                document.getElementById('otp-email-hidden').value = email;
                 document.getElementById('auth-register-form').style.display = 'none';
                 document.getElementById('auth-otp-form').style.display = 'block';
                 document.querySelectorAll('.auth-tab').forEach(t => t.style.display = 'none');
@@ -1856,7 +1858,7 @@
 
     async function verifyOTP() {
         const digits = [...document.querySelectorAll('.otp-digit')].map(d => d.value).join('');
-        const email  = document.getElementById('reg-email').value.trim() || document.getElementById('otp-email-display').textContent;
+        const email  = document.getElementById('otp-email-hidden').value.trim() || document.getElementById('reg-email').value.trim() || document.getElementById('otp-email-display').textContent.trim();
         const msg = document.getElementById('otp-message');
         const btn = document.getElementById('otp-btn');
         if (digits.length !== 6) { setMsg(msg,'error','Enter all 6 digits.'); return; }
@@ -1880,7 +1882,7 @@
     }
 
     async function resendOTP() {
-        const email = document.getElementById('otp-email-display').textContent;
+const email = document.getElementById('otp-email-hidden').value.trim() || document.getElementById('otp-email-display').textContent.trim();
         try {
             await fetch(`${API}/auth/resend-otp`, {
                 method:'POST', headers:{'Content-Type':'application/json'},
