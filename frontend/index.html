@@ -1452,35 +1452,36 @@
         </div>
 
         <div class="notice notice-green" style="margin-bottom:20px;font-size:0.82rem">
-            ✅ Verified businesses get a trust badge visible in all search results. CAC number is required.
+            ✅ Verified businesses get a trust badge visible in all search results. All fields marked * are required.
         </div>
 
         <div class="form-group">
             <label class="form-label">Business Name <span class="req">*</span></label>
             <input class="form-control" type="text" id="v-business" placeholder="Registered business name" />
+            <div class="field-error" id="v-business-error">Business name is required</div>
         </div>
         <div class="form-row">
             <div class="form-group">
                 <label class="form-label">Owner's Full Name <span class="req">*</span></label>
                 <input class="form-control" type="text" id="v-owner" placeholder="Full name" />
+                <div class="field-error" id="v-owner-error">Owner name is required</div>
             </div>
             <div class="form-group">
                 <label class="form-label">Phone Number <span class="req">*</span></label>
                 <input class="form-control" type="text" id="v-phone" placeholder="08012345678" />
+                <div class="field-error" id="v-phone-error">Phone number is required</div>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group">
                 <label class="form-label">Email Address <span class="req">*</span></label>
                 <input class="form-control" type="email" id="v-email" placeholder="business@email.com" />
+                <div class="field-error" id="v-email-error">Email address is required</div>
             </div>
             <div class="form-group">
-                <label class="form-label">ID Type</label>
-                <select class="form-control" id="v-type" onchange="updateVerifyLabel()">
-                    <option value="NIN">NIN (National ID)</option>
-                    <option value="BVN">BVN</option>
-                    <option value="Drivers License">Driver's License</option>
-                </select>
+                <label class="form-label">Business Address <span class="req">*</span></label>
+                <input class="form-control" type="text" id="v-address" placeholder="Full business address" />
+                <div class="field-error" id="v-address-error">Business address is required</div>
             </div>
         </div>
         <div class="form-group">
@@ -1488,31 +1489,63 @@
             <input class="form-control" type="text" id="v-cac" placeholder="e.g. RC-1234567" />
             <div class="field-error" id="v-cac-error">CAC number is required</div>
         </div>
-        <div class="form-group">
-            <label class="form-label" id="v-number-label">NIN Number</label>
-            <input class="form-control" type="text" id="v-number" placeholder="Enter your NIN number" />
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">ID Type <span class="req">*</span></label>
+                <select class="form-control" id="v-type" onchange="updateVerifyLabel()">
+                    <option value="NIN">NIN (National ID)</option>
+                    <option value="BVN">BVN</option>
+                    <option value="Drivers License">Driver's License</option>
+                    <option value="Passport">International Passport</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label" id="v-number-label">NIN Number <span class="req">*</span></label>
+                <input class="form-control" type="text" id="v-number" placeholder="Enter your NIN number" />
+                <div class="field-error" id="v-number-error">Identity number is required</div>
+            </div>
         </div>
         <div class="form-group">
-            <label class="form-label">Upload CAC Document</label>
+            <label class="form-label">Upload Identity Document (PDF only) <span class="req">*</span></label>
             <div class="upload-area" id="verify-upload-area" onclick="document.getElementById('verify-file').click()">
                 <div style="font-size:2rem">📄</div>
-                <p id="verify-upload-text">Click to upload CAC document or certificate</p>
-                <p style="font-size:0.7rem;color:var(--muted);margin-top:4px">JPG, PNG, PDF up to 10MB</p>
+                <p id="verify-upload-text">Click to upload your identity document (PDF only)</p>
+                <p style="font-size:0.7rem;color:var(--muted);margin-top:4px">PDF files only, up to 10MB</p>
             </div>
-            <input type="file" id="verify-file" accept="image/*,.pdf" style="display:none" onchange="handleVerifyUpload(this)" />
-        </div>
-        <div class="form-group">
-            <label class="form-label">Business Address <span class="req">*</span></label>
-            <input class="form-control" type="text" id="v-address" placeholder="Full business address" />
+            <input type="file" id="verify-file" accept=".pdf" style="display:none" onchange="handleVerifyUpload(this)" />
+            <div class="field-error" id="v-doc-error">Please upload your identity document as a PDF</div>
         </div>
         <div class="form-group">
             <label class="form-label">Website (optional)</label>
             <input class="form-control" type="text" id="v-website" placeholder="https://yourbusiness.com" />
         </div>
         <div class="form-group">
-            <label class="form-label">Business Description <span class="req">*</span></label>
+            <label class="form-label">Business Description (optional)</label>
             <textarea class="form-control" id="v-description" style="height:70px" placeholder="What products or services does your business offer?"></textarea>
         </div>
+
+        <div style="margin:16px 0 8px;font-size:0.82rem;color:var(--muted2);font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Social Media Handles (optional)</div>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Instagram</label>
+                <input class="form-control" type="text" id="v-instagram" placeholder="@yourbusiness" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Twitter / X</label>
+                <input class="form-control" type="text" id="v-twitter" placeholder="@yourbusiness" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Facebook</label>
+                <input class="form-control" type="text" id="v-facebook" placeholder="facebook.com/yourbusiness" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">TikTok</label>
+                <input class="form-control" type="text" id="v-tiktok" placeholder="@yourbusiness" />
+            </div>
+        </div>
+
         <button class="btn btn-green" onclick="submitVerification()" id="submit-verify-btn">✅ Submit for Verification</button>
         <div class="form-msg" id="verify-message"></div>
     </div>
@@ -1585,6 +1618,19 @@
     </div>
 </div>
 
+
+<!-- ════════════════════════════════════ -->
+<!-- REPORT DETAIL MODAL                 -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="report-detail-modal">
+    <div class="modal" style="max-width:680px">
+        <div class="modal-header">
+            <div class="modal-title" id="report-detail-title">📋 Report</div>
+            <button class="close-btn" onclick="closeModal('report-detail-modal')">✕</button>
+        </div>
+        <div id="report-detail-content"><div class="spinner"></div></div>
+    </div>
+</div>
 
 <!-- ════════════════════════════════════ -->
 <!-- BUSINESS PROFILE MODAL              -->
@@ -2095,29 +2141,25 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
                 <div class="card card-flush">
                     ${reports.map(r => `
                         <div class="report-item" id="rpt-${r.id}">
-                            <div class="report-item-top">
-                                <div class="report-subject">${r.subject}</div>
-                                <span class="badge badge-red">${r.category}</span>
+                            <div onclick="openReportDetail(${r.id})" style="cursor:pointer">
+                                <div class="report-item-top">
+                                    <div class="report-subject">${r.subject}</div>
+                                    <span class="badge badge-red">${r.category}</span>
+                                </div>
+                                <p class="report-desc">${r.description}</p>
+                                ${r.amount ? `<div class="report-loss">💸 Loss: ${r.amount}</div>` : ''}
+                                ${r.platform ? `<span class="badge badge-blue" style="margin-bottom:8px;display:inline-block">${r.platform}</span>` : ''}
+                                ${r.rating ? `<div style="margin-bottom:6px;color:var(--gold);font-size:0.88rem">${renderStarsDisplay(r.rating)}</div>` : ''}
+                                <p style="font-size:0.72rem;color:var(--green);font-weight:600;margin-top:4px">View full thread →</p>
                             </div>
-                            <p class="report-desc">${r.description}</p>
-                            ${r.amount ? `<div class="report-loss">💸 Loss: ${r.amount}</div>` : ''}
-                            ${r.platform ? `<span class="badge badge-blue" style="margin-bottom:8px;display:inline-block">${r.platform}</span>` : ''}
-                            ${r.rating ? `<div style="margin-bottom:6px;color:var(--gold);font-size:0.88rem">${renderStarsDisplay(r.rating)}</div>` : ''}
                             <div class="report-meta">
                                 <span>By ${r.reporter_name || 'Anonymous'}</span>
                                 <span style="font-family:'JetBrains Mono',monospace">${timeAgo(r.reported_at)}</span>
                                 <div class="vote-btns">
                                     <button class="vote-btn" onclick="vote(${r.id},'up',this)">👍 <span class="vu">${r.upvotes||0}</span></button>
                                     <button class="vote-btn down" onclick="vote(${r.id},'down',this)">👎 <span class="vd">${r.downvotes||0}</span></button>
-                                    <button class="reply-toggle" onclick="toggleReplies(${r.id})">💬 ${r.reply_count||0} replies</button>
+                                    <button class="reply-toggle" onclick="openReportDetail(${r.id})">💬 ${r.reply_count||0} replies</button>
                                     <button class="gold-link" onclick="openAppeal(${r.id})">📋 Appeal</button>
-                                </div>
-                            </div>
-                            <div class="replies-section" id="replies-${r.id}">
-                                <div id="replies-content-${r.id}"><div class="spinner" style="width:20px;height:20px;margin:10px auto"></div></div>
-                                <div class="reply-form">
-                                    <input type="text" placeholder="Add a comment..." id="ri-${r.id}" onkeydown="if(event.key==='Enter') submitReply(${r.id})" />
-                                    <button onclick="submitReply(${r.id})">Post</button>
                                 </div>
                             </div>
                         </div>`).join('')}
@@ -2323,14 +2365,16 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
 
     function handleVerifyUpload(input) {
         const file = input.files[0]; if (!file) return;
-        if (file.size > 10*1024*1024) { showToast('File too large. Max 10MB.','error'); return; }
-        const reader = new FileReader();
-        reader.onload = e => {
-            verifyFileBase64 = e.target.result;
-            document.getElementById('verify-upload-area').classList.add('has-file');
-            document.getElementById('verify-upload-text').textContent = `✅ ${file.name}`;
-        };
-        reader.readAsDataURL(file);
+        if (file.size > 10*1024*1024) { showToast('File too large. Max 10MB.','error'); input.value=''; return; }
+        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+            showToast('Only PDF files are accepted.','error');
+            input.value = '';
+            return;
+        }
+        document.getElementById('verify-upload-area').classList.add('has-file');
+        document.getElementById('verify-upload-text').textContent = `✅ ${file.name}`;
+        // Clear doc error if shown
+        document.getElementById('v-doc-error').classList.remove('show');
     }
 
     async function submitReport() {
@@ -2378,41 +2422,84 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
     // ── VERIFY ──
     function updateVerifyLabel() {
         const v = document.getElementById('v-type').value;
-        const labels = { NIN:'NIN Number', BVN:'BVN Number', 'Drivers License':"Driver's License Number" };
-        document.getElementById('v-number-label').textContent = labels[v];
+        const labels = { NIN:'NIN Number', BVN:'BVN Number', 'Drivers License':"Driver's License Number", Passport:'Passport Number' };
+        const labelEl = document.getElementById('v-number-label');
+        labelEl.innerHTML = (labels[v] || v + ' Number') + ' <span class="req">*</span>';
         document.getElementById('v-number').placeholder = `Enter your ${v} number`;
     }
 
+    function vField(id) { return document.getElementById(id).value.trim(); }
+    function vErr(id, show) {
+        const el = document.getElementById(id + '-error');
+        if (el) el.classList[show ? 'add' : 'remove']('show');
+        document.getElementById(id).classList[show ? 'add' : 'remove']('error');
+    }
+
     async function submitVerification() {
-        const cac     = document.getElementById('v-cac').value.trim();
-        const business= document.getElementById('v-business').value.trim();
-        const owner   = document.getElementById('v-owner').value.trim();
-        const phone   = document.getElementById('v-phone').value.trim();
-        const email   = document.getElementById('v-email').value.trim();
-        const address = document.getElementById('v-address').value.trim();
-        const desc    = document.getElementById('v-description').value.trim();
         const msg = document.getElementById('verify-message');
         const btn = document.getElementById('submit-verify-btn');
-        const cacErr = document.getElementById('v-cac-error');
 
-        if (!cac) { cacErr.classList.add('show'); document.getElementById('v-cac').classList.add('error'); return; }
-        cacErr.classList.remove('show'); document.getElementById('v-cac').classList.remove('error');
-        if (!business||!owner||!phone||!email||!address||!desc) { setMsg(msg,'error','Please fill in all required fields.'); return; }
+        // Gather values
+        const business  = vField('v-business');
+        const owner     = vField('v-owner');
+        const phone     = vField('v-phone');
+        const email     = vField('v-email');
+        const address   = vField('v-address');
+        const cac       = vField('v-cac');
+        const idNumber  = vField('v-number');
+        const fileInput = document.getElementById('verify-file');
+        const docFile   = fileInput.files[0];
+
+        // Validate all required fields, show inline errors
+        let valid = true;
+        const required = [
+            ['v-business', business],
+            ['v-owner',    owner],
+            ['v-phone',    phone],
+            ['v-email',    email],
+            ['v-address',  address],
+            ['v-cac',      cac],
+            ['v-number',   idNumber],
+        ];
+        required.forEach(([id, val]) => { vErr(id, !val); if (!val) valid = false; });
+
+        // Validate document
+        if (!docFile) {
+            document.getElementById('v-doc-error').classList.add('show');
+            valid = false;
+        } else if (docFile.type !== 'application/pdf' && !docFile.name.toLowerCase().endsWith('.pdf')) {
+            document.getElementById('v-doc-error').textContent = 'Document must be a PDF file';
+            document.getElementById('v-doc-error').classList.add('show');
+            valid = false;
+        } else {
+            document.getElementById('v-doc-error').classList.remove('show');
+        }
+
+        if (!valid) { setMsg(msg,'error','Please fill in all required fields and upload a PDF document.'); return; }
 
         setLoading(btn, true);
         try {
-            const headers = {'Content-Type':'application/json'};
+            const fd = new FormData();
+            fd.append('business_name',        business);
+            fd.append('owner_name',           owner);
+            fd.append('phone',                phone);
+            fd.append('email',                email);
+            fd.append('address',              address);
+            fd.append('cac_number',           cac);
+            fd.append('verification_type',    document.getElementById('v-type').value);
+            fd.append('verification_number',  idNumber);
+            fd.append('document_file',        docFile);
+            fd.append('website',              document.getElementById('v-website').value.trim());
+            fd.append('description',          document.getElementById('v-description').value.trim());
+            fd.append('instagram',            document.getElementById('v-instagram').value.trim());
+            fd.append('twitter',              document.getElementById('v-twitter').value.trim());
+            fd.append('facebook',             document.getElementById('v-facebook').value.trim());
+            fd.append('tiktok',               document.getElementById('v-tiktok').value.trim());
+
+            const headers = {};
             if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
-            const res = await fetch(`${API}/verify-business`, {
-                method:'POST', headers,
-                body: JSON.stringify({
-                    business_name: business, owner_name: owner, phone, email,
-                    cac_number: cac, verification_type: document.getElementById('v-type').value,
-                    verification_number: document.getElementById('v-number').value.trim(),
-                    address, website: document.getElementById('v-website').value.trim(),
-                    description: desc, document_file: verifyFileBase64
-                })
-            });
+
+            const res = await fetch(`${API}/verify-business`, { method:'POST', headers, body: fd });
             const result = await res.json();
             if (res.ok) {
                 setMsg(msg,'success', result.message || '✅ Submitted! We will review within 24-48 hours.');
@@ -2543,6 +2630,203 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
         }
     }
 
+    // ── REPORT DETAIL ──
+    async function openReportDetail(reportId) {
+        openModal('report-detail-modal');
+        document.getElementById('report-detail-content').innerHTML = '<div class="spinner"></div>';
+        try {
+            const res  = await fetch(`${API}/reports/${reportId}`);
+            if (!res.ok) throw new Error('not found');
+            const r    = await res.json();
+
+            const repliesHtml = r.replies && r.replies.length
+                ? r.replies.map(rep => `
+                    <div style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start">
+                        <div style="width:30px;height:30px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;color:var(--muted2);font-weight:700">
+                            ${(rep.user_name||'A')[0].toUpperCase()}
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;gap:8px;align-items:center;margin-bottom:3px;flex-wrap:wrap">
+                                <span style="font-size:0.78rem;font-weight:600">${rep.user_name||'Anonymous'}</span>
+                                <span style="font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace">${timeAgo(rep.created_at)}</span>
+                            </div>
+                            <p style="font-size:0.85rem;color:var(--muted2);line-height:1.5;word-break:break-word">${rep.comment}</p>
+                        </div>
+                    </div>`).join('')
+                : '<p style="color:var(--muted);font-size:0.84rem;padding:12px 0;text-align:center">No comments yet. Be the first to comment.</p>';
+
+            document.getElementById('report-detail-title').textContent = `📋 ${r.subject}`;
+            document.getElementById('report-detail-content').innerHTML = `
+                <div style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+                    <span class="badge badge-red">${r.category}</span>
+                    ${r.platform ? `<span class="badge badge-blue">${r.platform}</span>` : ''}
+                    <span style="font-size:0.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-left:auto">${timeAgo(r.reported_at)}</span>
+                </div>
+                <h3 style="font-size:1.05rem;font-family:'Syne',sans-serif;margin-bottom:10px;line-height:1.35">${r.subject}</h3>
+                <p style="color:var(--muted2);font-size:0.88rem;line-height:1.65;margin-bottom:16px;white-space:pre-wrap">${r.description}</p>
+                <div style="margin-bottom:14px">
+                    <div style="font-size:0.75rem;color:var(--muted);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em">Rate this report</div>
+                    <div id="rdc-stars-${reportId}" style="display:flex;gap:4px;align-items:center">
+                        ${[1,2,3,4,5].map(s => `
+                        <button onclick="rateInDetail(${reportId},${s})"
+                            id="rdc-star-${reportId}-${s}"
+                            style="background:none;border:none;cursor:pointer;font-size:1.4rem;padding:2px;line-height:1;color:${(r.user_rating||0)>=s?'var(--gold)':'var(--muted)'};transition:color 0.15s"
+                            onmouseover="hoverStars(${reportId},${s})"
+                            onmouseout="unhoverStars(${reportId},${r.user_rating||0})"
+                        >${(r.user_rating||0)>=s?'★':'☆'}</button>`).join('')}
+                        <span id="rdc-rating-label-${reportId}" style="font-size:0.78rem;color:var(--muted2);margin-left:6px">
+                            ${r.avg_rating ? `${r.avg_rating}/5 avg (${r.total_ratings} rating${r.total_ratings!==1?'s':''})` : r.user_rating ? `You rated ${r.user_rating}/5` : 'No ratings yet'}
+                        </span>
+                    </div>
+                </div>
+                ${r.amount ? `<div style="background:var(--red-dim);border:1px solid rgba(255,59,92,0.2);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:0.85rem">
+                    💸 <strong>Amount lost:</strong> ${r.amount}
+                </div>` : ''}
+                ${r.proof_path ? `<div style="margin-bottom:12px">
+                    <a href="${r.proof_path}" target="_blank" style="color:var(--blue);font-size:0.82rem;text-decoration:none">📎 View uploaded proof →</a>
+                </div>` : ''}
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:20px;flex-wrap:wrap;gap:8px">
+                    <span style="font-size:0.78rem;color:var(--muted2)">Reported by <strong style="color:var(--text)">${r.reporter_name||'Anonymous'}</strong></span>
+                    <div style="display:flex;gap:6px;align-items:center">
+                        <button id="rdc-up-${reportId}" onclick="voteInDetail(${reportId},'up')"
+                            style="background:${r.user_vote==='up'?'rgba(52,199,89,0.2)':'var(--surface2)'};border:1px solid ${r.user_vote==='up'?'var(--green)':'var(--border2)'};border-radius:8px;padding:5px 12px;cursor:pointer;font-size:0.82rem;color:${r.user_vote==='up'?'var(--green)':'var(--muted2)'};transition:all 0.15s;font-family:'Space Grotesk',sans-serif">
+                            👍 <span id="rdc-ups-${reportId}">${r.upvotes||0}</span>
+                        </button>
+                        <button id="rdc-dn-${reportId}" onclick="voteInDetail(${reportId},'down')"
+                            style="background:${r.user_vote==='down'?'rgba(255,59,92,0.2)':'var(--surface2)'};border:1px solid ${r.user_vote==='down'?'var(--red)':'var(--border2)'};border-radius:8px;padding:5px 12px;cursor:pointer;font-size:0.82rem;color:${r.user_vote==='down'?'var(--red)':'var(--muted2)'};transition:all 0.15s;font-family:'Space Grotesk',sans-serif">
+                            👎 <span id="rdc-dns-${reportId}">${r.downvotes||0}</span>
+                        </button>
+                    </div>
+                </div>
+                <div style="font-size:0.82rem;font-weight:700;margin-bottom:14px;color:var(--text)">
+                    💬 Discussion <span style="color:var(--muted2);font-weight:400">(${r.replies.length} comment${r.replies.length!==1?'s':''})</span>
+                </div>
+                <div id="rdc-replies-${reportId}">${repliesHtml}</div>
+                <div style="display:flex;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+                    <input type="text" id="rdc-input-${reportId}"
+                        placeholder="Add a comment..."
+                        style="flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;color:var(--text);font-size:0.88rem;font-family:'Space Grotesk',sans-serif;outline:none"
+                        onkeydown="if(event.key==='Enter') submitDetailReply(${reportId})" />
+                    <button onclick="submitDetailReply(${reportId})"
+                        style="background:var(--green);color:#000;border:none;padding:10px 20px;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:'Space Grotesk',sans-serif;flex-shrink:0">
+                        Post
+                    </button>
+                </div>`;
+        } catch(e) {
+            document.getElementById('report-detail-content').innerHTML =
+                '<p style="color:var(--muted2);text-align:center;padding:20px">Could not load report.</p>';
+        }
+    }
+
+    async function submitDetailReply(reportId) {
+        const input   = document.getElementById(`rdc-input-${reportId}`);
+        const comment = (input.value || '').trim();
+        if (!comment) return;
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+            const res = await fetch(`${API}/reports/${reportId}/replies`, {
+                method: 'POST', headers,
+                body: JSON.stringify({ comment, user_name: currentUser?.name || 'Anonymous' })
+            });
+            if (res.ok) {
+                input.value = '';
+                // Reload replies in the detail modal
+                const rr = await fetch(`${API}/reports/${reportId}/replies`);
+                const replies = await rr.json();
+                const container = document.getElementById(`rdc-replies-${reportId}`);
+                if (container) {
+                    container.innerHTML = replies.map(rep => `
+                        <div style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start">
+                            <div style="width:30px;height:30px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;color:var(--muted2);font-weight:700">
+                                ${(rep.user_name||'A')[0].toUpperCase()}
+                            </div>
+                            <div style="flex:1;min-width:0">
+                                <div style="display:flex;gap:8px;align-items:center;margin-bottom:3px;flex-wrap:wrap">
+                                    <span style="font-size:0.78rem;font-weight:600">${rep.user_name||'Anonymous'}</span>
+                                    <span style="font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace">${timeAgo(rep.created_at)}</span>
+                                </div>
+                                <p style="font-size:0.85rem;color:var(--muted2);line-height:1.5;word-break:break-word">${rep.comment}</p>
+                            </div>
+                        </div>`).join('') || '<p style="color:var(--muted);font-size:0.84rem;padding:12px 0;text-align:center">No comments yet.</p>';
+                }
+            }
+        } catch(e) {}
+    }
+
+    // ── VOTE IN DETAIL MODAL ──
+    async function voteInDetail(reportId, direction) {
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+            const res  = await fetch(`${API}/reports/${reportId}/vote`, {
+                method: 'POST', headers,
+                body: JSON.stringify({ direction })
+            });
+            const data = await res.json();
+            if (!res.ok) { alert(data.error || 'Could not vote'); return; }
+
+            document.getElementById(`rdc-ups-${reportId}`).textContent = data.upvotes;
+            document.getElementById(`rdc-dns-${reportId}`).textContent = data.downvotes;
+
+            // Re-fetch to get updated user_vote state
+            const r2   = await fetch(`${API}/reports/${reportId}`);
+            const rep  = await r2.json();
+            const upBtn = document.getElementById(`rdc-up-${reportId}`);
+            const dnBtn = document.getElementById(`rdc-dn-${reportId}`);
+            if (upBtn) {
+                const active = rep.user_vote === 'up';
+                upBtn.style.background = active ? 'rgba(52,199,89,0.2)' : 'var(--surface2)';
+                upBtn.style.borderColor = active ? 'var(--green)' : 'var(--border2)';
+                upBtn.style.color = active ? 'var(--green)' : 'var(--muted2)';
+            }
+            if (dnBtn) {
+                const active = rep.user_vote === 'down';
+                dnBtn.style.background = active ? 'rgba(255,59,92,0.2)' : 'var(--surface2)';
+                dnBtn.style.borderColor = active ? 'var(--red)' : 'var(--border2)';
+                dnBtn.style.color = active ? 'var(--red)' : 'var(--muted2)';
+            }
+        } catch(e) { console.error(e); }
+    }
+
+    // ── STAR RATING IN DETAIL MODAL ──
+    function hoverStars(reportId, hoverVal) {
+        for (let s = 1; s <= 5; s++) {
+            const btn = document.getElementById(`rdc-star-${reportId}-${s}`);
+            if (btn) { btn.textContent = s <= hoverVal ? '★' : '☆'; btn.style.color = s <= hoverVal ? 'var(--gold)' : 'var(--muted)'; }
+        }
+    }
+    function unhoverStars(reportId, currentRating) {
+        for (let s = 1; s <= 5; s++) {
+            const btn = document.getElementById(`rdc-star-${reportId}-${s}`);
+            if (btn) { btn.textContent = s <= currentRating ? '★' : '☆'; btn.style.color = s <= currentRating ? 'var(--gold)' : 'var(--muted)'; }
+        }
+    }
+    async function rateInDetail(reportId, rating) {
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+            const res  = await fetch(`${API}/reports/${reportId}/rate`, {
+                method: 'POST', headers,
+                body: JSON.stringify({ rating })
+            });
+            const data = await res.json();
+            if (!res.ok) { alert(data.error || 'Could not rate'); return; }
+
+            // Update star display to reflect saved rating
+            for (let s = 1; s <= 5; s++) {
+                const btn = document.getElementById(`rdc-star-${reportId}-${s}`);
+                if (btn) {
+                    btn.textContent = s <= data.your_rating ? '★' : '☆';
+                    btn.style.color = s <= data.your_rating ? 'var(--gold)' : 'var(--muted)';
+                    btn.onmouseout = () => unhoverStars(reportId, data.your_rating);
+                }
+            }
+            const label = document.getElementById(`rdc-rating-label-${reportId}`);
+            if (label) label.textContent = `${data.avg_rating}/5 avg (${data.total_ratings} rating${data.total_ratings!==1?'s':''})`;
+        } catch(e) { console.error(e); }
+    }
+
     // ── BIZ PROFILE ──
     async function openBizProfile(bizId) {
         openModal('biz-profile-modal');
@@ -2572,10 +2856,11 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
                 : '<p style="color:var(--muted2);font-size:0.84rem;padding:12px 0">No reviews yet.</p>';
 
             const reportsHtml = data.reports && data.reports.length
-                ? data.reports.map(r => `<div style="padding:10px 0;border-bottom:1px solid var(--border)">
-                    <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px">
+                ? data.reports.map(r => `<div onclick="openReportDetail(${r.id})" style="padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity 0.15s" onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">
+                    <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;flex-wrap:wrap">
                         <span class="badge badge-red">${r.category}</span>
                         <span style="font-size:0.7rem;color:var(--muted2);font-family:'JetBrains Mono',monospace">${timeAgo(r.reported_at)}</span>
+                        <span style="font-size:0.7rem;color:var(--green);font-weight:600;margin-left:auto">View thread →</span>
                     </div>
                     <p style="font-size:0.82rem;color:var(--muted2)">${r.description}</p>
                 </div>`).join('')

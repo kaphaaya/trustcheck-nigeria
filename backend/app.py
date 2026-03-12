@@ -190,6 +190,34 @@ def init_db():
                 if not cur.fetchone():
                     cur.execute(f"ALTER TABLE reports ADD COLUMN {col} {definition}")
 
+            # Migrations: add social media columns to businesses
+            for col, definition in [
+                ("instagram", "VARCHAR(200)"),
+                ("twitter",   "VARCHAR(200)"),
+                ("facebook",  "VARCHAR(200)"),
+                ("tiktok",    "VARCHAR(200)"),
+            ]:
+                cur.execute("""
+                    SELECT 1 FROM information_schema.columns
+                    WHERE table_name='businesses' AND column_name=%s
+                """, (col,))
+                if not cur.fetchone():
+                    cur.execute(f"ALTER TABLE businesses ADD COLUMN {col} {definition}")
+
+            # REPORT RATINGS
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS report_ratings (
+                    id         SERIAL PRIMARY KEY,
+                    report_id  INTEGER      NOT NULL REFERENCES reports(id) ON DELETE CASCADE,
+                    user_id    INTEGER      REFERENCES users(id) ON DELETE CASCADE,
+                    session_id VARCHAR(100),
+                    rating     INTEGER      NOT NULL CHECK (rating BETWEEN 1 AND 5),
+                    created_at TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+                    UNIQUE (report_id, user_id),
+                    UNIQUE (report_id, session_id)
+                )
+            """)
+
             conn.commit()
             cur.close()
             conn.close()
@@ -908,6 +936,116 @@ def flag_report(report_id):
     return jsonify({"message": "Report flagged for review. Our team will investigate."})
 
 
+# ─── REPORT DETAIL ───────────────────────────────────────────────────────────
+@app.route("/api/reports/<int:report_id>", methods=["GET"])
+def get_report(report_id):
+    conn = get_db()
+    cur  = conn.cursor()
+    cur.execute("""
+        SELECT id, report_type, subject, phone_number, business_name,
+               social_handle, platform, category, description,
+               amount, proof_path, reporter_name, rating,
+               upvotes, downvotes, reported_at
+        FROM reports WHERE id = %s AND is_flagged = FALSE
+    """, (report_id,))
+    report = cur.fetchone()
+    if not report:
+        cur.close(); conn.close()
+        return jsonify({"error": "Report not found"}), 404
+    report = dict(report)
+    report["reported_at"] = str(report["reported_at"])
+
+    # Compute session fingerprint for vote/rating state lookup
+    user      = get_current_user()
+    user_id   = user["user_id"] if user else None
+    sess_id   = None if user_id else hashlib.md5(
+        (request.remote_addr + request.headers.get("User-Agent", "")).encode()
+    ).hexdigest()
+
+    # Current user's vote direction
+    if user_id:
+        cur.execute("SELECT direction FROM votes WHERE report_id=%s AND user_id=%s", (report_id, user_id))
+    else:
+        cur.execute("SELECT direction FROM votes WHERE report_id=%s AND session_id=%s", (report_id, sess_id))
+    vote_row = cur.fetchone()
+    report["user_vote"] = vote_row["direction"] if vote_row else None
+
+    # Current user's rating + aggregate rating stats
+    cur.execute("""
+        SELECT AVG(rating)::FLOAT AS avg_r, COUNT(*) AS cnt
+        FROM report_ratings WHERE report_id=%s
+    """, (report_id,))
+    rstat = cur.fetchone()
+    report["avg_rating"]    = round(rstat["avg_r"], 1) if rstat["avg_r"] else None
+    report["total_ratings"] = rstat["cnt"]
+
+    if user_id:
+        cur.execute("SELECT rating FROM report_ratings WHERE report_id=%s AND user_id=%s", (report_id, user_id))
+    else:
+        cur.execute("SELECT rating FROM report_ratings WHERE report_id=%s AND session_id=%s", (report_id, sess_id))
+    rating_row = cur.fetchone()
+    report["user_rating"] = rating_row["rating"] if rating_row else None
+
+    cur.execute("""
+        SELECT id, comment, user_name, created_at
+        FROM replies WHERE report_id = %s ORDER BY created_at ASC
+    """, (report_id,))
+    replies = [dict(r) for r in cur.fetchall()]
+    for r in replies:
+        r["created_at"] = str(r["created_at"])
+    report["replies"] = replies
+
+    cur.close(); conn.close()
+    return jsonify(report)
+
+
+# ─── REPORT RATING ───────────────────────────────────────────────────────────
+@app.route("/api/reports/<int:report_id>/rate", methods=["POST"])
+def rate_report(report_id):
+    data   = request.json or {}
+    rating = data.get("rating")
+
+    if not isinstance(rating, int) or not (1 <= rating <= 5):
+        return jsonify({"error": "Rating must be an integer between 1 and 5"}), 400
+
+    user      = get_current_user()
+    user_id   = user["user_id"] if user else None
+    session_id = None if user_id else hashlib.md5(
+        (request.remote_addr + request.headers.get("User-Agent", "")).encode()
+    ).hexdigest()
+
+    conn = get_db()
+    cur  = conn.cursor()
+
+    # Check if already rated
+    if user_id:
+        cur.execute("SELECT id FROM report_ratings WHERE report_id=%s AND user_id=%s", (report_id, user_id))
+    else:
+        cur.execute("SELECT id FROM report_ratings WHERE report_id=%s AND session_id=%s", (report_id, session_id))
+
+    existing = cur.fetchone()
+
+    if existing:
+        # Update existing rating
+        cur.execute("UPDATE report_ratings SET rating=%s WHERE id=%s", (rating, existing["id"]))
+    else:
+        # New rating
+        if user_id:
+            cur.execute("INSERT INTO report_ratings (report_id, user_id, rating) VALUES (%s,%s,%s)", (report_id, user_id, rating))
+        else:
+            cur.execute("INSERT INTO report_ratings (report_id, session_id, rating) VALUES (%s,%s,%s)", (report_id, session_id, rating))
+
+    cur.execute("SELECT AVG(rating)::FLOAT AS avg_r, COUNT(*) AS cnt FROM report_ratings WHERE report_id=%s", (report_id,))
+    rstat = cur.fetchone()
+    conn.commit(); cur.close(); conn.close()
+
+    return jsonify({
+        "avg_rating":    round(rstat["avg_r"], 1) if rstat["avg_r"] else rating,
+        "total_ratings": rstat["cnt"],
+        "your_rating":   rating
+    })
+
+
 # ─── REPLIES ─────────────────────────────────────────────────────────────────
 @app.route("/api/reports/<int:report_id>/replies", methods=["GET"])
 def get_replies(report_id):
@@ -1013,14 +1151,12 @@ def post_review():
 def verify_business():
     user = get_current_user()
 
-    # Support both multipart and JSON
-    if request.content_type and "multipart" in request.content_type:
-        data = request.form.to_dict()
-        doc_file    = request.files.get("document_file")
-        doc_path    = save_upload(doc_file, "biz_doc")
-    else:
-        data = request.json or {}
-        doc_path = None
+    # Require multipart form (file upload)
+    if not (request.content_type and "multipart" in request.content_type):
+        return jsonify({"error": "Request must be multipart/form-data"}), 400
+
+    data     = request.form.to_dict()
+    doc_file = request.files.get("document_file")
 
     business_name = (data.get("business_name") or "").strip()
     owner_name    = (data.get("owner_name") or "").strip()
@@ -1030,6 +1166,10 @@ def verify_business():
     address       = (data.get("address") or "").strip()
     id_type       = (data.get("verification_type") or "NIN").strip()
     id_number     = (data.get("verification_number") or "").strip()
+    instagram     = (data.get("instagram") or "").strip()
+    twitter       = (data.get("twitter") or "").strip()
+    facebook      = (data.get("facebook") or "").strip()
+    tiktok        = (data.get("tiktok") or "").strip()
 
     # Validate required fields
     missing = []
@@ -1039,43 +1179,74 @@ def verify_business():
     if not phone:         missing.append("phone")
     if not email:         missing.append("email")
     if not address:       missing.append("address")
+    if not id_number:     missing.append("verification_number (identity number)")
+    if not doc_file or doc_file.filename == "":
+        missing.append("document_file (PDF)")
 
     if missing:
         return jsonify({"error": f"Required fields missing: {', '.join(missing)}"}), 400
 
+    # Validate document is PDF
+    doc_ext = doc_file.filename.rsplit(".", 1)[-1].lower() if doc_file.filename else ""
+    if doc_ext != "pdf":
+        return jsonify({"error": "Identity document must be a PDF file"}), 400
+
+    # Save the uploaded document
+    doc_path = save_upload(doc_file, "biz_doc")
+    if not doc_path:
+        return jsonify({"error": "Failed to save uploaded document"}), 500
+
     # Check duplicate
     conn = get_db()
     cur  = conn.cursor()
-    cur.execute("SELECT id, status FROM businesses WHERE LOWER(business_name)=LOWER(%s) OR LOWER(cac_number)=LOWER(%s)", (business_name, cac_number))
+
+    # Block duplicate business name or CAC number
+    cur.execute("""
+        SELECT id, status FROM businesses
+        WHERE LOWER(business_name)=LOWER(%s) OR LOWER(cac_number)=LOWER(%s)
+    """, (business_name, cac_number))
     existing = cur.fetchone()
     if existing:
         cur.close(); conn.close()
         return jsonify({
-            "message": f"This business has already been submitted. Status: {existing['status']}",
-            "status":  existing["status"]
-        }), 200
+            "error": f"A business with this name or CAC number has already been submitted (status: {existing['status']}). Contact support if this is an error."
+        }), 400
+
+    # Block same email used for an active (non-rejected) business
+    cur.execute("""
+        SELECT id, business_name FROM businesses
+        WHERE LOWER(email)=LOWER(%s) AND status != 'rejected'
+    """, (email,))
+    email_conflict = cur.fetchone()
+    if email_conflict:
+        cur.close(); conn.close()
+        return jsonify({
+            "error": f"This email address is already linked to an active business registration ({email_conflict['business_name']}). Use a different email or contact support."
+        }), 400
+
+    # Block same phone used for an active (non-rejected) business
+    cur.execute("""
+        SELECT id, business_name FROM businesses
+        WHERE phone=%s AND status != 'rejected'
+    """, (phone,))
+    phone_conflict = cur.fetchone()
+    if phone_conflict:
+        cur.close(); conn.close()
+        return jsonify({
+            "error": f"This phone number is already linked to an active business registration ({phone_conflict['business_name']}). Use a different number or contact support."
+        }), 400
 
     # ── CAC Verification ──
     cac_result = verify_cac(cac_number, business_name)
 
-    # ── ID Verification (if number provided) ──
-    id_result = {"verified": False, "message": "No ID number provided"}
-    if id_number:
-        id_result = verify_identity(id_type, id_number, owner_name)
+    # ── ID Verification ──
+    id_result = verify_identity(id_type, id_number, owner_name)
 
-    # Determine status
+    # Determine status — all submissions go to pending for admin review
     cac_ok = cac_result["verified"]
-    id_ok  = id_result["verified"] if id_number else True  # optional for now
-
-    if cac_ok and id_ok:
-        status     = "verified"
-        badge_type = "verified"
-    elif cac_ok:
-        status     = "cac_verified"
-        badge_type = "cac_verified"
-    else:
-        status     = "pending"
-        badge_type = None
+    id_ok  = id_result["verified"]
+    status     = "pending"
+    badge_type = None
 
     cur.execute("""
         INSERT INTO businesses (
@@ -1083,67 +1254,85 @@ def verify_business():
             website, description, cac_number,
             verification_type, verification_number,
             document_path, status, badge_type, owner_id,
-            cac_verified, id_verified
-        ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+            cac_verified, id_verified,
+            instagram, twitter, facebook, tiktok
+        ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
         RETURNING id
     """, (
         business_name, owner_name, phone, email, address,
         data.get("website"), data.get("description"), cac_number,
-        id_type, id_number or None,
+        id_type, id_number,
         doc_path, status, badge_type,
         user["user_id"] if user else None,
-        cac_ok, id_ok if id_number else False
+        cac_ok, id_ok,
+        instagram or None, twitter or None, facebook or None, tiktok or None
     ))
     biz_id = cur.fetchone()["id"]
     conn.commit(); cur.close(); conn.close()
 
-    # Build response message
-    msgs = []
-    msgs.append(f"CAC: {cac_result['message']}")
-    if id_number:
-        msgs.append(f"ID ({id_type}): {id_result['message']}")
+    # Build social handles section for email
+    social_lines = []
+    if instagram: social_lines.append(f"  Instagram:  {instagram}")
+    if twitter:   social_lines.append(f"  Twitter/X:  {twitter}")
+    if facebook:  social_lines.append(f"  Facebook:   {facebook}")
+    if tiktok:    social_lines.append(f"  TikTok:     {tiktok}")
+    social_section = "\n".join(social_lines) if social_lines else "  Not provided"
 
-    if status == "verified":
-        msg = "✅ Business fully verified! Your verified badge is now live."
-    elif status == "cac_verified":
-        msg = "✅ CAC verified. ID verification pending review."
-    else:
-        msg = f"Submitted for manual review. {' | '.join(msgs)}"
-
-    # Notify admin of new business verification submission
     base_url = "http://130.107.145.125"
-    alert_subject = f"[TrustCheck] New Business Submission: {business_name} [{status}]"
-    alert_body = f"""A new business verification has been submitted.
+    doc_url  = f"{base_url}{doc_path}" if doc_path else "No document uploaded"
 
-Business: {business_name}
-Owner:    {owner_name}
-CAC No:   {cac_number}
-Email:    {email}
-Phone:    {phone}
-Status:   {status}
-ID:       {biz_id}
+    alert_subject = f"[TrustCheck] New Business Submission: {business_name}"
+    alert_body = f"""New business verification submission — action required.
 
-CAC check:  {cac_result['message']}
-ID check:   {id_result['message'] if id_number else 'Not provided'}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BUSINESS DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Business Name:  {business_name}
+Owner Name:     {owner_name}
+CAC Number:     {cac_number}
+Phone:          {phone}
+Email:          {email}
+Address:        {address}
+Website:        {data.get('website') or 'Not provided'}
 
---- ACTION REQUIRED ---
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IDENTITY VERIFICATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ID Type:        {id_type}
+ID Number:      {id_number}
+CAC Check:      {cac_result['message']}
+ID Check:       {id_result['message']}
 
-✅ APPROVE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+UPLOADED DOCUMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{doc_url}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SOCIAL MEDIA HANDLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{social_section}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ACTION REQUIRED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ APPROVE (click to approve and notify owner):
 {base_url}/api/admin/businesses/{biz_id}/approve?token={ADMIN_TOKEN}
 
-❌ REJECT:
-{base_url}/api/admin/businesses/{biz_id}/reject?token={ADMIN_TOKEN}
+❌ REJECT (click to reject — add reason after &reason=):
+{base_url}/api/admin/businesses/{biz_id}/reject?token={ADMIN_TOKEN}&reason=Your+CAC+number+could+not+be+verified
 
-Click either link directly from this email — no login needed.
+Click either link directly from Gmail — no login needed.
 """
     send_admin_alert(alert_subject, alert_body)
 
     return jsonify({
-        "message":     msg,
+        "message":     "✅ Verification submitted! We will review within 24-48 hours and email you the outcome.",
         "business_id": biz_id,
         "status":      status,
         "cac_result":  cac_result,
-        "id_result":   id_result if id_number else None
+        "id_result":   id_result
     }), 201
 
 
@@ -1201,7 +1390,7 @@ def _check_admin_token():
     return request.args.get("token", "") == ADMIN_TOKEN
 
 
-def _send_business_status_email(biz_email, biz_name, approved: bool):
+def _send_business_status_email(biz_email, biz_name, approved: bool, reason: str = ""):
     if approved:
         subject = f"TrustCheck Nigeria — {biz_name} is now Verified ✅"
         body = f"""Hi,
@@ -1215,24 +1404,59 @@ Thank you for helping build trust in Nigerian commerce.
 — TrustCheck Nigeria Team
 """
     else:
+        reason_line = f"\nReason: {reason}\n" if reason else ""
         subject = f"TrustCheck Nigeria — Verification Update for {biz_name}"
         body = f"""Hi,
 
 We have completed our review of your business verification submission for "{biz_name}".
 
-Unfortunately, we were unable to verify your business at this time. This may be due to a mismatch in the documents provided or an issue with your CAC registration details.
+Unfortunately, we were unable to verify your business at this time.
+{reason_line}
+Please review the information you submitted and feel free to re-apply with updated documents.
 
-You are welcome to re-submit with updated information.
+If you believe this is an error, reply to this email for assistance.
 
 — TrustCheck Nigeria Team
 """
     _send_gmail(biz_email, subject, body)
 
 
+def _admin_html(title, body_html):
+    """Wrap content in a minimal styled admin page."""
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TrustCheck Admin — {title}</title>
+<style>
+  *{{margin:0;padding:0;box-sizing:border-box}}
+  body{{font-family:'Segoe UI',sans-serif;background:#080B0F;color:#E8EDF5;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}}
+  .card{{background:#0E1218;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:40px;max-width:520px;width:100%}}
+  .logo{{font-size:0.8rem;color:#00E87A;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:24px}}
+  h2{{font-size:1.3rem;margin-bottom:8px}}
+  .biz{{color:#00E87A;font-weight:600}}
+  .sub{{color:#5A6478;font-size:0.88rem;margin-bottom:28px}}
+  label{{display:block;font-size:0.82rem;color:#8A95A8;font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em}}
+  textarea{{width:100%;background:#141A22;border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#E8EDF5;padding:12px 14px;font-size:0.9rem;font-family:inherit;resize:vertical;min-height:90px;outline:none}}
+  textarea:focus{{border-color:rgba(255,59,92,0.5);box-shadow:0 0 0 3px rgba(255,59,92,0.08)}}
+  .btn{{display:inline-block;padding:13px 32px;border-radius:12px;font-size:0.9rem;font-weight:700;border:none;cursor:pointer;width:100%;margin-top:16px;font-family:inherit;transition:opacity 0.2s}}
+  .btn-green{{background:#00E87A;color:#000}}.btn-green:hover{{opacity:0.9}}
+  .btn-red{{background:#FF3B5C;color:#fff}}.btn-red:hover{{opacity:0.9}}
+  .done{{text-align:center;padding:20px 0}}
+  .done .icon{{font-size:3rem;margin-bottom:12px}}
+  .done p{{color:#8A95A8;font-size:0.88rem;margin-top:8px}}
+</style>
+</head>
+<body><div class="card">{body_html}</div></body>
+</html>"""
+
+
 @app.route("/api/admin/businesses/<int:biz_id>/approve", methods=["GET", "POST"])
 def admin_approve_business(biz_id):
+    import html as html_mod
     if not _check_admin_token():
-        return jsonify({"error": "Unauthorized"}), 401
+        return _admin_html("Unauthorized", "<h2>Unauthorized</h2><p class='sub'>Invalid or missing admin token.</p>"), 401
 
     conn = get_db()
     cur  = conn.cursor()
@@ -1240,22 +1464,43 @@ def admin_approve_business(biz_id):
     biz = cur.fetchone()
     if not biz:
         cur.close(); conn.close()
-        return jsonify({"error": "Business not found"}), 404
+        return _admin_html("Not Found", "<h2>Business not found</h2>"), 404
 
-    cur.execute(
-        "UPDATE businesses SET status='verified', badge_type='verified' WHERE id = %s",
-        (biz_id,)
-    )
+    biz_name = biz["business_name"]
+    biz_email = biz["email"]
+
+    if request.method == "GET":
+        cur.close(); conn.close()
+        token = request.args.get("token", "")
+        safe_name = html_mod.escape(biz_name)
+        return _admin_html("Approve Business", f"""
+<div class="logo">TrustCheck Admin</div>
+<h2>Approve this business?</h2>
+<p class="biz">{safe_name}</p>
+<p class="sub">The owner will receive a confirmation email that their business is now verified.</p>
+<form method="POST" action="/api/admin/businesses/{biz_id}/approve?token={token}">
+  <button class="btn btn-green" type="submit">✅ Confirm Approval</button>
+</form>""")
+
+    # POST — perform the approval
+    cur.execute("UPDATE businesses SET status='verified', badge_type='verified' WHERE id = %s", (biz_id,))
     conn.commit(); cur.close(); conn.close()
-
-    _send_business_status_email(biz["email"], biz["business_name"], approved=True)
-    return jsonify({"message": f"Business {biz['business_name']} approved and owner notified."})
+    _send_business_status_email(biz_email, biz_name, approved=True)
+    safe_name = html_mod.escape(biz_name)
+    return _admin_html("Approved", f"""
+<div class="done">
+  <div class="icon">✅</div>
+  <h2>Business Approved</h2>
+  <p class="biz">{safe_name}</p>
+  <p>The owner has been notified by email.</p>
+</div>""")
 
 
 @app.route("/api/admin/businesses/<int:biz_id>/reject", methods=["GET", "POST"])
 def admin_reject_business(biz_id):
+    import html as html_mod
     if not _check_admin_token():
-        return jsonify({"error": "Unauthorized"}), 401
+        return _admin_html("Unauthorized", "<h2>Unauthorized</h2><p class='sub'>Invalid or missing admin token.</p>"), 401
 
     conn = get_db()
     cur  = conn.cursor()
@@ -1263,16 +1508,39 @@ def admin_reject_business(biz_id):
     biz = cur.fetchone()
     if not biz:
         cur.close(); conn.close()
-        return jsonify({"error": "Business not found"}), 404
+        return _admin_html("Not Found", "<h2>Business not found</h2>"), 404
 
-    cur.execute(
-        "UPDATE businesses SET status='rejected', badge_type=NULL WHERE id = %s",
-        (biz_id,)
-    )
+    biz_name  = biz["business_name"]
+    biz_email = biz["email"]
+
+    if request.method == "GET":
+        cur.close(); conn.close()
+        token = request.args.get("token", "")
+        safe_name = html_mod.escape(biz_name)
+        return _admin_html("Reject Business", f"""
+<div class="logo">TrustCheck Admin</div>
+<h2>Reject this business?</h2>
+<p class="biz">{safe_name}</p>
+<p class="sub">Enter a reason below — it will be included in the email sent to the business owner.</p>
+<form method="POST" action="/api/admin/businesses/{biz_id}/reject?token={token}">
+  <label for="reason">Rejection Reason</label>
+  <textarea id="reason" name="reason" placeholder="e.g. Your CAC number could not be verified. Please resubmit with a clear scan of your CAC certificate." required></textarea>
+  <button class="btn btn-red" type="submit">❌ Confirm Rejection</button>
+</form>""")
+
+    # POST — perform the rejection
+    reason = (request.form.get("reason") or request.args.get("reason") or "").strip()
+    cur.execute("UPDATE businesses SET status='rejected', badge_type=NULL WHERE id = %s", (biz_id,))
     conn.commit(); cur.close(); conn.close()
-
-    _send_business_status_email(biz["email"], biz["business_name"], approved=False)
-    return jsonify({"message": f"Business {biz['business_name']} rejected and owner notified."})
+    _send_business_status_email(biz_email, biz_name, approved=False, reason=reason)
+    safe_name = html_mod.escape(biz_name)
+    return _admin_html("Rejected", f"""
+<div class="done">
+  <div class="icon">❌</div>
+  <h2>Business Rejected</h2>
+  <p class="biz">{safe_name}</p>
+  <p>The owner has been notified by email{' with your reason.' if reason else '.'}</p>
+</div>""")
 
 
 # ─── USER PROFILE ─────────────────────────────────────────────────────────────
