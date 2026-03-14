@@ -2056,41 +2056,51 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
     }
 
     function renderSearchResults(data, query) {
-        const { report_count, trust_score, reports, businesses, avg_rating, review_count, page, per_page } = data;
-        const sc = trust_score >= 70 ? 'safe' : trust_score >= 40 ? 'warn' : 'danger';
-        const emoji = trust_score >= 70 ? '✅' : trust_score >= 40 ? '⚠️' : '🚨';
-        const label = trust_score >= 70 ? 'Looks Safe' : trust_score >= 40 ? 'Use Caution' : 'High Risk';
-        const desc  = trust_score >= 70
-            ? 'No significant reports found. Appears safe based on community data.'
-            : trust_score >= 40
-            ? 'Some reports found. Proceed with caution and verify independently.'
-            : 'Multiple reports found. High risk — do not proceed without thorough verification.';
+        const { report_count, trust_score, trust_status, trust_message, reports, businesses, avg_rating, review_count, page, per_page } = data;
 
-        // Build ring SVG
+        // Build trust card based on status from API
         const r = 44; const circ = 2 * Math.PI * r;
-        const offset = circ - (trust_score / 100) * circ;
+        let trustCardHTML = '';
 
-        const shareText = `I checked "${query}" on TrustCheck Nigeria — Trust Score: ${trust_score}/100. ${report_count} community reports.`;
-        const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-        const twUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
-
-        document.getElementById('trust-score-section').innerHTML = `
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
-                <h2 style="font-size:0.9rem;color:var(--muted2)">Results for <span style="color:var(--text);font-family:'JetBrains Mono',monospace">"${query}"</span></h2>
-                <button onclick="clearSearch()" style="background:transparent;border:1px solid var(--border2);color:var(--muted2);padding:4px 12px;border-radius:100px;font-size:0.72rem;cursor:pointer;font-family:'Space Grotesk',sans-serif">← Back</button>
-                <button onclick="currentReviewSubject='${query.replace(/'/g,"\\'")}';document.getElementById('review-subject-display').textContent='${query.replace(/'/g,"\\'")}';reviewRating=0;updateReviewStars();openModal('review-modal')"
-                    style="background:var(--gold-dim);border:1px solid rgba(255,181,71,0.25);color:var(--gold);padding:4px 14px;border-radius:100px;font-size:0.72rem;cursor:pointer;font-weight:600;font-family:'Space Grotesk',sans-serif">
-                    ⭐ Leave Review
-                </button>
-                <a href="${waUrl}" target="_blank" rel="noopener"
-                    style="background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.25);color:#25D366;padding:4px 14px;border-radius:100px;font-size:0.72rem;font-weight:600;text-decoration:none">
-                    📲 WhatsApp
-                </a>
-                <a href="${twUrl}" target="_blank" rel="noopener"
-                    style="background:var(--blue-dim);border:1px solid rgba(77,158,255,0.25);color:var(--blue);padding:4px 14px;border-radius:100px;font-size:0.72rem;font-weight:600;text-decoration:none">
-                    🐦 X / Twitter
-                </a>
-            </div>
+        if (trust_status === 'unverified') {
+            trustCardHTML = `
+            <div class="trust-card" style="border-color:rgba(120,120,120,0.25);background:rgba(120,120,120,0.05)">
+                <div class="score-info" style="flex:1">
+                    <div style="margin-bottom:10px">
+                        <span class="badge" style="background:rgba(150,150,150,0.15);color:#9ca3af;border:1px solid rgba(150,150,150,0.3);font-size:0.72rem;padding:4px 12px">🔍 NO REVIEWS YET</span>
+                    </div>
+                    <p style="color:#d4a017;background:rgba(212,160,23,0.08);border:1px solid rgba(212,160,23,0.25);padding:10px 14px;border-radius:8px;font-size:0.82rem;line-height:1.6">⚠️ ${trust_message}</p>
+                </div>
+                <div class="score-badge">
+                    <div class="count" style="color:#555">0</div>
+                    <div class="lbl">Community<br>Reports</div>
+                </div>
+            </div>`;
+        } else if (trust_status === 'pending') {
+            trustCardHTML = `
+            <div class="trust-card" style="border-color:rgba(255,120,0,0.25);background:rgba(255,120,0,0.05)">
+                <div class="score-info" style="flex:1">
+                    <div style="margin-bottom:10px">
+                        <span class="badge" style="background:rgba(255,120,0,0.15);color:#f97316;border:1px solid rgba(255,120,0,0.3);font-size:0.72rem;padding:4px 12px">🏢 UNVERIFIED BUSINESS</span>
+                    </div>
+                    <p style="color:#f97316;background:rgba(255,120,0,0.08);border:1px solid rgba(255,120,0,0.25);padding:10px 14px;border-radius:8px;font-size:0.82rem;line-height:1.6">⚠️ ${trust_message}</p>
+                </div>
+                <div class="score-badge">
+                    <div class="count" style="color:#555">0</div>
+                    <div class="lbl">Community<br>Reports</div>
+                </div>
+            </div>`;
+        } else {
+            const sc    = trust_score >= 70 ? 'safe' : trust_score >= 40 ? 'warn' : 'danger';
+            const emoji = trust_score >= 70 ? '✅' : trust_score >= 40 ? '⚠️' : '🚨';
+            const label = trust_score >= 70 ? 'Looks Safe' : trust_score >= 40 ? 'Use Caution' : 'High Risk';
+            const desc  = trust_score >= 70
+                ? 'Based on community reports, this appears relatively safe. Always verify independently.'
+                : trust_score >= 40
+                ? 'Some reports found. Proceed with caution and verify independently.'
+                : 'Multiple reports found. High risk — do not proceed without thorough verification.';
+            const offset = circ - (trust_score / 100) * circ;
+            trustCardHTML = `
             <div class="trust-card ${sc}">
                 <div class="score-ring">
                     <svg width="100" height="100" viewBox="0 0 100 100">
@@ -2116,6 +2126,31 @@ const email = document.getElementById('otp-email-hidden').value.trim() || docume
                     <div class="lbl">Community<br>Reports</div>
                 </div>
             </div>`;
+        }
+
+        const shareScore = trust_status === 'scored' ? `Trust Score: ${trust_score}/100. ` : '';
+        const shareText = `I checked "${query}" on TrustCheck Nigeria — ${shareScore}${report_count} community reports.`;
+        const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+        const twUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+
+        document.getElementById('trust-score-section').innerHTML = `
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+                <h2 style="font-size:0.9rem;color:var(--muted2)">Results for <span style="color:var(--text);font-family:'JetBrains Mono',monospace">"${query}"</span></h2>
+                <button onclick="clearSearch()" style="background:transparent;border:1px solid var(--border2);color:var(--muted2);padding:4px 12px;border-radius:100px;font-size:0.72rem;cursor:pointer;font-family:'Space Grotesk',sans-serif">← Back</button>
+                <button onclick="currentReviewSubject='${query.replace(/'/g,"\\'")}';document.getElementById('review-subject-display').textContent='${query.replace(/'/g,"\\'")}';reviewRating=0;updateReviewStars();openModal('review-modal')"
+                    style="background:var(--gold-dim);border:1px solid rgba(255,181,71,0.25);color:var(--gold);padding:4px 14px;border-radius:100px;font-size:0.72rem;cursor:pointer;font-weight:600;font-family:'Space Grotesk',sans-serif">
+                    ⭐ Leave Review
+                </button>
+                <a href="${waUrl}" target="_blank" rel="noopener"
+                    style="background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.25);color:#25D366;padding:4px 14px;border-radius:100px;font-size:0.72rem;font-weight:600;text-decoration:none">
+                    📲 WhatsApp
+                </a>
+                <a href="${twUrl}" target="_blank" rel="noopener"
+                    style="background:var(--blue-dim);border:1px solid rgba(77,158,255,0.25);color:var(--blue);padding:4px 14px;border-radius:100px;font-size:0.72rem;font-weight:600;text-decoration:none">
+                    🐦 X / Twitter
+                </a>
+            </div>
+            ${trustCardHTML}`;
 
         const hasReports    = reports && reports.length > 0;
         const hasBusinesses = businesses && businesses.length > 0;

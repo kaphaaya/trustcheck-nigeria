@@ -431,16 +431,15 @@ def verify_identity(id_type, id_number, full_name):
 # ─── TRUST SCORE ─────────────────────────────────────────────────────────────
 def calculate_trust_score(report_count, unique_reporters, avg_rating, upvotes, downvotes):
     """
-    Weighted trust score (0–100).
-    Starts at 100, deductions for reports, adjusted by ratings and votes.
+    Weighted trust score (0–100). Only called when report_count > 0.
+    Starts at 50 (neutral) for 1-2 reports, lower for more reports.
     """
-    if report_count == 0:
-        base = 100
+    if report_count <= 2:
+        base = 50
     else:
-        # Diminishing penalty — first reports hurt more than later ones
-        base = max(0, 100 - (unique_reporters * 15) - (report_count * 5))
+        base = max(0, 60 - (unique_reporters * 10) - (report_count * 3))
 
-    # Rating adjustment: avg 1 = -20, avg 5 = +10
+    # Rating adjustment: avg 1 = -15, avg 5 = +15
     if avg_rating:
         rating_adj = (avg_rating - 3) * 5
         base = min(100, max(0, base + rating_adj))
@@ -727,21 +726,41 @@ def search():
 
     cur.close(); conn.close()
 
-    trust_score = calculate_trust_score(
-        report_count, unique_reporters, review_avg, total_up, total_down
-    )
+    # Determine trust status
+    if report_count == 0:
+        has_pending_biz = businesses and any(
+            b.get("status") != "verified" for b in businesses
+        )
+        if has_pending_biz:
+            trust_status  = "pending"
+            trust_message = ("This business has not been verified on TrustCheck Nigeria. "
+                             "Verification pending or not submitted.")
+        else:
+            trust_status  = "unverified"
+            trust_message = ("No reviews found for this search. This does not mean they are "
+                             "trustworthy — they simply have not been reported on TrustCheck "
+                             "yet. Always verify before you transact.")
+        trust_score = None
+    else:
+        trust_score   = calculate_trust_score(
+            report_count, unique_reporters, review_avg, total_up, total_down
+        )
+        trust_status  = "scored"
+        trust_message = None
 
     return jsonify({
-        "query":        query,
-        "report_count": report_count,
-        "trust_score":  trust_score,
-        "avg_rating":   round(review_avg, 1) if review_avg else None,
-        "review_count": review_count,
-        "reports":      reports,
-        "businesses":   businesses,
-        "page":         page,
-        "per_page":     per_page,
-        "date_from":    date_from
+        "query":         query,
+        "report_count":  report_count,
+        "trust_score":   trust_score,
+        "trust_status":  trust_status,
+        "trust_message": trust_message,
+        "avg_rating":    round(review_avg, 1) if review_avg else None,
+        "review_count":  review_count,
+        "reports":       reports,
+        "businesses":    businesses,
+        "page":          page,
+        "per_page":      per_page,
+        "date_from":     date_from
     })
 
 
