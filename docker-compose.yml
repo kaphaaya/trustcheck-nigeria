@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres:15-alpine
+    container_name: trustcheck-db
+    env_file: .env
+    environment:
+      POSTGRES_DB:       trustcheck
+      POSTGRES_USER:     postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - trustcheck-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: trustcheck-backend
+    env_file: .env
+    environment:
+      DB_HOST:          db
+      DB_NAME:          trustcheck
+      DB_USER:          postgres
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "5001:5000"
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - trustcheck-network
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: trustcheck-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - trustcheck-network
+    restart: unless-stopped
+
+networks:
+  trustcheck-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  uploads_data:

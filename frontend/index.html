@@ -1,0 +1,3027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustCheck Nigeria — Is It Legit? Check Before You Trust</title>
+    <meta name="description" content="Search any Nigerian phone number, business name, or social media handle to instantly see community scam reports and trust ratings. Nigeria's #1 fraud database." />
+    <meta name="keywords" content="Nigeria scam check, is it legit Nigeria, Nigerian fraud database, scam phone number Nigeria, business verification Nigeria, CAC verified Nigeria" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://trustchecknigeria.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://trustchecknigeria.com/" />
+    <meta property="og:title" content="TrustCheck Nigeria — Is It Legit?" />
+    <meta property="og:description" content="Check any Nigerian phone number, business, or social handle for scam reports. Community-powered trust database." />
+    <meta property="og:locale" content="en_NG" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:        #080B0F;
+            --surface:   #0E1218;
+            --surface2:  #141A22;
+            --border:    rgba(255,255,255,0.07);
+            --border2:   rgba(255,255,255,0.12);
+            --text:      #E8EDF5;
+            --muted:     #5A6478;
+            --muted2:    #8A95A8;
+            --green:     #00E87A;
+            --green-dim: rgba(0,232,122,0.12);
+            --green-glow:rgba(0,232,122,0.25);
+            --red:       #FF3B5C;
+            --red-dim:   rgba(255,59,92,0.12);
+            --gold:      #FFB547;
+            --gold-dim:  rgba(255,181,71,0.12);
+            --blue:      #4D9EFF;
+            --blue-dim:  rgba(77,158,255,0.12);
+            --radius:    12px;
+            --radius-lg: 20px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── GRID BACKGROUND ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,232,122,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,232,122,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(8,11,15,0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-icon {
+            width: 32px; height: 32px;
+            background: var(--green);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+        }
+        .logo em { color: var(--green); font-style: normal; }
+
+        .nav-links { display: flex; gap: 8px; align-items: center; }
+
+        .nav-btn {
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border2);
+            background: transparent;
+            color: var(--muted2);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Space Grotesk', sans-serif;
+            white-space: nowrap;
+        }
+        .nav-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+        .nav-btn.primary {
+            background: var(--green);
+            color: #000;
+            border-color: var(--green);
+            font-weight: 700;
+        }
+        .nav-btn.primary:hover { background: #00ff88; }
+        .nav-btn.danger {
+            background: var(--red-dim);
+            color: var(--red);
+            border-color: rgba(255,59,92,0.3);
+        }
+        .nav-btn.danger:hover { background: rgba(255,59,92,0.2); }
+
+        .nav-user {
+            display: flex; align-items: center; gap: 8px;
+            cursor: pointer; padding: 6px 12px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border2);
+            font-size: 0.82rem; font-weight: 600;
+            transition: all 0.2s; color: var(--text);
+            background: transparent;
+        }
+        .nav-user:hover { border-color: var(--green); color: var(--green); }
+        .nav-avatar {
+            width: 26px; height: 26px;
+            border-radius: 6px;
+            background: var(--green);
+            color: #000;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem; font-weight: 800;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            padding: 100px 5% 80px;
+            text-align: center;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px; left: 50%; transform: translateX(-50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(0,232,122,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--green-dim);
+            border: 1px solid rgba(0,232,122,0.2);
+            color: var(--green);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+        .hero-eyebrow .dot {
+            width: 6px; height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.4rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+        .hero h1 .line2 { color: var(--green); display: block; }
+
+        .hero-sub {
+            color: var(--muted2);
+            font-size: 1.05rem;
+            max-width: 520px;
+            margin: 0 auto 48px;
+            line-height: 1.65;
+            font-weight: 400;
+        }
+
+        /* ── SEARCH ── */
+        .search-wrap {
+            max-width: 680px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-tabs {
+            display: flex; gap: 6px;
+            justify-content: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .search-tab {
+            padding: 6px 14px;
+            border-radius: 100px;
+            border: 1px solid var(--border2);
+            background: transparent;
+            color: var(--muted2);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .search-tab.active, .search-tab:hover {
+            background: var(--green-dim);
+            border-color: rgba(0,232,122,0.3);
+            color: var(--green);
+        }
+
+        .search-shell {
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: var(--radius-lg);
+            padding: 6px 6px 6px 22px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .search-shell:focus-within {
+            border-color: rgba(0,232,122,0.4);
+            box-shadow: 0 0 0 3px rgba(0,232,122,0.08);
+        }
+
+        .search-shell input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text);
+            font-size: 0.97rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 400;
+        }
+        .search-shell input::placeholder { color: var(--muted); }
+
+        .search-btn {
+            background: var(--green);
+            color: #000;
+            border: none;
+            padding: 13px 28px;
+            border-radius: 14px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-family: 'Space Grotesk', sans-serif;
+            flex-shrink: 0;
+        }
+        .search-btn:hover { background: #00ff88; transform: translateY(-1px); }
+
+        .date-filter-row {
+            display: flex; gap: 6px;
+            justify-content: center;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* ── AUTOCOMPLETE ── */
+        .autocomplete-list {
+            position: absolute;
+            top: calc(100% + 6px); left: 0; right: 0;
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: var(--radius);
+            overflow: hidden;
+            z-index: 50;
+            display: none;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+        }
+        .autocomplete-list.open { display: block; }
+        .autocomplete-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+            transition: background 0.15s;
+        }
+        .autocomplete-item:last-child { border-bottom: none; }
+        .autocomplete-item:hover { background: var(--surface2); }
+        .ac-type {
+            font-size: 0.68rem; padding: 2px 8px;
+            border-radius: 100px; font-weight: 600;
+            background: var(--green-dim);
+            color: var(--green);
+            margin-left: auto;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* ── STATS ── */
+        .stats-bar {
+            position: relative; z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+        }
+        .stat-item {
+            padding: 28px 20px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-item:hover { background: var(--surface2); }
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.9rem;
+            font-weight: 500;
+            color: var(--green);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        /* ── MAIN LAYOUT ── */
+        .main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 48px 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── SECTION HEADER ── */
+        .section-header {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 20px;
+        }
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            display: flex; align-items: center; gap: 10px;
+            letter-spacing: -0.01em;
+        }
+        .section-title .icon {
+            width: 28px; height: 28px;
+            border-radius: 8px;
+            background: var(--surface2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+        .card:hover { border-color: var(--border2); }
+        .card-flush { padding: 0; overflow: hidden; }
+
+        /* ── TRUST SCORE CARD ── */
+        #search-results { display: none; margin-bottom: 40px; }
+
+        .trust-card {
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            position: relative;
+            overflow: hidden;
+        }
+        .trust-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.04;
+            background-image: repeating-linear-gradient(
+                45deg,
+                currentColor 0, currentColor 1px,
+                transparent 0, transparent 50%
+            );
+            background-size: 16px 16px;
+        }
+        .trust-card.safe   { background: rgba(0,232,122,0.06); border: 1px solid rgba(0,232,122,0.2); color: var(--green); }
+        .trust-card.warn   { background: rgba(255,181,71,0.06); border: 1px solid rgba(255,181,71,0.2); color: var(--gold); }
+        .trust-card.danger { background: rgba(255,59,92,0.06);  border: 1px solid rgba(255,59,92,0.2);  color: var(--red); }
+
+        .score-ring {
+            position: relative;
+            width: 100px; height: 100px;
+            flex-shrink: 0;
+        }
+        .score-ring svg { transform: rotate(-90deg); }
+        .score-ring-bg { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 6; }
+        .score-ring-fill { fill: none; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+        .score-ring-fill.safe   { stroke: var(--green); }
+        .score-ring-fill.warn   { stroke: var(--gold); }
+        .score-ring-fill.danger { stroke: var(--red); }
+        .score-num {
+            position: absolute;
+            inset: 0;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+        .score-num .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.7rem;
+            font-weight: 500;
+            line-height: 1;
+            color: var(--text);
+        }
+        .score-num .lbl {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted2);
+            margin-top: 2px;
+        }
+
+        .score-info { flex: 1; min-width: 200px; }
+        .score-info h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+        .score-info p { color: var(--muted2); font-size: 0.88rem; line-height: 1.55; }
+
+        .score-badge {
+            text-align: center;
+            padding: 16px 22px;
+            border-radius: var(--radius);
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            margin-left: auto;
+        }
+        .score-badge .count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--red);
+            line-height: 1;
+        }
+        .score-badge .lbl {
+            font-size: 0.65rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 4px;
+        }
+
+        /* ── RESULT TABS ── */
+        .result-tabs {
+            display: flex; gap: 0;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .result-tab {
+            padding: 10px 20px;
+            background: transparent; border: none;
+            color: var(--muted2);
+            font-size: 0.84rem; font-weight: 600;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .result-tab.active { color: var(--green); border-bottom-color: var(--green); }
+
+        /* ── REPORT ITEM ── */
+        .report-item {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+        .report-item:last-of-type { border-bottom: none; }
+        .report-item:hover { background: var(--surface2); }
+
+        .report-item-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        .report-subject {
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text);
+        }
+        .report-desc {
+            color: var(--muted2);
+            font-size: 0.84rem;
+            line-height: 1.55;
+            margin-bottom: 10px;
+        }
+        .report-loss {
+            font-size: 0.8rem;
+            color: var(--red);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .report-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.72rem;
+            color: var(--muted);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        /* ── VOTE BUTTONS ── */
+        .vote-btns { display: flex; gap: 6px; align-items: center; }
+        .vote-btn {
+            background: transparent;
+            border: 1px solid var(--border2);
+            color: var(--muted2);
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex; align-items: center; gap: 4px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .vote-btn:hover, .vote-btn.active {
+            border-color: var(--green);
+            color: var(--green);
+            background: var(--green-dim);
+        }
+        .vote-btn.down:hover, .vote-btn.down.active {
+            border-color: var(--red);
+            color: var(--red);
+            background: var(--red-dim);
+        }
+        .reply-toggle {
+            background: transparent; border: none;
+            color: var(--blue); font-size: 0.72rem;
+            cursor: pointer; padding: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: color 0.2s;
+        }
+        .reply-toggle:hover { color: var(--text); text-decoration: underline; }
+        .gold-link {
+            background: transparent; border: none;
+            color: var(--gold); font-size: 0.72rem;
+            cursor: pointer; padding: 0;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* ── REPLIES ── */
+        .replies-section {
+            margin-top: 12px;
+            padding-left: 16px;
+            border-left: 2px solid var(--border2);
+            display: none;
+        }
+        .replies-section.open { display: block; }
+        .reply-item {
+            padding: 10px 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.82rem;
+        }
+        .reply-meta { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
+        .reply-form { margin-top: 8px; display: flex; gap: 8px; }
+        .reply-form input {
+            flex: 1; padding: 8px 12px;
+            background: var(--surface2);
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            color: var(--text); font-size: 0.82rem;
+            font-family: 'Space Grotesk', sans-serif;
+            outline: none; transition: border-color 0.2s;
+        }
+        .reply-form input:focus { border-color: var(--green); }
+        .reply-form button {
+            padding: 8px 16px;
+            background: var(--green); color: #000;
+            border: none; border-radius: 8px;
+            font-size: 0.78rem; font-weight: 700;
+            cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* ── BADGES ── */
+        .badge {
+            display: inline-flex; align-items: center;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+        .badge-red    { background: var(--red-dim);  color: var(--red);  border: 1px solid rgba(255,59,92,0.25); }
+        .badge-green  { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,232,122,0.25); }
+        .badge-gold   { background: var(--gold-dim);  color: var(--gold);  border: 1px solid rgba(255,181,71,0.25); }
+        .badge-blue   { background: var(--blue-dim);  color: var(--blue);  border: 1px solid rgba(77,158,255,0.25); }
+        .badge-muted  { background: var(--surface2);  color: var(--muted2); border: 1px solid var(--border2); }
+
+        /* ── BUSINESS CARD ── */
+        .business-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .business-item:last-child { border-bottom: none; }
+        .business-item:hover { background: var(--surface2); }
+        .business-item h3 { font-size: 0.94rem; font-weight: 600; margin-bottom: 3px; }
+        .business-item p  { font-size: 0.78rem; color: var(--muted2); }
+
+        /* ── FEED ── */
+        .feed-item {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex; gap: 14px;
+            align-items: flex-start;
+            transition: background 0.15s;
+        }
+        .feed-item:last-child { border-bottom: none; }
+        .feed-item:hover { background: var(--surface2); }
+        .feed-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            background: var(--surface2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .feed-content { flex: 1; min-width: 0; }
+        .feed-title {
+            font-size: 0.86rem; font-weight: 600;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .feed-desc {
+            font-size: 0.76rem; color: var(--muted2);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            margin-top: 2px;
+        }
+        .feed-time { font-size: 0.68rem; color: var(--muted); margin-top: 4px; }
+
+        /* ── INFO CARDS ── */
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .info-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: all 0.2s;
+        }
+        .info-card:hover {
+            border-color: var(--border2);
+            transform: translateY(-2px);
+        }
+        .info-card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+        .info-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .info-card p {
+            font-size: 0.82rem;
+            color: var(--muted2);
+            line-height: 1.6;
+        }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            display: none; position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.open { display: flex; }
+
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            width: 100%;
+            max-width: 560px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalIn 0.25s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(16px) scale(0.98); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .modal-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .close-btn {
+            background: var(--surface2);
+            border: 1px solid var(--border2);
+            color: var(--muted2);
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .close-btn:hover { color: var(--text); background: var(--border2); }
+
+        /* ── FORM ── */
+        .form-group { margin-bottom: 16px; }
+        .form-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--muted2);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .req { color: var(--red); }
+
+        .form-control {
+            width: 100%;
+            padding: 11px 14px;
+            background: var(--surface2);
+            border: 1px solid var(--border2);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-size: 0.9rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            appearance: none;
+        }
+        .form-control:focus {
+            border-color: rgba(0,232,122,0.5);
+            box-shadow: 0 0 0 3px rgba(0,232,122,0.08);
+        }
+        .form-control.error { border-color: rgba(255,59,92,0.5); }
+        .form-control[type="textarea"],
+        textarea.form-control { height: 90px; resize: vertical; }
+        select.form-control option { background: var(--surface); }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        .field-error { font-size: 0.74rem; color: var(--red); margin-top: 4px; display: none; }
+        .field-error.show { display: block; }
+
+        /* ── UPLOAD ── */
+        .upload-area {
+            border: 2px dashed var(--border2);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .upload-area:hover { border-color: var(--green); background: var(--green-dim); }
+        .upload-area.has-file { border-color: var(--green); background: var(--green-dim); border-style: solid; }
+        .upload-area p { color: var(--muted2); font-size: 0.82rem; margin-top: 8px; }
+
+        /* ── BUTTONS ── */
+        .btn {
+            width: 100%;
+            padding: 13px;
+            border-radius: var(--radius);
+            border: none;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Space Grotesk', sans-serif;
+            display: flex; align-items: center;
+            justify-content: center; gap: 8px;
+            margin-bottom: 10px;
+        }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-green { background: var(--green); color: #000; }
+        .btn-green:hover:not(:disabled) { background: #00ff88; transform: translateY(-1px); }
+        .btn-red { background: var(--red); color: #fff; }
+        .btn-red:hover:not(:disabled) { background: #ff5c77; }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border2);
+            color: var(--muted2);
+        }
+        .btn-outline:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+        /* ── FORM MESSAGE ── */
+        .form-msg {
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            font-size: 0.84rem;
+            font-weight: 500;
+            margin-top: 10px;
+            display: none;
+            line-height: 1.4;
+        }
+        .form-msg.success {
+            background: var(--green-dim);
+            color: var(--green);
+            border: 1px solid rgba(0,232,122,0.2);
+            display: block;
+        }
+        .form-msg.error {
+            background: var(--red-dim);
+            color: var(--red);
+            border: 1px solid rgba(255,59,92,0.2);
+            display: block;
+        }
+
+        /* ── AUTH ── */
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 24px;
+            background: var(--surface2);
+            border-radius: var(--radius);
+            padding: 4px;
+            gap: 4px;
+        }
+        .auth-tab {
+            flex: 1; padding: 9px;
+            background: transparent; border: none;
+            color: var(--muted2);
+            font-size: 0.86rem; font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .auth-tab.active { background: var(--surface); color: var(--text); }
+
+        /* ── OTP ── */
+        .otp-screen { text-align: center; padding: 10px 0; }
+        .otp-input { display: flex; gap: 8px; justify-content: center; margin: 20px 0; }
+        .otp-digit {
+            width: 48px; height: 56px;
+            background: var(--surface2);
+            border: 1px solid var(--border2);
+            border-radius: var(--radius);
+            color: var(--text); font-size: 1.5rem;
+            font-weight: 700; text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            outline: none; transition: border-color 0.2s;
+        }
+        .otp-digit:focus { border-color: var(--green); }
+
+        /* ── STARS ── */
+        .rating-input { display: flex; gap: 4px; margin-top: 4px; }
+        .rating-star {
+            font-size: 1.5rem; cursor: pointer;
+            color: var(--border2); transition: color 0.15s;
+        }
+        .rating-star.filled { color: var(--gold); }
+        .star-display { color: var(--gold); font-size: 0.9rem; }
+
+        /* ── TOAST ── */
+        .toast-container {
+            position: fixed; bottom: 24px; right: 24px;
+            z-index: 999;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .toast {
+            background: var(--surface);
+            border: 1px solid var(--border2);
+            border-radius: var(--radius);
+            padding: 14px 18px;
+            font-size: 0.84rem; font-weight: 500;
+            display: flex; align-items: center; gap: 10px;
+            min-width: 260px; max-width: 360px;
+            animation: toastIn 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        .toast.success { border-left: 3px solid var(--green); }
+        .toast.error   { border-left: 3px solid var(--red); }
+        @keyframes toastIn  { from { transform: translateX(110%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes toastOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(110%); opacity: 0; } }
+
+        /* ── SPINNER ── */
+        .spinner {
+            width: 28px; height: 28px;
+            border: 2px solid var(--border2);
+            border-top-color: var(--green);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 30px auto;
+        }
+        .btn-spinner {
+            width: 16px; height: 16px;
+            border: 2px solid rgba(0,0,0,0.3);
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── EMPTY ── */
+        .empty {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--muted2);
+            font-size: 0.88rem;
+        }
+        .empty .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .empty .empty-title { font-weight: 600; color: var(--text); margin-bottom: 6px; }
+
+        /* ── NOTICE ── */
+        .notice {
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            font-size: 0.82rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .notice-gold { background: var(--gold-dim); border: 1px solid rgba(255,181,71,0.2); color: var(--gold); }
+        .notice-green { background: var(--green-dim); border: 1px solid rgba(0,232,122,0.2); color: var(--green); }
+        .notice-blue  { background: var(--blue-dim);  border: 1px solid rgba(77,158,255,0.2);  color: var(--blue); }
+
+        .divider {
+            display: flex; align-items: center; gap: 10px;
+            margin: 14px 0;
+            color: var(--muted); font-size: 0.75rem;
+        }
+        .divider::before, .divider::after {
+            content: ''; flex: 1; height: 1px; background: var(--border);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 36px 5%;
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-top: 60px;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--green);
+            margin-bottom: 10px;
+        }
+        .footer-links {
+            display: flex; gap: 20px;
+            justify-content: center; flex-wrap: wrap;
+            margin: 14px 0;
+        }
+        .footer-links a {
+            color: var(--muted2);
+            text-decoration: none;
+            font-size: 0.78rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--green); }
+
+        /* ── STEP WIZARD ── */
+        .wizard-steps {
+            display: flex; gap: 0;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .wizard-step {
+            flex: 1; padding: 10px 8px;
+            text-align: center;
+            font-size: 0.75rem; font-weight: 600;
+            color: var(--muted);
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .wizard-step.active { color: var(--green); border-bottom-color: var(--green); }
+        .wizard-step.done   { color: var(--muted2); }
+
+        .wizard-pane { display: none; }
+        .wizard-pane.active { display: block; }
+
+        .wizard-nav {
+            display: flex; gap: 10px; margin-top: 16px;
+        }
+        .wizard-nav .btn { margin-bottom: 0; }
+
+        /* ── MOBILE ── */
+        @media (max-width: 768px) {
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 2rem; }
+            .modal { padding: 20px; }
+            .form-row { grid-template-columns: 1fr; }
+            .trust-card { flex-direction: column; align-items: flex-start; }
+            .score-badge { margin-left: 0; }
+            .toast-container { bottom: 12px; right: 12px; left: 12px; }
+            .toast { min-width: unset; max-width: unset; }
+            .hero { padding: 60px 5% 48px; }
+            .section-grid { grid-template-columns: 1fr; }
+            .nav-btn span { display: none; }
+        }
+        @media (max-width: 480px) {
+            nav { padding: 0 4%; }
+            .logo { font-size: 1.05rem; }
+            .nav-btn { padding: 7px 10px; font-size: 0.78rem; }
+            .stat-item { padding: 18px 10px; }
+            .stat-number { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ── NAV ── -->
+<nav>
+    <div class="logo">
+        <div class="logo-icon">🛡️</div>
+        Trust<em>Check</em> <span style="color:var(--muted2);font-weight:400;font-size:0.9rem">Nigeria</span>
+    </div>
+    <div class="nav-links">
+        <button class="nav-btn danger" onclick="openModal('report-modal')">🚨 <span>Report Scam</span></button>
+        <button class="nav-btn primary" onclick="openModal('verify-modal')">✅ <span>Verify Business</span></button>
+        <div id="nav-auth-area">
+            <button class="nav-btn" onclick="openModal('auth-modal')">Login / Sign Up</button>
+        </div>
+    </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+    <div class="hero-eyebrow">
+        <div class="dot"></div>
+        🇳🇬 Nigeria's #1 Scam & Trust Database
+    </div>
+    <h1>
+        Is it legit?
+        <span class="line2">Check before you trust.</span>
+    </h1>
+    <p class="hero-sub">Search any phone number, business name, or social media handle. See community reports and trust scores in seconds.</p>
+
+    <div class="search-wrap">
+        <div class="search-tabs">
+            <button class="search-tab active" onclick="setSearchType('all',this)">All</button>
+            <button class="search-tab" onclick="setSearchType('phone',this)">📱 Phone</button>
+            <button class="search-tab" onclick="setSearchType('business',this)">🏢 Business</button>
+            <button class="search-tab" onclick="setSearchType('social',this)">📲 Social</button>
+        </div>
+        <div class="search-shell" id="search-shell">
+            <input type="text" id="search-input"
+                placeholder="Search phone, business name, @handle..."
+                onkeydown="if(event.key==='Enter') doSearch()"
+                oninput="handleSearchInput(this.value)"
+                autocomplete="off" />
+            <button class="search-btn" onclick="doSearch()">Check Now →</button>
+        </div>
+        <div id="search-error" style="display:none;color:var(--red);font-size:0.82rem;margin-top:8px;text-align:center;font-weight:500;"></div>
+        <div class="autocomplete-list" id="autocomplete-list"></div>
+        <div class="date-filter-row" id="date-filter-row">
+            <button class="search-tab active" onclick="setDateFilter('',this)">All Time</button>
+            <button class="search-tab" onclick="setDateFilter('7days',this)">7 Days</button>
+            <button class="search-tab" onclick="setDateFilter('30days',this)">30 Days</button>
+            <button class="search-tab" onclick="setDateFilter('90days',this)">90 Days</button>
+            <button class="search-tab" onclick="setDateFilter('1year',this)">1 Year</button>
+        </div>
+    </div>
+</div>
+
+<!-- ── STATS ── -->
+<div class="stats-bar">
+    <div class="stat-item">
+        <div class="stat-number" id="stat-total">--</div>
+        <div class="stat-label">Total Reports</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number" id="stat-today">--</div>
+        <div class="stat-label">Reports Today</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number" id="stat-verified">--</div>
+        <div class="stat-label">Verified Businesses</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number">🇳🇬</div>
+        <div class="stat-label">Nigeria-Focused</div>
+    </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+    <!-- SEARCH RESULTS -->
+    <div id="search-results">
+        <div id="trust-score-section"></div>
+        <div id="result-tabs-section"></div>
+        <div id="reports-section"></div>
+        <div id="businesses-section"></div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard">
+        <div class="section-header">
+            <div class="section-title">
+                <div class="icon">🕐</div>
+                Recent Community Reports
+            </div>
+            <span style="font-size:0.75rem;color:var(--muted)">Live feed</span>
+        </div>
+        <div class="card card-flush" style="margin-bottom:48px">
+            <div id="recent-feed"><div class="spinner"></div></div>
+        </div>
+
+        <div class="section-header" style="margin-top:40px">
+            <div class="section-title">
+                <div class="icon">⚠️</div>
+                How to Protect Yourself
+            </div>
+        </div>
+        <div class="section-grid">
+            <div class="info-card">
+                <div class="info-card-icon">📱</div>
+                <h3>Social Media Scams</h3>
+                <p>Fake Instagram vendors, Twitter giveaway scams, Facebook marketplace fraud. Always check a seller's handle before sending money.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">💰</div>
+                <h3>Investment Scams</h3>
+                <p>Ponzi schemes, fake crypto platforms, "double your money" offers. If returns sound too good to be true — they are.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🏠</div>
+                <h3>Rental Scams</h3>
+                <p>Fake landlords collecting rent for property they don't own. Always verify ownership at the land registry before payment.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">💼</div>
+                <h3>Job Scams</h3>
+                <p>Fake job offers requiring upfront payment for training or processing fees. Legitimate employers do not charge to hire you.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-logo">🛡️ TrustCheck Nigeria</div>
+    <p>Protecting Nigerians from fraud — one report at a time.</p>
+    <div class="footer-links">
+        <a href="#" onclick="openModal('about-modal');return false">About</a>
+        <a href="#" onclick="openModal('tos-modal');return false">Terms of Service</a>
+        <a href="#" onclick="openModal('privacy-modal');return false">Privacy Policy</a>
+        <a href="#" onclick="openModal('ndpr-modal');return false">NDPR Notice</a>
+        <a href="#" onclick="openModal('report-modal');return false">Report a Scam</a>
+    </div>
+    <p style="margin-top:8px">© 2025 TrustCheck Nigeria. Community-powered fraud database.</p>
+    <p style="margin-top:4px;font-size:0.7rem;color:var(--muted)">NDPR compliant · Nigeria Data Protection Regulation</p>
+</footer>
+
+
+<!-- ════════════════════════════════════ -->
+<!-- AUTH MODAL                          -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="auth-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="auth-modal-title">👤 Account</div>
+            <button class="close-btn" onclick="closeModal('auth-modal')">✕</button>
+        </div>
+
+        <div class="auth-tabs" id="auth-tabs">
+            <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
+            <button class="auth-tab" onclick="switchAuthTab('register')">Create Account</button>
+        </div>
+
+        <!-- LOGIN -->
+        <div id="auth-login-form">
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input class="form-control" type="email" id="login-email" placeholder="you@example.com" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input class="form-control" type="password" id="login-password" placeholder="••••••••"
+                    onkeydown="if(event.key==='Enter') doLogin()" />
+            </div>
+            <button class="btn btn-green" onclick="doLogin()" id="login-btn">Login</button>
+            <div class="form-msg" id="login-message"></div>
+        </div>
+
+        <!-- REGISTER -->
+        <div id="auth-register-form" style="display:none">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Full Name <span class="req">*</span></label>
+                    <input class="form-control" type="text" id="reg-name" placeholder="Your full name" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone (optional)</label>
+                    <input class="form-control" type="text" id="reg-phone" placeholder="08012345678" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Email Address <span class="req">*</span></label>
+                <input class="form-control" type="email" id="reg-email" placeholder="you@example.com" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password <span class="req">*</span></label>
+                <input class="form-control" type="password" id="reg-password" placeholder="At least 8 characters" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Confirm Password <span class="req">*</span></label>
+                <input class="form-control" type="password" id="reg-confirm" placeholder="Repeat password" />
+            </div>
+            <button class="btn btn-green" onclick="doRegister()" id="register-btn">Create Account</button>
+            <div class="form-msg" id="register-message"></div>
+        </div>
+
+        <!-- OTP -->
+        <div id="auth-otp-form" style="display:none">
+            <input type="hidden" id="otp-email-hidden" value="">
+            <div class="otp-screen">
+                <div style="font-size:2.5rem;margin-bottom:12px">📧</div>
+                <h3 style="font-family:'Syne',sans-serif;margin-bottom:8px">Check your email</h3>
+                <p style="color:var(--muted2);font-size:0.85rem;margin-bottom:4px">We sent a 6-digit code to</p>
+                <p style="font-weight:700;margin-bottom:20px;font-family:'JetBrains Mono',monospace" id="otp-email-display">your email</p>
+                <div class="otp-input" id="otp-inputs">
+                    <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" />
+                    <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" />
+                    <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" />
+                    <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" />
+                    <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" />
+                    <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" />
+                </div>
+                <button class="btn btn-green" onclick="verifyOTP()" id="otp-btn">Verify Email</button>
+                <div class="form-msg" id="otp-message"></div>
+                <p style="margin-top:14px;font-size:0.8rem;color:var(--muted2)">
+                    Didn't get it?
+                    <button onclick="resendOTP()" style="background:none;border:none;color:var(--green);cursor:pointer;font-family:inherit;font-size:0.8rem;font-weight:600">Resend code</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ════════════════════════════════════ -->
+<!-- REPORT MODAL (wizard flow)          -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="report-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">🚨 Report a Scam</div>
+            <button class="close-btn" onclick="closeModal('report-modal')">✕</button>
+        </div>
+
+        <div id="report-auth-notice" style="display:none" class="notice notice-gold">
+            ⚠️ Submitting as guest.
+            <button onclick="closeModal('report-modal');openModal('auth-modal')" style="background:none;border:none;color:var(--green);cursor:pointer;font-family:inherit;font-weight:700">Login</button>
+            to track your reports.
+        </div>
+
+        <!-- Step indicators -->
+        <div class="wizard-steps" id="report-steps">
+            <div class="wizard-step active" id="rs-0">1 · What</div>
+            <div class="wizard-step" id="rs-1">2 · Details</div>
+            <div class="wizard-step" id="rs-2">3 · Evidence</div>
+        </div>
+
+        <!-- Step 1: What are you reporting -->
+        <div class="wizard-pane active" id="rp-0">
+            <div class="form-group">
+                <label class="form-label">What are you reporting? <span class="req">*</span></label>
+                <select class="form-control" id="r-type" onchange="updateReportFields()">
+                    <option value="phone">📱 Phone Number</option>
+                    <option value="business">🏢 Business / Vendor</option>
+                    <option value="social">📲 Social Media Account</option>
+                    <option value="person">👤 Individual Person</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label" id="r-subject-label">Phone Number <span class="req">*</span></label>
+                <input class="form-control" type="text" id="r-subject" placeholder="e.g. 08012345678" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Scam Category <span class="req">*</span></label>
+                <select class="form-control" id="r-category">
+                    <option value="Crypto/Investment">Crypto / Investment Fraud</option>
+                    <option value="Fake Online Store">Fake Online Store</option>
+                    <option value="Romance Scam">Romance Scam</option>
+                    <option value="Fake Job Offer">Fake Job Offer</option>
+                    <option value="Ponzi Scheme">Ponzi Scheme</option>
+                    <option value="Rental Scam">Rental Scam</option>
+                    <option value="Impersonation">Government / Brand Impersonation</option>
+                    <option value="Phishing">Phishing / Identity Theft</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="wizard-nav">
+                <button class="btn btn-green" onclick="reportStep(1)">Next →</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Details -->
+        <div class="wizard-pane" id="rp-1">
+            <div class="form-group" id="r-platform-group">
+                <label class="form-label">Platform</label>
+                <select class="form-control" id="r-platform">
+                    <option value="">Select platform...</option>
+                    <option>Instagram</option><option>WhatsApp</option><option>Facebook</option>
+                    <option>Twitter/X</option><option>Telegram</option><option>TikTok</option>
+                    <option>Phone Call</option><option>SMS</option><option>Email</option><option>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Describe the Scam <span class="req">*</span></label>
+                <textarea class="form-control" id="r-description" style="height:100px"
+                    placeholder="Explain what happened so others can recognise it..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">How much did you lose? (optional)</label>
+                <input class="form-control" type="text" id="r-amount" placeholder="e.g. ₦50,000 — leave blank if none" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Your Rating of this entity</label>
+                <div class="rating-input" id="report-rating-stars">
+                    <span class="rating-star" onclick="setReportRating(1)">★</span>
+                    <span class="rating-star" onclick="setReportRating(2)">★</span>
+                    <span class="rating-star" onclick="setReportRating(3)">★</span>
+                    <span class="rating-star" onclick="setReportRating(4)">★</span>
+                    <span class="rating-star" onclick="setReportRating(5)">★</span>
+                </div>
+                <p style="font-size:0.72rem;color:var(--muted);margin-top:4px">1 = total scam · 5 = totally legit</p>
+            </div>
+            <div class="wizard-nav">
+                <button class="btn btn-outline" onclick="reportStep(0)" style="margin-bottom:0">← Back</button>
+                <button class="btn btn-green" onclick="reportStep(2)" style="margin-bottom:0">Next →</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Evidence & Submit -->
+        <div class="wizard-pane" id="rp-2">
+            <div class="form-group">
+                <label class="form-label">Upload Proof (screenshot, receipt, etc.)</label>
+                <div class="upload-area" id="upload-area" onclick="document.getElementById('proof-file').click()">
+                    <div style="font-size:2rem">📎</div>
+                    <p id="upload-text">Click to upload screenshot or proof</p>
+                    <p style="font-size:0.7rem;color:var(--muted);margin-top:4px">JPG, PNG up to 5MB</p>
+                </div>
+                <input type="file" id="proof-file" accept="image/*" style="display:none" onchange="handleFileUpload(this)" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Your Name (optional)</label>
+                <input class="form-control" type="text" id="r-name" placeholder="Anonymous" />
+            </div>
+            <div class="notice notice-blue" style="font-size:0.78rem">
+                🔒 <strong style="color:var(--text)">NDPR Notice:</strong> By submitting, you consent to TrustCheck Nigeria storing this report per our
+                <a href="#" onclick="closeModal('report-modal');openModal('ndpr-modal');return false" style="color:var(--green)">NDPR Notice</a>.
+                Your email is never displayed publicly.
+            </div>
+            <div class="wizard-nav">
+                <button class="btn btn-outline" onclick="reportStep(1)" style="margin-bottom:0">← Back</button>
+                <button class="btn btn-red" onclick="submitReport()" id="submit-report-btn" style="margin-bottom:0">🚨 Submit Report</button>
+            </div>
+            <div class="form-msg" id="report-message"></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ════════════════════════════════════ -->
+<!-- VERIFY BUSINESS MODAL              -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="verify-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">✅ Verify Your Business</div>
+            <button class="close-btn" onclick="closeModal('verify-modal')">✕</button>
+        </div>
+
+        <div class="notice notice-green" style="margin-bottom:20px;font-size:0.82rem">
+            ✅ Verified businesses get a trust badge visible in all search results. All fields marked * are required.
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Business Name <span class="req">*</span></label>
+            <input class="form-control" type="text" id="v-business" placeholder="Registered business name" />
+            <div class="field-error" id="v-business-error">Business name is required</div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Owner's Full Name <span class="req">*</span></label>
+                <input class="form-control" type="text" id="v-owner" placeholder="Full name" />
+                <div class="field-error" id="v-owner-error">Owner name is required</div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Phone Number <span class="req">*</span></label>
+                <input class="form-control" type="text" id="v-phone" placeholder="08012345678" />
+                <div class="field-error" id="v-phone-error">Phone number is required</div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Email Address <span class="req">*</span></label>
+                <input class="form-control" type="email" id="v-email" placeholder="business@email.com" />
+                <div class="field-error" id="v-email-error">Email address is required</div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Business Address <span class="req">*</span></label>
+                <input class="form-control" type="text" id="v-address" placeholder="Full business address" />
+                <div class="field-error" id="v-address-error">Business address is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">CAC Registration Number <span class="req">*</span></label>
+            <input class="form-control" type="text" id="v-cac" placeholder="e.g. RC-1234567" />
+            <div class="field-error" id="v-cac-error">CAC number is required</div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">ID Type <span class="req">*</span></label>
+                <select class="form-control" id="v-type" onchange="updateVerifyLabel()">
+                    <option value="NIN">NIN (National ID)</option>
+                    <option value="BVN">BVN</option>
+                    <option value="Drivers License">Driver's License</option>
+                    <option value="Passport">International Passport</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label" id="v-number-label">NIN Number <span class="req">*</span></label>
+                <input class="form-control" type="text" id="v-number" placeholder="Enter your NIN number" />
+                <div class="field-error" id="v-number-error">Identity number is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Upload Identity Document (PDF only) <span class="req">*</span></label>
+            <div class="upload-area" id="verify-upload-area" onclick="document.getElementById('verify-file').click()">
+                <div style="font-size:2rem">📄</div>
+                <p id="verify-upload-text">Click to upload your identity document (PDF only)</p>
+                <p style="font-size:0.7rem;color:var(--muted);margin-top:4px">PDF files only, up to 10MB</p>
+            </div>
+            <input type="file" id="verify-file" accept=".pdf" style="display:none" onchange="handleVerifyUpload(this)" />
+            <div class="field-error" id="v-doc-error">Please upload your identity document as a PDF</div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Website (optional)</label>
+            <input class="form-control" type="text" id="v-website" placeholder="https://yourbusiness.com" />
+        </div>
+        <div class="form-group">
+            <label class="form-label">Business Description (optional)</label>
+            <textarea class="form-control" id="v-description" style="height:70px" placeholder="What products or services does your business offer?"></textarea>
+        </div>
+
+        <div style="margin:16px 0 8px;font-size:0.82rem;color:var(--muted2);font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Social Media Handles (optional)</div>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Instagram</label>
+                <input class="form-control" type="text" id="v-instagram" placeholder="@yourbusiness" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Twitter / X</label>
+                <input class="form-control" type="text" id="v-twitter" placeholder="@yourbusiness" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Facebook</label>
+                <input class="form-control" type="text" id="v-facebook" placeholder="facebook.com/yourbusiness" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">TikTok</label>
+                <input class="form-control" type="text" id="v-tiktok" placeholder="@yourbusiness" />
+            </div>
+        </div>
+
+        <button class="btn btn-green" onclick="submitVerification()" id="submit-verify-btn">✅ Submit for Verification</button>
+        <div class="form-msg" id="verify-message"></div>
+    </div>
+</div>
+
+
+<!-- ════════════════════════════════════ -->
+<!-- REVIEW MODAL                        -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="review-modal">
+    <div class="modal" style="max-width:460px">
+        <div class="modal-header">
+            <div class="modal-title">⭐ Leave a Review</div>
+            <button class="close-btn" onclick="closeModal('review-modal')">✕</button>
+        </div>
+        <p style="color:var(--muted2);font-size:0.85rem;margin-bottom:20px">
+            Reviewing: <strong id="review-subject-display" style="color:var(--text);font-family:'JetBrains Mono',monospace"></strong>
+        </p>
+        <div class="form-group">
+            <label class="form-label">Your Rating <span class="req">*</span></label>
+            <div class="rating-input" id="review-stars">
+                <span class="rating-star" onclick="setReviewRating(1)">★</span>
+                <span class="rating-star" onclick="setReviewRating(2)">★</span>
+                <span class="rating-star" onclick="setReviewRating(3)">★</span>
+                <span class="rating-star" onclick="setReviewRating(4)">★</span>
+                <span class="rating-star" onclick="setReviewRating(5)">★</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Your Review <span class="req">*</span></label>
+            <textarea class="form-control" id="review-comment" placeholder="Share your experience — was it safe or a scam?"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Your Name (optional)</label>
+            <input class="form-control" type="text" id="review-name" placeholder="Anonymous" />
+        </div>
+        <button class="btn btn-green" onclick="submitReview()" id="submit-review-btn">⭐ Post Review</button>
+        <div class="form-msg" id="review-message"></div>
+    </div>
+</div>
+
+
+<!-- ════════════════════════════════════ -->
+<!-- APPEAL MODAL                        -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="appeal-modal">
+    <div class="modal" style="max-width:480px">
+        <div class="modal-header">
+            <div class="modal-title">📋 Appeal a Report</div>
+            <button class="close-btn" onclick="closeModal('appeal-modal')">✕</button>
+        </div>
+        <p style="color:var(--muted2);font-size:0.84rem;margin-bottom:20px;line-height:1.55">
+            If you believe this report is inaccurate or defamatory, submit an appeal. Our team reviews all appeals within 48 hours.
+        </p>
+        <input type="hidden" id="appeal-report-id" />
+        <div class="form-group">
+            <label class="form-label">Your Name or Business Name <span class="req">*</span></label>
+            <input class="form-control" type="text" id="appeal-name" placeholder="Full name or business name" />
+        </div>
+        <div class="form-group">
+            <label class="form-label">Reason for Appeal <span class="req">*</span></label>
+            <textarea class="form-control" id="appeal-reason" style="height:110px"
+                placeholder="Explain clearly why this report is inaccurate..."></textarea>
+        </div>
+        <div class="notice notice-gold" style="font-size:0.78rem;margin-bottom:16px">
+            ⚠️ False or frivolous appeals may result in reduced credibility weighting.
+        </div>
+        <button class="btn btn-green" onclick="submitAppeal()" id="submit-appeal-btn">📋 Submit Appeal</button>
+        <div class="form-msg" id="appeal-message"></div>
+    </div>
+</div>
+
+
+<!-- ════════════════════════════════════ -->
+<!-- REPORT DETAIL MODAL                 -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="report-detail-modal">
+    <div class="modal" style="max-width:680px">
+        <div class="modal-header">
+            <div class="modal-title" id="report-detail-title">📋 Report</div>
+            <button class="close-btn" onclick="closeModal('report-detail-modal')">✕</button>
+        </div>
+        <div id="report-detail-content"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- BUSINESS PROFILE MODAL              -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="biz-profile-modal">
+    <div class="modal" style="max-width:680px">
+        <div class="modal-header">
+            <div class="modal-title" id="biz-profile-title">🏢 Business Profile</div>
+            <button class="close-btn" onclick="closeModal('biz-profile-modal')">✕</button>
+        </div>
+        <div id="biz-profile-content"><div class="spinner"></div></div>
+    </div>
+</div>
+
+
+<!-- ════════════════════════════════════ -->
+<!-- PROFILE MODAL                       -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="profile-modal">
+    <div class="modal" style="max-width:600px">
+        <div class="modal-header">
+            <div class="modal-title">👤 My Profile</div>
+            <button class="close-btn" onclick="closeModal('profile-modal')">✕</button>
+        </div>
+        <div id="profile-content"><div class="spinner"></div></div>
+    </div>
+</div>
+
+
+<!-- ════════════════════════════════════ -->
+<!-- ABOUT MODAL                         -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="about-modal">
+    <div class="modal" style="max-width:620px">
+        <div class="modal-header">
+            <div class="modal-title">🛡️ About TrustCheck Nigeria</div>
+            <button class="close-btn" onclick="closeModal('about-modal')">✕</button>
+        </div>
+        <div style="line-height:1.7;color:var(--muted2);font-size:0.88rem">
+            <p style="margin-bottom:16px"><strong style="color:var(--text)">TrustCheck Nigeria</strong> is a community-powered scam reporting and business verification platform built to protect Nigerians from online fraud.</p>
+            <p style="margin-bottom:16px">Nigeria loses billions of naira every year to online scams. There was no single searchable place where Nigerians could instantly check if a phone number, business, or account had been reported. TrustCheck fills that gap.</p>
+            <div class="notice notice-green" style="margin-bottom:16px">
+                <p style="color:var(--green);font-weight:700;margin-bottom:6px">What makes us different</p>
+                <p style="color:var(--muted2)">Unlike government portals that only tell you if a business is registered, TrustCheck combines CAC government verification with community social proof.</p>
+            </div>
+            <p style="margin-bottom:16px"><strong style="color:var(--text)">How the Trust Score works:</strong> Our score (0–100) uses report count, unique reporters, star ratings, and vote credibility. A business with 50 reports from 50 people scores very differently from one with 50 reports from the same account.</p>
+            <p>Built by <strong style="color:var(--text)">Brown</strong> — Cloud Engineering student, AWS Solutions Architect candidate. Based in Nigeria, building things that matter for Africa. 🇳🇬</p>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- TOS MODAL                           -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="tos-modal">
+    <div class="modal" style="max-width:620px">
+        <div class="modal-header">
+            <div class="modal-title">📋 Terms of Service</div>
+            <button class="close-btn" onclick="closeModal('tos-modal')">✕</button>
+        </div>
+        <div style="line-height:1.7;color:var(--muted2);font-size:0.85rem;max-height:60vh;overflow-y:auto">
+            <p style="margin-bottom:12px"><strong style="color:var(--text)">Last updated: January 2025</strong></p>
+            <p style="margin-bottom:12px">By using TrustCheck Nigeria ("the Platform"), you agree to these Terms of Service.</p>
+            <p style="color:var(--text);font-weight:700;margin:16px 0 8px">1. Acceptable Use</p>
+            <p style="margin-bottom:12px">You may only submit reports that are truthful and based on your genuine experience. Filing false, defamatory, or malicious reports is prohibited.</p>
+            <p style="color:var(--text);font-weight:700;margin:16px 0 8px">2. Report Accuracy</p>
+            <p style="margin-bottom:12px">All reports are community-submitted. TrustCheck Nigeria does not guarantee the accuracy of any report.</p>
+            <p style="color:var(--text);font-weight:700;margin:16px 0 8px">3. Limitation of Liability</p>
+            <p style="margin-bottom:12px">TrustCheck Nigeria is not liable for any loss arising from reliance on information on the Platform. Always conduct independent verification before financial transactions.</p>
+            <p style="color:var(--text);font-weight:700;margin:16px 0 8px">4. Governing Law</p>
+            <p>Governed by the laws of the Federal Republic of Nigeria.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- PRIVACY MODAL                       -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="privacy-modal">
+    <div class="modal" style="max-width:620px">
+        <div class="modal-header">
+            <div class="modal-title">🔒 Privacy Policy</div>
+            <button class="close-btn" onclick="closeModal('privacy-modal')">✕</button>
+        </div>
+        <div style="line-height:1.7;color:var(--muted2);font-size:0.85rem;max-height:60vh;overflow-y:auto">
+            <p style="color:var(--text);font-weight:700;margin:0 0 8px">What We Collect</p>
+            <p style="margin-bottom:12px">Name, email, hashed password on registration. Report content and any uploaded proof when you submit. We do not collect payment information.</p>
+            <p style="color:var(--text);font-weight:700;margin:16px 0 8px">What We Don't Do</p>
+            <p style="margin-bottom:12px">We do not sell your data. We do not share your information with advertisers. Your email is never displayed publicly.</p>
+            <p style="color:var(--text);font-weight:700;margin:16px 0 8px">Your Rights</p>
+            <p>You may request deletion of your account at any time. Under NDPR, you have the right to access, correct, and delete your personal data.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- NDPR MODAL                          -->
+<!-- ════════════════════════════════════ -->
+<div class="modal-overlay" id="ndpr-modal">
+    <div class="modal" style="max-width:580px">
+        <div class="modal-header">
+            <div class="modal-title">🇳🇬 NDPR Data Protection Notice</div>
+            <button class="close-btn" onclick="closeModal('ndpr-modal')">✕</button>
+        </div>
+        <div style="line-height:1.7;color:var(--muted2);font-size:0.85rem">
+            <div class="notice notice-green" style="margin-bottom:16px">
+                <p style="color:var(--green);font-weight:700;margin-bottom:6px">NDPR 2019 Compliance</p>
+                <p>TrustCheck Nigeria processes personal data in compliance with the NDPR 2019, issued by NITDA.</p>
+            </div>
+            <p style="color:var(--text);font-weight:700;margin:0 0 8px">Your Rights Under NDPR</p>
+            <ul style="padding-left:20px;margin-bottom:16px">
+                <li>Right to access your personal data</li>
+                <li>Right to correct inaccurate data</li>
+                <li>Right to erasure ("right to be forgotten")</li>
+                <li>Right to data portability</li>
+                <li>Right to object to processing</li>
+            </ul>
+            <p style="color:var(--text);font-weight:700;margin:0 0 8px">Retention</p>
+            <p>Account data retained until deletion request. Reports retained for public interest but can be appealed.</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- ════════════════════════════════════ -->
+<!-- JAVASCRIPT                          -->
+<!-- ════════════════════════════════════ -->
+<script>
+    const API = '/api';
+
+    // ── STATE ──
+    let searchType = 'all';
+    let dateFilter = '';
+    let currentPage = 1;
+    let lastQuery = '';
+    let proofBase64 = null;
+    let verifyFileBase64 = null;
+    let reportRating = 0;
+    let reviewRating = 0;
+    let currentReviewSubject = '';
+    let currentUser = null;
+    let authToken = null;
+    let acDebounce = null;
+    let reportWizardStep = 0;
+
+    try {
+        const saved = sessionStorage.getItem('tc_user');
+        if (saved) { const s = JSON.parse(saved); currentUser = s.user; authToken = s.token; }
+    } catch(e) {}
+
+    // ── TOAST ──
+    function showToast(msg, type = 'success') {
+        const c = document.getElementById('toast-container');
+        const t = document.createElement('div');
+        t.className = `toast ${type}`;
+        t.innerHTML = `${type === 'success' ? '✅' : '❌'} ${msg}`;
+        c.appendChild(t);
+        setTimeout(() => {
+            t.style.animation = 'toastOut 0.3s ease forwards';
+            setTimeout(() => t.remove(), 300);
+        }, 3500);
+    }
+
+    // ── NAV AUTH ──
+    function updateNavAuth() {
+        const area = document.getElementById('nav-auth-area');
+        if (currentUser) {
+            const initials = (currentUser.name || '??').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+            area.innerHTML = `
+                <div class="nav-user" onclick="openUserProfile()">
+                    <div class="nav-avatar">${initials}</div>
+                    <span>${currentUser.name ? currentUser.name.split(' ')[0] : 'Account'}</span>
+                </div>`;
+        } else {
+            area.innerHTML = `<button class="nav-btn" onclick="openModal('auth-modal')">Login / Sign Up</button>`;
+        }
+    }
+
+    // ── AUTH TABS ──
+    function switchAuthTab(tab) {
+        document.querySelectorAll('.auth-tab').forEach((t,i) =>
+            t.classList.toggle('active', (i===0 && tab==='login') || (i===1 && tab==='register')));
+        document.getElementById('auth-login-form').style.display    = tab === 'login'    ? 'block' : 'none';
+        document.getElementById('auth-register-form').style.display = tab === 'register' ? 'block' : 'none';
+        document.getElementById('auth-otp-form').style.display      = 'none';
+    }
+
+    // ── LOGIN ──
+    async function doLogin() {
+        const email    = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value;
+        const msg = document.getElementById('login-message');
+        const btn = document.getElementById('login-btn');
+        if (!email || !password) { setMsg(msg,'error','Please enter email and password.'); return; }
+        setLoading(btn, true);
+        try {
+            const res  = await fetch(`${API}/auth/login`, {
+                method: 'POST', headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ email, password })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                currentUser = data.user; authToken = data.token;
+                sessionStorage.setItem('tc_user', JSON.stringify({ user: data.user, token: data.token }));
+                closeModal('auth-modal'); updateNavAuth();
+                showToast(`Welcome back, ${data.user.name || 'friend'}! 👋`);
+            } else {
+                setMsg(msg, 'error', data.error || 'Invalid credentials.');
+            }
+        } catch(e) { setMsg(msg, 'error', 'Could not connect to server.'); }
+        setLoading(btn, false);
+    }
+
+    // ── REGISTER ──
+    async function doRegister() {
+        const name     = document.getElementById('reg-name').value.trim();
+        const email    = document.getElementById('reg-email').value.trim();
+        const password = document.getElementById('reg-password').value;
+        const confirm  = document.getElementById('reg-confirm').value;
+        const msg = document.getElementById('register-message');
+        const btn = document.getElementById('register-btn');
+        if (!name || !email || !password) { setMsg(msg,'error','Please fill in all required fields.'); return; }
+        if (password.length < 8) { setMsg(msg,'error','Password must be at least 8 characters.'); return; }
+        if (password !== confirm) { setMsg(msg,'error','Passwords do not match.'); return; }
+        setLoading(btn, true);
+        try {
+            const res  = await fetch(`${API}/auth/register`, {
+                method: 'POST', headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ name, email, password, phone: document.getElementById('reg-phone').value.trim() })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                document.getElementById('otp-email-display').textContent = email;
+                document.getElementById('otp-email-hidden').value = email;
+                document.getElementById('auth-register-form').style.display = 'none';
+                document.getElementById('auth-otp-form').style.display = 'block';
+                document.querySelectorAll('.auth-tab').forEach(t => t.style.display = 'none');
+            } else {
+                setMsg(msg, 'error', data.error || 'Registration failed.');
+            }
+        } catch(e) { setMsg(msg,'error','Could not connect to server.'); }
+        setLoading(btn, false);
+    }
+
+    document.querySelectorAll('.otp-digit').forEach((input, i, all) => {
+        input.addEventListener('input', () => { if (input.value && i < all.length - 1) all[i+1].focus(); });
+        input.addEventListener('keydown', e => { if (e.key === 'Backspace' && !input.value && i > 0) all[i-1].focus(); });
+    });
+
+    async function verifyOTP() {
+        const digits = [...document.querySelectorAll('.otp-digit')].map(d => d.value).join('');
+        const email  = document.getElementById('otp-email-hidden').value.trim() || document.getElementById('reg-email').value.trim() || document.getElementById('otp-email-display').textContent.trim();
+        const msg = document.getElementById('otp-message');
+        const btn = document.getElementById('otp-btn');
+        if (digits.length !== 6) { setMsg(msg,'error','Enter all 6 digits.'); return; }
+        setLoading(btn, true);
+        try {
+            const res  = await fetch(`${API}/auth/verify-email`, {
+                method: 'POST', headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ email, otp: digits })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                currentUser = data.user; authToken = data.token;
+                sessionStorage.setItem('tc_user', JSON.stringify({ user: data.user, token: data.token }));
+                closeModal('auth-modal'); updateNavAuth();
+                showToast('Account created! Welcome to TrustCheck Nigeria 🇳🇬');
+            } else {
+                setMsg(msg,'error', data.error || 'Invalid or expired code.');
+            }
+        } catch(e) { setMsg(msg,'error','Could not connect to server.'); }
+        setLoading(btn, false);
+    }
+
+    async function resendOTP() {
+const email = document.getElementById('otp-email-hidden').value.trim() || document.getElementById('otp-email-display').textContent.trim();
+        try {
+            await fetch(`${API}/auth/resend-otp`, {
+                method:'POST', headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({ email })
+            });
+            showToast('New code sent to your email!');
+        } catch(e) {}
+    }
+
+    // ── REPORT WIZARD ──
+    function reportStep(step) {
+        // Validate current step before advancing
+        if (step > reportWizardStep) {
+            if (reportWizardStep === 0) {
+                if (!document.getElementById('r-subject').value.trim()) {
+                    showToast('Please enter the phone number / name to report.', 'error'); return;
+                }
+            }
+            if (reportWizardStep === 1) {
+                if (document.getElementById('r-description').value.trim().length < 20) {
+                    showToast('Description must be at least 20 characters.', 'error'); return;
+                }
+            }
+        }
+        reportWizardStep = step;
+        document.querySelectorAll('.wizard-pane').forEach((p, i) => p.classList.toggle('active', i === step));
+        document.querySelectorAll('.wizard-step').forEach((s, i) => {
+            s.classList.toggle('active', i === step);
+            s.classList.toggle('done', i < step);
+        });
+    }
+
+    // ── SEARCH ──
+    function setSearchType(type, btn) {
+        searchType = type;
+        document.querySelectorAll('.search-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const ph = { all:'Search phone, business name, @handle...', phone:'Enter phone number e.g. 08012345678', business:'Enter business or vendor name', social:'Enter @username or handle' };
+        document.getElementById('search-input').placeholder = ph[type];
+        // Clear any existing validation error when tab switches
+        const errEl = document.getElementById('search-error');
+        errEl.style.display = 'none';
+        errEl.textContent = '';
+        document.getElementById('search-shell').style.borderColor = '';
+    }
+
+    function showSearchError(msg) {
+        const errEl = document.getElementById('search-error');
+        errEl.textContent = msg;
+        errEl.style.display = 'block';
+        document.getElementById('search-shell').style.borderColor = 'var(--red)';
+    }
+
+    function clearSearchError() {
+        const errEl = document.getElementById('search-error');
+        errEl.style.display = 'none';
+        errEl.textContent = '';
+        document.getElementById('search-shell').style.borderColor = '';
+    }
+
+    function validateSearchInput(query) {
+        if (searchType === 'phone') {
+            const digits = query.replace(/\D/g, '');
+            if (digits !== query) {
+                showSearchError('Phone number must contain digits only (no spaces or symbols).');
+                return null;
+            }
+            if (digits.length < 10 || digits.length > 14) {
+                showSearchError('Phone number must be between 10 and 14 digits.');
+                return null;
+            }
+        } else if (searchType === 'business') {
+            if (/^\d+$/.test(query)) {
+                showSearchError('Business name cannot be numbers only.');
+                return null;
+            }
+        } else if (searchType === 'social') {
+            // Auto-prepend @ if missing
+            if (!query.startsWith('@')) {
+                const newVal = '@' + query;
+                document.getElementById('search-input').value = newVal;
+                return newVal;
+            }
+        }
+        return query;
+    }
+
+    function setDateFilter(filter, btn) {
+        dateFilter = filter;
+        document.querySelectorAll('#date-filter-row .search-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        if (lastQuery) doSearch();
+    }
+
+    function handleSearchInput(val) {
+        clearTimeout(acDebounce);
+        const list = document.getElementById('autocomplete-list');
+        if (val.length < 2) { list.classList.remove('open'); return; }
+        acDebounce = setTimeout(async () => {
+            try {
+                const res   = await fetch(`${API}/search/autocomplete?q=${encodeURIComponent(val)}`);
+                const items = await res.json();
+                if (!items.length) { list.classList.remove('open'); return; }
+                list.innerHTML = items.map(item => `
+                    <div class="autocomplete-item" onclick="selectAutocomplete('${item.value.replace(/'/g,"\\'")}')">
+                        <span>${item.label}</span>
+                        <span class="ac-type">${item.type}</span>
+                    </div>`).join('');
+                list.classList.add('open');
+            } catch(e) { list.classList.remove('open'); }
+        }, 300);
+    }
+
+    function selectAutocomplete(val) {
+        document.getElementById('search-input').value = val;
+        document.getElementById('autocomplete-list').classList.remove('open');
+        doSearch();
+    }
+
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.search-wrap')) document.getElementById('autocomplete-list').classList.remove('open');
+    });
+
+    async function doSearch(page = 1) {
+        const raw = document.getElementById('search-input').value.trim();
+        if (!raw) return;
+        clearSearchError();
+        const query = validateSearchInput(raw);
+        if (!query) return;
+        lastQuery = query; currentPage = page;
+        document.getElementById('autocomplete-list').classList.remove('open');
+        document.getElementById('search-results').style.display = 'block';
+        document.getElementById('dashboard').style.display = 'none';
+        document.getElementById('trust-score-section').innerHTML = '<div class="spinner"></div>';
+        document.getElementById('result-tabs-section').innerHTML = '';
+        document.getElementById('reports-section').innerHTML = '';
+        document.getElementById('businesses-section').innerHTML = '';
+        try {
+            const url = `${API}/search?q=${encodeURIComponent(query)}&type=${searchType}&page=${page}&date_from=${dateFilter}`;
+            const res  = await fetch(url);
+            const data = await res.json();
+            renderSearchResults(data, query);
+        } catch(e) {
+            document.getElementById('trust-score-section').innerHTML =
+                '<div class="card"><p style="color:var(--muted2);text-align:center;padding:20px">Could not connect to server.</p></div>';
+        }
+    }
+
+    function renderSearchResults(data, query) {
+        const { report_count, trust_score, trust_status, trust_message, reports, businesses, avg_rating, review_count, page, per_page } = data;
+
+        // Build trust card based on status from API
+        const r = 44; const circ = 2 * Math.PI * r;
+        let trustCardHTML = '';
+
+        if (trust_status === 'unverified') {
+            trustCardHTML = `
+            <div class="trust-card" style="border-color:rgba(120,120,120,0.25);background:rgba(120,120,120,0.05)">
+                <div class="score-info" style="flex:1">
+                    <div style="margin-bottom:10px">
+                        <span class="badge" style="background:rgba(150,150,150,0.15);color:#9ca3af;border:1px solid rgba(150,150,150,0.3);font-size:0.72rem;padding:4px 12px">🔍 NO REVIEWS YET</span>
+                    </div>
+                    <p style="color:#d4a017;background:rgba(212,160,23,0.08);border:1px solid rgba(212,160,23,0.25);padding:10px 14px;border-radius:8px;font-size:0.82rem;line-height:1.6">⚠️ ${trust_message}</p>
+                </div>
+                <div class="score-badge">
+                    <div class="count" style="color:#555">0</div>
+                    <div class="lbl">Community<br>Reports</div>
+                </div>
+            </div>`;
+        } else if (trust_status === 'pending') {
+            trustCardHTML = `
+            <div class="trust-card" style="border-color:rgba(255,120,0,0.25);background:rgba(255,120,0,0.05)">
+                <div class="score-info" style="flex:1">
+                    <div style="margin-bottom:10px">
+                        <span class="badge" style="background:rgba(255,120,0,0.15);color:#f97316;border:1px solid rgba(255,120,0,0.3);font-size:0.72rem;padding:4px 12px">🏢 UNVERIFIED BUSINESS</span>
+                    </div>
+                    <p style="color:#f97316;background:rgba(255,120,0,0.08);border:1px solid rgba(255,120,0,0.25);padding:10px 14px;border-radius:8px;font-size:0.82rem;line-height:1.6">⚠️ ${trust_message}</p>
+                </div>
+                <div class="score-badge">
+                    <div class="count" style="color:#555">0</div>
+                    <div class="lbl">Community<br>Reports</div>
+                </div>
+            </div>`;
+        } else {
+            const sc    = trust_score >= 70 ? 'safe' : trust_score >= 40 ? 'warn' : 'danger';
+            const emoji = trust_score >= 70 ? '✅' : trust_score >= 40 ? '⚠️' : '🚨';
+            const label = trust_score >= 70 ? 'Looks Safe' : trust_score >= 40 ? 'Use Caution' : 'High Risk';
+            const desc  = trust_score >= 70
+                ? 'Based on community reports, this appears relatively safe. Always verify independently.'
+                : trust_score >= 40
+                ? 'Some reports found. Proceed with caution and verify independently.'
+                : 'Multiple reports found. High risk — do not proceed without thorough verification.';
+            const offset = circ - (trust_score / 100) * circ;
+            trustCardHTML = `
+            <div class="trust-card ${sc}">
+                <div class="score-ring">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <circle class="score-ring-bg" cx="50" cy="50" r="${r}" />
+                        <circle class="score-ring-fill ${sc}" cx="50" cy="50" r="${r}"
+                            stroke-dasharray="${circ}" stroke-dashoffset="${offset}" />
+                    </svg>
+                    <div class="score-num">
+                        <div class="num">${trust_score}</div>
+                        <div class="lbl">Trust</div>
+                    </div>
+                </div>
+                <div class="score-info">
+                    <h2>${emoji} ${label}</h2>
+                    <p>${desc}</p>
+                    ${avg_rating ? `<div style="margin-top:8px;display:flex;align-items:center;gap:6px">
+                        <span style="color:var(--gold)">${renderStarsDisplay(avg_rating)}</span>
+                        <span style="font-size:0.78rem;color:var(--muted2)">${Number(avg_rating).toFixed(1)}/5 · ${review_count || 0} review${review_count !== 1 ? 's' : ''}</span>
+                    </div>` : ''}
+                </div>
+                <div class="score-badge">
+                    <div class="count">${report_count}</div>
+                    <div class="lbl">Community<br>Reports</div>
+                </div>
+            </div>`;
+        }
+
+        const shareScore = trust_status === 'scored' ? `Trust Score: ${trust_score}/100. ` : '';
+        const shareText = `I checked "${query}" on TrustCheck Nigeria — ${shareScore}${report_count} community reports.`;
+        const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+        const twUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+
+        document.getElementById('trust-score-section').innerHTML = `
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+                <h2 style="font-size:0.9rem;color:var(--muted2)">Results for <span style="color:var(--text);font-family:'JetBrains Mono',monospace">"${query}"</span></h2>
+                <button onclick="clearSearch()" style="background:transparent;border:1px solid var(--border2);color:var(--muted2);padding:4px 12px;border-radius:100px;font-size:0.72rem;cursor:pointer;font-family:'Space Grotesk',sans-serif">← Back</button>
+                <button onclick="currentReviewSubject='${query.replace(/'/g,"\\'")}';document.getElementById('review-subject-display').textContent='${query.replace(/'/g,"\\'")}';reviewRating=0;updateReviewStars();openModal('review-modal')"
+                    style="background:var(--gold-dim);border:1px solid rgba(255,181,71,0.25);color:var(--gold);padding:4px 14px;border-radius:100px;font-size:0.72rem;cursor:pointer;font-weight:600;font-family:'Space Grotesk',sans-serif">
+                    ⭐ Leave Review
+                </button>
+                <a href="${waUrl}" target="_blank" rel="noopener"
+                    style="background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.25);color:#25D366;padding:4px 14px;border-radius:100px;font-size:0.72rem;font-weight:600;text-decoration:none">
+                    📲 WhatsApp
+                </a>
+                <a href="${twUrl}" target="_blank" rel="noopener"
+                    style="background:var(--blue-dim);border:1px solid rgba(77,158,255,0.25);color:var(--blue);padding:4px 14px;border-radius:100px;font-size:0.72rem;font-weight:600;text-decoration:none">
+                    🐦 X / Twitter
+                </a>
+            </div>
+            ${trustCardHTML}`;
+
+        const hasReports    = reports && reports.length > 0;
+        const hasBusinesses = businesses && businesses.length > 0;
+
+        if (hasReports || hasBusinesses) {
+            document.getElementById('result-tabs-section').innerHTML = `
+                <div class="result-tabs">
+                    ${hasReports    ? `<button class="result-tab active" onclick="showResultTab('reports',this)">🚨 Reports (${report_count})</button>` : ''}
+                    ${hasBusinesses ? `<button class="result-tab ${!hasReports?'active':''}" onclick="showResultTab('businesses',this)">🏢 Businesses (${businesses.length})</button>` : ''}
+                </div>`;
+        }
+
+        if (hasReports) {
+            const totalPages = Math.ceil(report_count / (per_page || 20));
+            const pagination = totalPages > 1 ? `
+                <div style="display:flex;justify-content:center;align-items:center;gap:12px;padding:16px;border-top:1px solid var(--border)">
+                    ${currentPage > 1 ? `<button onclick="doSearch(${currentPage-1})" style="background:transparent;border:1px solid var(--border2);color:var(--muted2);padding:6px 16px;border-radius:100px;font-size:0.78rem;cursor:pointer;font-family:'Space Grotesk',sans-serif">← Prev</button>` : ''}
+                    <span style="font-size:0.78rem;color:var(--muted);font-family:'JetBrains Mono',monospace">Page ${currentPage}/${totalPages}</span>
+                    ${currentPage < totalPages ? `<button onclick="doSearch(${currentPage+1})" style="background:transparent;border:1px solid var(--border2);color:var(--muted2);padding:6px 16px;border-radius:100px;font-size:0.78rem;cursor:pointer;font-family:'Space Grotesk',sans-serif">Next →</button>` : ''}
+                </div>` : '';
+
+            document.getElementById('reports-section').innerHTML = `
+                <div class="card card-flush">
+                    ${reports.map(r => `
+                        <div class="report-item" id="rpt-${r.id}">
+                            <div onclick="openReportDetail(${r.id})" style="cursor:pointer">
+                                <div class="report-item-top">
+                                    <div class="report-subject">${r.subject}</div>
+                                    <span class="badge badge-red">${r.category}</span>
+                                </div>
+                                <p class="report-desc">${r.description}</p>
+                                ${r.amount ? `<div class="report-loss">💸 Loss: ${r.amount}</div>` : ''}
+                                ${r.platform ? `<span class="badge badge-blue" style="margin-bottom:8px;display:inline-block">${r.platform}</span>` : ''}
+                                ${r.rating ? `<div style="margin-bottom:6px;color:var(--gold);font-size:0.88rem">${renderStarsDisplay(r.rating)}</div>` : ''}
+                                <p style="font-size:0.72rem;color:var(--green);font-weight:600;margin-top:4px">View full thread →</p>
+                            </div>
+                            <div class="report-meta">
+                                <span>By ${r.reporter_name || 'Anonymous'}</span>
+                                <span style="font-family:'JetBrains Mono',monospace">${timeAgo(r.reported_at)}</span>
+                                <div class="vote-btns">
+                                    <button class="vote-btn" onclick="vote(${r.id},'up',this)">👍 <span class="vu">${r.upvotes||0}</span></button>
+                                    <button class="vote-btn down" onclick="vote(${r.id},'down',this)">👎 <span class="vd">${r.downvotes||0}</span></button>
+                                    <button class="reply-toggle" onclick="openReportDetail(${r.id})">💬 ${r.reply_count||0} replies</button>
+                                    <button class="gold-link" onclick="openAppeal(${r.id})">📋 Appeal</button>
+                                </div>
+                            </div>
+                        </div>`).join('')}
+                    ${pagination}
+                </div>`;
+        } else if (!hasBusinesses) {
+            document.getElementById('reports-section').innerHTML = `
+                <div class="card">
+                    <div class="empty">
+                        <div class="empty-icon">🔍</div>
+                        <div class="empty-title">No reports found</div>
+                        <p>No community reports for "${query}". This could be a good sign!</p>
+                    </div>
+                </div>`;
+        }
+
+        if (hasBusinesses) {
+            document.getElementById('businesses-section').innerHTML = `
+                <div class="card card-flush" id="businesses-card" style="${hasReports ? 'display:none' : ''}">
+                    ${businesses.map(b => `
+                        <div class="business-item" onclick="openBizProfile(${b.id})">
+                            <div>
+                                <h3>${b.business_name}</h3>
+                                <p>${b.owner_name||''} ${b.phone ? '· '+b.phone : ''}</p>
+                                ${b.address ? `<p style="margin-top:2px">📍 ${b.address}</p>` : ''}
+                                <p style="font-size:0.7rem;color:var(--green);margin-top:4px">View full profile →</p>
+                            </div>
+                            ${b.status==='verified'
+                                ? '<span class="badge badge-green">✅ Verified</span>'
+                                : b.status==='cac_verified'
+                                ? '<span class="badge badge-gold">✅ CAC Verified</span>'
+                                : b.status==='high_risk'
+                                ? '<span class="badge badge-red">🚨 High Risk</span>'
+                                : '<span class="badge badge-muted">⏳ Pending</span>'}
+                        </div>`).join('')}
+                </div>`;
+        }
+    }
+
+    function showResultTab(tab, btn) {
+        document.querySelectorAll('.result-tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        const rc = document.getElementById('reports-section').querySelector('.card');
+        const bc = document.getElementById('businesses-card');
+        if (tab === 'reports') { if(rc) rc.style.display='block'; if(bc) bc.style.display='none'; }
+        else { if(rc) rc.style.display='none'; if(bc) bc.style.display='block'; }
+    }
+
+    function clearSearch() {
+        document.getElementById('search-results').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('search-input').value = '';
+        lastQuery = '';
+    }
+
+    // ── STARS ──
+    function renderStarsDisplay(rating) {
+        const full = Math.round(rating);
+        return Array(5).fill(0).map((_,i) =>
+            `<span style="color:${i<full?'var(--gold)':'var(--border2)'}">★</span>`
+        ).join('');
+    }
+
+    function setReportRating(val) {
+        reportRating = val;
+        document.querySelectorAll('#report-rating-stars .rating-star').forEach((s,i) => s.classList.toggle('filled', i < val));
+    }
+    function setReviewRating(val) { reviewRating = val; updateReviewStars(); }
+    function updateReviewStars() {
+        document.querySelectorAll('#review-stars .rating-star').forEach((s,i) => s.classList.toggle('filled', i < reviewRating));
+    }
+
+    // ── VOTING ──
+    async function vote(reportId, direction, btn) {
+        try {
+            const headers = authToken
+                ? { 'Authorization': `Bearer ${authToken}`, 'Content-Type': 'application/json' }
+                : { 'Content-Type': 'application/json' };
+            const res  = await fetch(`${API}/reports/${reportId}/vote`, {
+                method:'POST', headers, body: JSON.stringify({ direction })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                const el = btn.closest('.report-item');
+                if (direction === 'up')   el.querySelector('.vu').textContent = data.upvotes;
+                else                      el.querySelector('.vd').textContent = data.downvotes;
+                btn.classList.add('active');
+            }
+        } catch(e) {}
+    }
+
+    // ── REPLIES ──
+    async function toggleReplies(reportId) {
+        const sec = document.getElementById(`replies-${reportId}`);
+        const isOpen = sec.classList.contains('open');
+        sec.classList.toggle('open', !isOpen);
+        if (!isOpen) loadReplies(reportId);
+    }
+
+    async function loadReplies(reportId) {
+        try {
+            const res     = await fetch(`${API}/reports/${reportId}/replies`);
+            const replies = await res.json();
+            const el      = document.getElementById(`replies-content-${reportId}`);
+            if (!replies.length) { el.innerHTML = '<p style="font-size:0.78rem;color:var(--muted2);padding:8px 0">No comments yet. Be the first.</p>'; return; }
+            el.innerHTML = replies.map(r => `
+                <div class="reply-item">
+                    <p>${r.comment}</p>
+                    <div class="reply-meta">${r.user_name||'Anonymous'} · ${timeAgo(r.created_at)}</div>
+                </div>`).join('');
+        } catch(e) {}
+    }
+
+    async function submitReply(reportId) {
+        const input   = document.getElementById(`ri-${reportId}`);
+        const comment = input.value.trim();
+        if (!comment) return;
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+            await fetch(`${API}/reports/${reportId}/replies`, {
+                method:'POST', headers,
+                body: JSON.stringify({ comment, user_name: currentUser?.name || 'Anonymous' })
+            });
+            input.value = '';
+            loadReplies(reportId);
+        } catch(e) {}
+    }
+
+    // ── FEED ──
+    async function loadRecentFeed() {
+        try {
+            const res     = await fetch(`${API}/reports?limit=15`);
+            const reports = await res.json();
+            const el      = document.getElementById('recent-feed');
+            if (!reports.length) {
+                el.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><div class="empty-title">No reports yet</div><p>Be the first to report a scam.</p></div>';
+                return;
+            }
+            const icons = {
+                'Crypto/Investment':'💰','Fake Online Store':'🛒','Romance Scam':'💔',
+                'Fake Job Offer':'💼','Ponzi Scheme':'📈','Rental Scam':'🏠',
+                'Impersonation':'🎭','Phishing':'🎣','Other':'⚠️'
+            };
+            el.innerHTML = reports.map(r => `
+                <div class="feed-item">
+                    <div class="feed-icon">${icons[r.category]||'⚠️'}</div>
+                    <div class="feed-content">
+                        <div class="feed-title">${r.subject}</div>
+                        <div class="feed-desc">${r.description}</div>
+                        <div class="feed-time">${r.category} · ${timeAgo(r.reported_at)}</div>
+                    </div>
+                    <span class="badge badge-red" style="flex-shrink:0">${r.report_type}</span>
+                </div>`).join('');
+        } catch(e) {
+            document.getElementById('recent-feed').innerHTML =
+                '<div class="empty"><div class="empty-icon">⚡</div><div class="empty-title">Connection issue</div><p>Could not load reports. Check backend.</p></div>';
+        }
+    }
+
+    // ── STATS ──
+    async function loadStats() {
+        try {
+            const res  = await fetch(`${API}/stats`);
+            const data = await res.json();
+            animateNumber('stat-total',    data.total_reports);
+            animateNumber('stat-today',    data.reports_today);
+            animateNumber('stat-verified', data.verified_businesses);
+        } catch(e) {}
+    }
+
+    function animateNumber(id, target) {
+        const el = document.getElementById(id);
+        if (!el || isNaN(target)) return;
+        let start = 0;
+        const step = target / 30;
+        const timer = setInterval(() => {
+            start += step;
+            if (start >= target) { el.textContent = target; clearInterval(timer); }
+            else el.textContent = Math.floor(start);
+        }, 30);
+    }
+
+    // ── REPORT FORM ──
+    function updateReportFields() {
+        const type = document.getElementById('r-type').value;
+        const labels = { phone:'Phone Number *', business:'Business / Vendor Name *', social:'Social Media Handle *', person:"Person's Name *" };
+        document.getElementById('r-subject-label').textContent = labels[type];
+        document.getElementById('r-subject').placeholder = labels[type].replace(' *','');
+    }
+
+    function handleFileUpload(input) {
+        const file = input.files[0]; if (!file) return;
+        if (file.size > 5*1024*1024) { showToast('File too large. Max 5MB.','error'); return; }
+        const reader = new FileReader();
+        reader.onload = e => {
+            proofBase64 = e.target.result;
+            document.getElementById('upload-area').classList.add('has-file');
+            document.getElementById('upload-text').textContent = `✅ ${file.name}`;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function handleVerifyUpload(input) {
+        const file = input.files[0]; if (!file) return;
+        if (file.size > 10*1024*1024) { showToast('File too large. Max 10MB.','error'); input.value=''; return; }
+        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+            showToast('Only PDF files are accepted.','error');
+            input.value = '';
+            return;
+        }
+        document.getElementById('verify-upload-area').classList.add('has-file');
+        document.getElementById('verify-upload-text').textContent = `✅ ${file.name}`;
+        // Clear doc error if shown
+        document.getElementById('v-doc-error').classList.remove('show');
+    }
+
+    async function submitReport() {
+        const subject     = document.getElementById('r-subject').value.trim();
+        const description = document.getElementById('r-description').value.trim();
+        const msg = document.getElementById('report-message');
+        const btn = document.getElementById('submit-report-btn');
+        if (!subject || !description) { setMsg(msg,'error','Please fill in all required fields.'); return; }
+        if (description.length < 20)  { setMsg(msg,'error','Description must be at least 20 characters.'); return; }
+        setLoading(btn, true);
+        try {
+            const headers = {'Content-Type':'application/json'};
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+            const res = await fetch(`${API}/reports`, {
+                method:'POST', headers,
+                body: JSON.stringify({
+                    report_type: document.getElementById('r-type').value,
+                    subject, category: document.getElementById('r-category').value,
+                    description, platform: document.getElementById('r-platform').value,
+                    amount: document.getElementById('r-amount').value.trim(),
+                    reporter_name: document.getElementById('r-name').value || 'Anonymous',
+                    proof_image: proofBase64, rating: reportRating || null
+                })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setMsg(msg,'success','✅ Report submitted! Thank you for protecting others.');
+                document.getElementById('r-subject').value = '';
+                document.getElementById('r-description').value = '';
+                document.getElementById('r-amount').value = '';
+                proofBase64 = null; reportRating = 0;
+                document.getElementById('upload-area').classList.remove('has-file');
+                document.getElementById('upload-text').textContent = 'Click to upload screenshot or proof';
+                document.querySelectorAll('#report-rating-stars .rating-star').forEach(s => s.classList.remove('filled'));
+                loadRecentFeed(); loadStats();
+                showToast('Report submitted successfully!');
+                setTimeout(() => { reportStep(0); closeModal('report-modal'); }, 2000);
+            } else {
+                setMsg(msg,'error', data.error || 'Something went wrong.');
+            }
+        } catch(e) { setMsg(msg,'error','Could not connect to server.'); }
+        setLoading(btn, false);
+    }
+
+    // ── VERIFY ──
+    function updateVerifyLabel() {
+        const v = document.getElementById('v-type').value;
+        const labels = { NIN:'NIN Number', BVN:'BVN Number', 'Drivers License':"Driver's License Number", Passport:'Passport Number' };
+        const labelEl = document.getElementById('v-number-label');
+        labelEl.innerHTML = (labels[v] || v + ' Number') + ' <span class="req">*</span>';
+        document.getElementById('v-number').placeholder = `Enter your ${v} number`;
+    }
+
+    function vField(id) { return document.getElementById(id).value.trim(); }
+    function vErr(id, show) {
+        const el = document.getElementById(id + '-error');
+        if (el) el.classList[show ? 'add' : 'remove']('show');
+        document.getElementById(id).classList[show ? 'add' : 'remove']('error');
+    }
+
+    async function submitVerification() {
+        const msg = document.getElementById('verify-message');
+        const btn = document.getElementById('submit-verify-btn');
+
+        // Gather values
+        const business  = vField('v-business');
+        const owner     = vField('v-owner');
+        const phone     = vField('v-phone');
+        const email     = vField('v-email');
+        const address   = vField('v-address');
+        const cac       = vField('v-cac');
+        const idNumber  = vField('v-number');
+        const fileInput = document.getElementById('verify-file');
+        const docFile   = fileInput.files[0];
+
+        // Validate all required fields, show inline errors
+        let valid = true;
+        const required = [
+            ['v-business', business],
+            ['v-owner',    owner],
+            ['v-phone',    phone],
+            ['v-email',    email],
+            ['v-address',  address],
+            ['v-cac',      cac],
+            ['v-number',   idNumber],
+        ];
+        required.forEach(([id, val]) => { vErr(id, !val); if (!val) valid = false; });
+
+        // Validate document
+        if (!docFile) {
+            document.getElementById('v-doc-error').classList.add('show');
+            valid = false;
+        } else if (docFile.type !== 'application/pdf' && !docFile.name.toLowerCase().endsWith('.pdf')) {
+            document.getElementById('v-doc-error').textContent = 'Document must be a PDF file';
+            document.getElementById('v-doc-error').classList.add('show');
+            valid = false;
+        } else {
+            document.getElementById('v-doc-error').classList.remove('show');
+        }
+
+        if (!valid) { setMsg(msg,'error','Please fill in all required fields and upload a PDF document.'); return; }
+
+        setLoading(btn, true);
+        try {
+            const fd = new FormData();
+            fd.append('business_name',        business);
+            fd.append('owner_name',           owner);
+            fd.append('phone',                phone);
+            fd.append('email',                email);
+            fd.append('address',              address);
+            fd.append('cac_number',           cac);
+            fd.append('verification_type',    document.getElementById('v-type').value);
+            fd.append('verification_number',  idNumber);
+            fd.append('document_file',        docFile);
+            fd.append('website',              document.getElementById('v-website').value.trim());
+            fd.append('description',          document.getElementById('v-description').value.trim());
+            fd.append('instagram',            document.getElementById('v-instagram').value.trim());
+            fd.append('twitter',              document.getElementById('v-twitter').value.trim());
+            fd.append('facebook',             document.getElementById('v-facebook').value.trim());
+            fd.append('tiktok',               document.getElementById('v-tiktok').value.trim());
+
+            const headers = {};
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+
+            const res = await fetch(`${API}/verify-business`, { method:'POST', headers, body: fd });
+            const result = await res.json();
+            if (res.ok) {
+                setMsg(msg,'success', result.message || '✅ Submitted! We will review within 24-48 hours.');
+                showToast('Verification submitted successfully!');
+                loadStats();
+            } else {
+                setMsg(msg,'error', result.error || 'Submission failed.');
+            }
+        } catch(e) { setMsg(msg,'error','Could not connect to server.'); }
+        setLoading(btn, false);
+    }
+
+    // ── REVIEW ──
+    async function submitReview() {
+        const comment = document.getElementById('review-comment').value.trim();
+        const msg = document.getElementById('review-message');
+        const btn = document.getElementById('submit-review-btn');
+        if (!reviewRating)  { setMsg(msg,'error','Please select a star rating.'); return; }
+        if (!comment)       { setMsg(msg,'error','Please write a review.'); return; }
+        setLoading(btn, true);
+        try {
+            const headers = {'Content-Type':'application/json'};
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+            const res = await fetch(`${API}/reviews`, {
+                method:'POST', headers,
+                body: JSON.stringify({
+                    subject: currentReviewSubject, rating: reviewRating, comment,
+                    user_name: document.getElementById('review-name').value.trim() || currentUser?.name || 'Anonymous'
+                })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setMsg(msg,'success','⭐ Review posted! Thank you.');
+                document.getElementById('review-comment').value = '';
+                reviewRating = 0; updateReviewStars();
+                showToast('Review posted!');
+                setTimeout(() => closeModal('review-modal'), 1800);
+            } else {
+                setMsg(msg,'error', data.error || 'Could not post review.');
+            }
+        } catch(e) { setMsg(msg,'error','Could not connect to server.'); }
+        setLoading(btn, false);
+    }
+
+    // ── MODAL ──
+    function openModal(id) {
+        if (id === 'auth-modal' && currentUser) {
+            const initials = (currentUser.name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+            document.getElementById('auth-modal-title').textContent = `👤 ${currentUser.name||'My Account'}`;
+            document.getElementById('auth-tabs').style.display = 'none';
+            document.getElementById('auth-login-form').innerHTML = `
+                <div style="text-align:center;padding:20px 0">
+                    <div class="nav-avatar" style="width:56px;height:56px;font-size:1.3rem;border-radius:12px;margin:0 auto 16px">${initials}</div>
+                    <p style="font-weight:700;font-size:1rem;margin-bottom:4px">${currentUser.name||''}</p>
+                    <p style="color:var(--muted2);font-size:0.85rem;margin-bottom:24px;font-family:'JetBrains Mono',monospace">${currentUser.email||''}</p>
+                    <button class="btn btn-outline" onclick="doLogout()">Logout</button>
+                </div>`;
+            document.getElementById('auth-login-form').style.display = 'block';
+            document.getElementById('auth-register-form').style.display = 'none';
+        }
+        if (id === 'report-modal') {
+            document.getElementById('report-auth-notice').style.display = currentUser ? 'none' : 'block';
+            reportStep(0);
+        }
+        document.getElementById(id).classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+        document.body.style.overflow = '';
+        // Reset auth modal on close
+        if (id === 'auth-modal' && !currentUser) {
+            document.getElementById('auth-tabs').style.display = 'flex';
+        }
+    }
+
+    function doLogout() {
+        currentUser = null; authToken = null;
+        sessionStorage.removeItem('tc_user');
+        closeModal('auth-modal');
+        updateNavAuth();
+        showToast('Logged out. See you soon!');
+        document.getElementById('auth-tabs').style.display = 'flex';
+        document.getElementById('auth-login-form').innerHTML = `
+            <div class="form-group"><label class="form-label">Email Address</label><input class="form-control" type="email" id="login-email" placeholder="you@example.com" /></div>
+            <div class="form-group"><label class="form-label">Password</label><input class="form-control" type="password" id="login-password" placeholder="••••••••" onkeydown="if(event.key==='Enter') doLogin()" /></div>
+            <button class="btn btn-green" onclick="doLogin()" id="login-btn">Login</button>
+            <div class="form-msg" id="login-message"></div>`;
+    }
+
+    document.querySelectorAll('.modal-overlay').forEach(m => {
+        m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id));
+    });
+
+    // ── UTILS ──
+    function timeAgo(dateStr) {
+        if (!dateStr) return '';
+        const diff = (Date.now() - new Date(dateStr)) / 1000;
+        if (diff < 60) return 'just now';
+        if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+        if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+        return `${Math.floor(diff/86400)}d ago`;
+    }
+
+    function setMsg(el, type, text) {
+        el.className = `form-msg ${type}`;
+        el.textContent = text;
+    }
+
+    function setLoading(btn, loading) {
+        if (!btn) return;
+        if (loading) {
+            btn.disabled = true;
+            btn.innerHTML = '<div class="btn-spinner"></div> Please wait...';
+        } else {
+            btn.disabled = false;
+            const texts = {
+                'login-btn':'Login', 'register-btn':'Create Account',
+                'otp-btn':'Verify Email', 'submit-report-btn':'🚨 Submit Report',
+                'submit-verify-btn':'✅ Submit for Verification',
+                'submit-review-btn':'⭐ Post Review', 'submit-appeal-btn':'📋 Submit Appeal'
+            };
+            btn.innerHTML = texts[btn.id] || 'Submit';
+        }
+    }
+
+    // ── REPORT DETAIL ──
+    async function openReportDetail(reportId) {
+        openModal('report-detail-modal');
+        document.getElementById('report-detail-content').innerHTML = '<div class="spinner"></div>';
+        try {
+            const res  = await fetch(`${API}/reports/${reportId}`);
+            if (!res.ok) throw new Error('not found');
+            const r    = await res.json();
+
+            const repliesHtml = r.replies && r.replies.length
+                ? r.replies.map(rep => `
+                    <div style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start">
+                        <div style="width:30px;height:30px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;color:var(--muted2);font-weight:700">
+                            ${(rep.user_name||'A')[0].toUpperCase()}
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="display:flex;gap:8px;align-items:center;margin-bottom:3px;flex-wrap:wrap">
+                                <span style="font-size:0.78rem;font-weight:600">${rep.user_name||'Anonymous'}</span>
+                                <span style="font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace">${timeAgo(rep.created_at)}</span>
+                            </div>
+                            <p style="font-size:0.85rem;color:var(--muted2);line-height:1.5;word-break:break-word">${rep.comment}</p>
+                        </div>
+                    </div>`).join('')
+                : '<p style="color:var(--muted);font-size:0.84rem;padding:12px 0;text-align:center">No comments yet. Be the first to comment.</p>';
+
+            document.getElementById('report-detail-title').textContent = `📋 ${r.subject}`;
+            document.getElementById('report-detail-content').innerHTML = `
+                <div style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+                    <span class="badge badge-red">${r.category}</span>
+                    ${r.platform ? `<span class="badge badge-blue">${r.platform}</span>` : ''}
+                    <span style="font-size:0.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-left:auto">${timeAgo(r.reported_at)}</span>
+                </div>
+                <h3 style="font-size:1.05rem;font-family:'Syne',sans-serif;margin-bottom:10px;line-height:1.35">${r.subject}</h3>
+                <p style="color:var(--muted2);font-size:0.88rem;line-height:1.65;margin-bottom:16px;white-space:pre-wrap">${r.description}</p>
+                <div style="margin-bottom:14px">
+                    <div style="font-size:0.75rem;color:var(--muted);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em">Rate this report</div>
+                    <div id="rdc-stars-${reportId}" style="display:flex;gap:4px;align-items:center">
+                        ${[1,2,3,4,5].map(s => `
+                        <button onclick="rateInDetail(${reportId},${s})"
+                            id="rdc-star-${reportId}-${s}"
+                            style="background:none;border:none;cursor:pointer;font-size:1.4rem;padding:2px;line-height:1;color:${(r.user_rating||0)>=s?'var(--gold)':'var(--muted)'};transition:color 0.15s"
+                            onmouseover="hoverStars(${reportId},${s})"
+                            onmouseout="unhoverStars(${reportId},${r.user_rating||0})"
+                        >${(r.user_rating||0)>=s?'★':'☆'}</button>`).join('')}
+                        <span id="rdc-rating-label-${reportId}" style="font-size:0.78rem;color:var(--muted2);margin-left:6px">
+                            ${r.avg_rating ? `${r.avg_rating}/5 avg (${r.total_ratings} rating${r.total_ratings!==1?'s':''})` : r.user_rating ? `You rated ${r.user_rating}/5` : 'No ratings yet'}
+                        </span>
+                    </div>
+                </div>
+                ${r.amount ? `<div style="background:var(--red-dim);border:1px solid rgba(255,59,92,0.2);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:0.85rem">
+                    💸 <strong>Amount lost:</strong> ${r.amount}
+                </div>` : ''}
+                ${r.proof_path ? `<div style="margin-bottom:12px">
+                    <a href="${r.proof_path}" target="_blank" style="color:var(--blue);font-size:0.82rem;text-decoration:none">📎 View uploaded proof →</a>
+                </div>` : ''}
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:20px;flex-wrap:wrap;gap:8px">
+                    <span style="font-size:0.78rem;color:var(--muted2)">Reported by <strong style="color:var(--text)">${r.reporter_name||'Anonymous'}</strong></span>
+                    <div style="display:flex;gap:6px;align-items:center">
+                        <button id="rdc-up-${reportId}" onclick="voteInDetail(${reportId},'up')"
+                            style="background:${r.user_vote==='up'?'rgba(52,199,89,0.2)':'var(--surface2)'};border:1px solid ${r.user_vote==='up'?'var(--green)':'var(--border2)'};border-radius:8px;padding:5px 12px;cursor:pointer;font-size:0.82rem;color:${r.user_vote==='up'?'var(--green)':'var(--muted2)'};transition:all 0.15s;font-family:'Space Grotesk',sans-serif">
+                            👍 <span id="rdc-ups-${reportId}">${r.upvotes||0}</span>
+                        </button>
+                        <button id="rdc-dn-${reportId}" onclick="voteInDetail(${reportId},'down')"
+                            style="background:${r.user_vote==='down'?'rgba(255,59,92,0.2)':'var(--surface2)'};border:1px solid ${r.user_vote==='down'?'var(--red)':'var(--border2)'};border-radius:8px;padding:5px 12px;cursor:pointer;font-size:0.82rem;color:${r.user_vote==='down'?'var(--red)':'var(--muted2)'};transition:all 0.15s;font-family:'Space Grotesk',sans-serif">
+                            👎 <span id="rdc-dns-${reportId}">${r.downvotes||0}</span>
+                        </button>
+                    </div>
+                </div>
+                <div style="font-size:0.82rem;font-weight:700;margin-bottom:14px;color:var(--text)">
+                    💬 Discussion <span style="color:var(--muted2);font-weight:400">(${r.replies.length} comment${r.replies.length!==1?'s':''})</span>
+                </div>
+                <div id="rdc-replies-${reportId}">${repliesHtml}</div>
+                <div style="display:flex;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+                    <input type="text" id="rdc-input-${reportId}"
+                        placeholder="Add a comment..."
+                        style="flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;color:var(--text);font-size:0.88rem;font-family:'Space Grotesk',sans-serif;outline:none"
+                        onkeydown="if(event.key==='Enter') submitDetailReply(${reportId})" />
+                    <button onclick="submitDetailReply(${reportId})"
+                        style="background:var(--green);color:#000;border:none;padding:10px 20px;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:'Space Grotesk',sans-serif;flex-shrink:0">
+                        Post
+                    </button>
+                </div>`;
+        } catch(e) {
+            document.getElementById('report-detail-content').innerHTML =
+                '<p style="color:var(--muted2);text-align:center;padding:20px">Could not load report.</p>';
+        }
+    }
+
+    async function submitDetailReply(reportId) {
+        const input   = document.getElementById(`rdc-input-${reportId}`);
+        const comment = (input.value || '').trim();
+        if (!comment) return;
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+            const res = await fetch(`${API}/reports/${reportId}/replies`, {
+                method: 'POST', headers,
+                body: JSON.stringify({ comment, user_name: currentUser?.name || 'Anonymous' })
+            });
+            if (res.ok) {
+                input.value = '';
+                // Reload replies in the detail modal
+                const rr = await fetch(`${API}/reports/${reportId}/replies`);
+                const replies = await rr.json();
+                const container = document.getElementById(`rdc-replies-${reportId}`);
+                if (container) {
+                    container.innerHTML = replies.map(rep => `
+                        <div style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start">
+                            <div style="width:30px;height:30px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;color:var(--muted2);font-weight:700">
+                                ${(rep.user_name||'A')[0].toUpperCase()}
+                            </div>
+                            <div style="flex:1;min-width:0">
+                                <div style="display:flex;gap:8px;align-items:center;margin-bottom:3px;flex-wrap:wrap">
+                                    <span style="font-size:0.78rem;font-weight:600">${rep.user_name||'Anonymous'}</span>
+                                    <span style="font-size:0.7rem;color:var(--muted);font-family:'JetBrains Mono',monospace">${timeAgo(rep.created_at)}</span>
+                                </div>
+                                <p style="font-size:0.85rem;color:var(--muted2);line-height:1.5;word-break:break-word">${rep.comment}</p>
+                            </div>
+                        </div>`).join('') || '<p style="color:var(--muted);font-size:0.84rem;padding:12px 0;text-align:center">No comments yet.</p>';
+                }
+            }
+        } catch(e) {}
+    }
+
+    // ── VOTE IN DETAIL MODAL ──
+    async function voteInDetail(reportId, direction) {
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+            const res  = await fetch(`${API}/reports/${reportId}/vote`, {
+                method: 'POST', headers,
+                body: JSON.stringify({ direction })
+            });
+            const data = await res.json();
+            if (!res.ok) { alert(data.error || 'Could not vote'); return; }
+
+            document.getElementById(`rdc-ups-${reportId}`).textContent = data.upvotes;
+            document.getElementById(`rdc-dns-${reportId}`).textContent = data.downvotes;
+
+            // Re-fetch to get updated user_vote state
+            const r2   = await fetch(`${API}/reports/${reportId}`);
+            const rep  = await r2.json();
+            const upBtn = document.getElementById(`rdc-up-${reportId}`);
+            const dnBtn = document.getElementById(`rdc-dn-${reportId}`);
+            if (upBtn) {
+                const active = rep.user_vote === 'up';
+                upBtn.style.background = active ? 'rgba(52,199,89,0.2)' : 'var(--surface2)';
+                upBtn.style.borderColor = active ? 'var(--green)' : 'var(--border2)';
+                upBtn.style.color = active ? 'var(--green)' : 'var(--muted2)';
+            }
+            if (dnBtn) {
+                const active = rep.user_vote === 'down';
+                dnBtn.style.background = active ? 'rgba(255,59,92,0.2)' : 'var(--surface2)';
+                dnBtn.style.borderColor = active ? 'var(--red)' : 'var(--border2)';
+                dnBtn.style.color = active ? 'var(--red)' : 'var(--muted2)';
+            }
+        } catch(e) { console.error(e); }
+    }
+
+    // ── STAR RATING IN DETAIL MODAL ──
+    function hoverStars(reportId, hoverVal) {
+        for (let s = 1; s <= 5; s++) {
+            const btn = document.getElementById(`rdc-star-${reportId}-${s}`);
+            if (btn) { btn.textContent = s <= hoverVal ? '★' : '☆'; btn.style.color = s <= hoverVal ? 'var(--gold)' : 'var(--muted)'; }
+        }
+    }
+    function unhoverStars(reportId, currentRating) {
+        for (let s = 1; s <= 5; s++) {
+            const btn = document.getElementById(`rdc-star-${reportId}-${s}`);
+            if (btn) { btn.textContent = s <= currentRating ? '★' : '☆'; btn.style.color = s <= currentRating ? 'var(--gold)' : 'var(--muted)'; }
+        }
+    }
+    async function rateInDetail(reportId, rating) {
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+            const res  = await fetch(`${API}/reports/${reportId}/rate`, {
+                method: 'POST', headers,
+                body: JSON.stringify({ rating })
+            });
+            const data = await res.json();
+            if (!res.ok) { alert(data.error || 'Could not rate'); return; }
+
+            // Update star display to reflect saved rating
+            for (let s = 1; s <= 5; s++) {
+                const btn = document.getElementById(`rdc-star-${reportId}-${s}`);
+                if (btn) {
+                    btn.textContent = s <= data.your_rating ? '★' : '☆';
+                    btn.style.color = s <= data.your_rating ? 'var(--gold)' : 'var(--muted)';
+                    btn.onmouseout = () => unhoverStars(reportId, data.your_rating);
+                }
+            }
+            const label = document.getElementById(`rdc-rating-label-${reportId}`);
+            if (label) label.textContent = `${data.avg_rating}/5 avg (${data.total_ratings} rating${data.total_ratings!==1?'s':''})`;
+        } catch(e) { console.error(e); }
+    }
+
+    // ── BIZ PROFILE ──
+    async function openBizProfile(bizId) {
+        openModal('biz-profile-modal');
+        document.getElementById('biz-profile-content').innerHTML = '<div class="spinner"></div>';
+        try {
+            const res  = await fetch(`${API}/businesses/${bizId}`);
+            const data = await res.json();
+            if (!res.ok) {
+                document.getElementById('biz-profile-content').innerHTML = '<p style="color:var(--muted2);text-align:center;padding:20px">Business not found.</p>';
+                return;
+            }
+            document.getElementById('biz-profile-title').textContent = `🏢 ${data.business_name}`;
+            const badge = data.status === 'verified'
+                ? '<span class="badge badge-green">✅ Fully Verified</span>'
+                : data.status === 'cac_verified'
+                ? '<span class="badge badge-gold">✅ CAC Verified</span>'
+                : '<span class="badge badge-muted">⏳ Pending Review</span>';
+
+            const reviewsHtml = data.reviews && data.reviews.length
+                ? data.reviews.map(r => `<div style="padding:12px 0;border-bottom:1px solid var(--border)">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+                        <span style="color:var(--gold)">${renderStarsDisplay(r.rating)}</span>
+                        <span style="font-size:0.72rem;color:var(--muted2)">${r.user_name||'Anonymous'} · ${timeAgo(r.created_at)}</span>
+                    </div>
+                    <p style="font-size:0.84rem;color:var(--muted2)">${r.comment}</p>
+                </div>`).join('')
+                : '<p style="color:var(--muted2);font-size:0.84rem;padding:12px 0">No reviews yet.</p>';
+
+            const reportsHtml = data.reports && data.reports.length
+                ? data.reports.map(r => `<div onclick="openReportDetail(${r.id})" style="padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity 0.15s" onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">
+                    <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;flex-wrap:wrap">
+                        <span class="badge badge-red">${r.category}</span>
+                        <span style="font-size:0.7rem;color:var(--muted2);font-family:'JetBrains Mono',monospace">${timeAgo(r.reported_at)}</span>
+                        <span style="font-size:0.7rem;color:var(--green);font-weight:600;margin-left:auto">View thread →</span>
+                    </div>
+                    <p style="font-size:0.82rem;color:var(--muted2)">${r.description}</p>
+                </div>`).join('')
+                : '<p style="color:var(--muted2);font-size:0.84rem;padding:12px 0">No reports filed against this business.</p>';
+
+            document.getElementById('biz-profile-content').innerHTML = `
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:20px">
+                    <div>
+                        <h3 style="font-family:'Syne',sans-serif;font-size:1.1rem;margin-bottom:6px">${data.business_name}</h3>
+                        ${data.description ? `<p style="color:var(--muted2);font-size:0.84rem;max-width:460px">${data.description}</p>` : ''}
+                    </div>
+                    ${badge}
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+                    ${data.phone   ? `<div><div style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:2px">Phone</div><p style="font-size:0.88rem;font-family:'JetBrains Mono',monospace">📞 ${data.phone}</p></div>` : ''}
+                    ${data.email   ? `<div><div style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:2px">Email</div><p style="font-size:0.88rem">✉️ ${data.email}</p></div>` : ''}
+                    ${data.address ? `<div><div style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:2px">Address</div><p style="font-size:0.88rem">📍 ${data.address}</p></div>` : ''}
+                    ${data.website ? `<div><div style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:2px">Website</div><a href="${data.website}" target="_blank" style="font-size:0.88rem;color:var(--blue)">${data.website}</a></div>` : ''}
+                </div>
+                <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+                    ${data.cac_verified ? '<span class="badge badge-green">✅ CAC Confirmed</span>' : ''}
+                    ${data.id_verified  ? '<span class="badge badge-green">✅ ID Verified</span>'  : ''}
+                    <span class="badge badge-blue" style="font-family:'JetBrains Mono',monospace">CAC: ${data.cac_number||'N/A'}</span>
+                    <span style="font-size:0.7rem;color:var(--muted);align-self:center">Listed ${timeAgo(data.submitted_at)}</span>
+                </div>
+                <div style="margin-bottom:20px">
+                    <div style="font-size:0.82rem;font-weight:700;margin-bottom:12px;color:var(--muted2)">⭐ Reviews (${data.reviews.length})</div>
+                    ${reviewsHtml}
+                </div>
+                <div>
+                    <div style="font-size:0.82rem;font-weight:700;margin-bottom:12px;color:var(--muted2)">🚨 Community Reports (${data.reports.length})</div>
+                    ${reportsHtml}
+                </div>`;
+        } catch(e) {
+            document.getElementById('biz-profile-content').innerHTML = '<p style="color:var(--muted2);text-align:center;padding:20px">Could not load business profile.</p>';
+        }
+    }
+
+    // ── APPEAL ──
+    function openAppeal(reportId) {
+        document.getElementById('appeal-report-id').value = reportId;
+        document.getElementById('appeal-name').value = currentUser ? currentUser.name||'' : '';
+        document.getElementById('appeal-reason').value = '';
+        document.getElementById('appeal-message').className = 'form-msg';
+        openModal('appeal-modal');
+    }
+
+    async function submitAppeal() {
+        const reportId = document.getElementById('appeal-report-id').value;
+        const name     = document.getElementById('appeal-name').value.trim();
+        const reason   = document.getElementById('appeal-reason').value.trim();
+        const msg = document.getElementById('appeal-message');
+        const btn = document.getElementById('submit-appeal-btn');
+        if (!name)                 { setMsg(msg,'error','Please enter your name.'); return; }
+        if (reason.length < 20)   { setMsg(msg,'error','Please provide a detailed reason (at least 20 characters).'); return; }
+        setLoading(btn, true);
+        try {
+            const res  = await fetch(`${API}/reports/${reportId}/appeal`, {
+                method:'POST', headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({ name, reason })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setMsg(msg,'success','✅ '+data.message);
+                showToast('Appeal submitted! We will review within 48 hours.');
+                setTimeout(() => closeModal('appeal-modal'), 2500);
+            } else {
+                setMsg(msg,'error', data.error||'Could not submit appeal.');
+            }
+        } catch(e) { setMsg(msg,'error','Could not connect to server.'); }
+        setLoading(btn, false);
+    }
+
+    // ── USER PROFILE ──
+    async function openUserProfile() {
+        if (!authToken) { openModal('auth-modal'); return; }
+        openModal('profile-modal');
+        document.getElementById('profile-content').innerHTML = '<div class="spinner"></div>';
+        try {
+            const res  = await fetch(`${API}/users/me`, { headers: {'Authorization':`Bearer ${authToken}`} });
+            const data = await res.json();
+            if (!res.ok) {
+                document.getElementById('profile-content').innerHTML = '<p style="color:var(--muted2);text-align:center;padding:20px">Could not load profile.</p>';
+                return;
+            }
+            const initials = (data.name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+            const myReportsHtml = data.reports && data.reports.length
+                ? data.reports.map(r => `
+                    <div style="padding:10px;background:var(--surface2);border-radius:var(--radius);margin-bottom:8px;border-left:3px solid ${r.is_flagged?'var(--gold)':'var(--red)'}">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px">
+                            <span style="font-size:0.86rem;font-weight:600;font-family:'JetBrains Mono',monospace">${r.subject}</span>
+                            <span class="badge ${r.is_flagged?'badge-gold':'badge-red'}">${r.is_flagged?'🚩 Flagged':r.category}</span>
+                        </div>
+                        <p style="font-size:0.76rem;color:var(--muted2);margin-top:4px">${r.description.slice(0,100)}${r.description.length>100?'...':''}</p>
+                        <span style="font-size:0.68rem;color:var(--muted);font-family:'JetBrains Mono',monospace">${timeAgo(r.reported_at)}</span>
+                    </div>`).join('')
+                : '<p style="color:var(--muted2);font-size:0.84rem">You have not submitted any reports yet.</p>';
+
+            document.getElementById('profile-content').innerHTML = `
+                <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border)">
+                    <div class="nav-avatar" style="width:52px;height:52px;font-size:1.2rem;border-radius:12px">${initials}</div>
+                    <div>
+                        <p style="font-weight:700;font-size:1rem;font-family:'Syne',sans-serif">${data.name||''}</p>
+                        <p style="color:var(--muted2);font-size:0.82rem;font-family:'JetBrains Mono',monospace">${data.email||''}</p>
+                        <div style="display:flex;gap:6px;margin-top:8px">
+                            ${data.is_verified ? '<span class="badge badge-green">✅ Verified</span>' : '<span class="badge badge-gold">⚠️ Unverified</span>'}
+                            <span class="badge badge-blue">${data.role||'user'}</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size:0.82rem;font-weight:700;margin-bottom:12px;color:var(--muted2)">🚨 My Reports (${(data.reports||[]).length})</div>
+                    ${myReportsHtml}
+                </div>
+                <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
+                    <button class="btn btn-outline" style="margin-bottom:0" onclick="doLogout();closeModal('profile-modal')">Logout</button>
+                </div>`;
+        } catch(e) {
+            document.getElementById('profile-content').innerHTML = '<p style="color:var(--muted2);text-align:center;padding:20px">Could not load profile.</p>';
+        }
+    }
+
+    // ── INIT ──
+    updateNavAuth();
+    loadRecentFeed();
+    loadStats();
+</script>
+</body>
+</html>
