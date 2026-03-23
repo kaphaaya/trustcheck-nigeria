@@ -47,7 +47,7 @@ jobs:
             GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
             PREMBLY_API_KEY=${{ secrets.PREMBLY_API_KEY }}
             PREMBLY_APP_ID=${{ secrets.PREMBLY_APP_ID }}
-            PREMBLY_MOCK=${{ secrets.PREMBLY_MOCK }}
+            PREMBLY_MOCK=true
             ENVEOF
 
       - name: 🚀 Deploy to VM via SSH
