@@ -43,10 +43,11 @@ jobs:
             GMAIL_USER=${{ secrets.GMAIL_USER }}
             GMAIL_APP_PASS=${{ secrets.GMAIL_APP_PASS }}
             ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}
+            ADMIN_TOKEN=${{ secrets.ADMIN_TOKEN }}
             GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
             PREMBLY_API_KEY=${{ secrets.PREMBLY_API_KEY }}
             PREMBLY_APP_ID=${{ secrets.PREMBLY_APP_ID }}
-            PREMBLY_MOCK=true
+            PREMBLY_MOCK=${{ secrets.PREMBLY_MOCK }}
             ENVEOF
 
       - name: 🚀 Deploy to VM via SSH

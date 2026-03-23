@@ -15,7 +15,7 @@ services:
     networks:
       - trustcheck-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d trustcheck"]
       interval: 5s
       timeout: 5s
       retries: 10

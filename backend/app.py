@@ -54,16 +54,21 @@ app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_MB * 1024 * 1024
 
 # ─── DATABASE ─────────────────────────────────────────────────────────────────
 def get_db():
+    """Open and return a new psycopg2 connection using environment-configured credentials."""
     return psycopg2.connect(
         host=os.environ.get("DB_HOST",     "db"),
         database=os.environ.get("DB_NAME", "trustcheck"),
         user=os.environ.get("DB_USER",     "postgres"),
-        password=os.environ.get("DB_PASSWORD", "password"),
+        password=os.environ.get("DB_PASSWORD"),
         cursor_factory=RealDictCursor
     )
 
 
 def init_db():
+    """
+    Create all required database tables and run any pending column migrations.
+    Retries up to 15 times with a 3-second backoff to handle slow DB startup.
+    """
     for i in range(15):
         try:
             conn = get_db()
@@ -231,6 +236,7 @@ def init_db():
 
 # ─── AUTH HELPERS ─────────────────────────────────────────────────────────────
 def make_token(user_id, role="user"):
+    """Encode a signed JWT containing user_id, role, and a 30-day expiry."""
     payload = {
         "user_id": user_id,
         "role":    role,
@@ -240,6 +246,7 @@ def make_token(user_id, role="user"):
 
 
 def decode_token(token):
+    """Decode and verify a JWT. Returns the payload dict, or None if invalid/expired."""
     try:
         return jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
     except Exception:
@@ -257,6 +264,7 @@ def get_current_user():
 
 
 def require_auth(f):
+    """Decorator that enforces a valid Bearer JWT. Attaches decoded payload to request.current_user."""
     @wraps(f)
     def wrapper(*args, **kwargs):
         user = get_current_user()
@@ -268,6 +276,7 @@ def require_auth(f):
 
 
 def generate_otp():
+    """Return a cryptographically random 6-digit OTP string."""
     return "".join(random.choices(string.digits, k=6))
 
 
@@ -303,6 +312,7 @@ def _send_gmail(to_email, subject, body):
 
 
 def send_otp_email(to_email, otp, name="there"):
+    """Send a formatted OTP verification email to the given address."""
     subject = f"TrustCheck Nigeria — Your verification code: {otp}"
     body = f"""Hi {name},
 
